@@ -1,0 +1,42 @@
+# Virtual environment
+venv/
+env/
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Database
+db.sqlite3
+
+# Static files
+staticfiles/
+
+# Media files
+media/
+
+# Local development settings
+local_settings.py
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Compiled Python files
+*.pyc
+
+# Log files
+*.log
+
+# Dependency files
+__pycache__/
+*.pkl
+*.pyc
+
+# Ignore the local settings file if it exists
+local_settings.py
+
+# Ignore the environment configuration file
+.env
