@@ -8,12 +8,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Club_Primary
 #from django.http import HttpResponse
 # Create your views here.
-from .models import Room
-# rooms=[
-#     {'id':1, 'name': 'let\'s learn python'},
-#     {'id':2, 'name': 'another one'},
-#     {'id':3, 'name': 'front end developers'},
-# ]
+
 def loginPage(request):
     page='login'
     if request.user.is_authenticated:
@@ -56,17 +51,10 @@ def registerPage(request):
                 messages.error(request, "an error occured during registration")
         return render(request, 'base/login_register.html', {'form':form})
 def home(request): 
-    rooms =Room.objects.all() 
-    context={'rooms': rooms}
-    return render(request, 'base/home.html',context)
-
-def room(request,pk):
-    room= Room.objects.get(id=pk)
-    
+   
+    return render(request, 'base/home.html')
 
 
-    context={'room':room}
-    return render(request, 'base/room.html', context)
 def explore(request, pk):
      club_object = get_object_or_404(Club_Primary, club=pk)
      return render(request, 'base/explore.html', {'club_object': club_object})
