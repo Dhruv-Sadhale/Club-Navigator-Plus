@@ -1,0 +1,42 @@
+ <!-- your_app/templates/login.html -->
+ {% extends 'main.html' %} 
+
+ {% block content %}
+   {% if page == 'login' %}
+   <div>
+     <h2> Login</h2>
+   <form method="post" action="{% url 'login' %}">
+     {% csrf_token %}
+     {% comment %} {{ form.as_p }} {% endcomment %}
+     <label for="">Username:</label>
+     <input type="text" name= "username" placeholder= "Enter username"/>
+     <label for="">Password:</label>
+     <input type="password" name= "password" placeholder= "Enter password"/>
+ 
+     <input type="submit" value="Login"/>
+    
+   </form>
+   <p>Haven't signed up yet?</p>   
+   <a href="{% url 'register' %}">sign up</a>
+ </div>
+ {%else%}
+ <div>
+   <h2> register</h2>
+ <form method="post" action="{% url 'register' %}">
+   {% csrf_token %}
+ 
+    {{ form.as_p }} 
+   {% comment %} <label for="">Username:</label>
+   <input type="text" name= "username" placeholder= "Enter username"/>
+   <label for="">Password:</label>
+   <input type="password" name= "password" placeholder= "Enter password"/> {% endcomment %}
+ 
+   <input type="submit" value="Register"/>
+  
+ </form>
+ <p>Already signed up</p>   
+   <a href="{% url 'login' %}">Login</a>
+ </div>
+ {%endif%}
+ {% endblock %} 
+ 

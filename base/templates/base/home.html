@@ -1,0 +1,125 @@
+
+{% extends "main.html" %}
+{%block content%}
+{%load static%}
+
+<main>
+    <ul class='slider'>
+      <li class='item' style="background-image: url('https://da.se/app/uploads/2015/09/simon-december1994.jpg')">
+        <div class='content'>
+          <h2 class='title'>CoFSUG</h2>
+          <p class='description'>Connect with fellow food enthusiasts and explore the culinary world. Join us for cooking sessions,
+            food tasting events, and culinary competitions </p>
+            <button class="explore-btn"><a href="/cofsug"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image:  url('/static/images/coepfinal1.jpg')">
+        <div class='content'>
+          <h2 class='title'>Welcome to COEP's Club Navigator Plus, your trusted mentor.</h2>
+          <p class='description'>Want to see what's in store for you, let's proceed! </p>
+            
+        </div>
+      </li>
+      <li class='item' style="background-image:  url('/static/images/astro.jpg')">
+        <div class='content'>
+          <h2 class='title'>Astronomy Club</h2>
+          <p class='description'> Explore the wonders of the universe with like-minded enthusiasts. Join us in stargazing sessions and
+            cosmic adventures. </p>
+            <button class="explore-btn" id="astronomy-explore"><a href="explore/Astronomy Club"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image: url('/static/images/anc.jpg')">
+        <div class='content'>
+          <h2 class='title'>Arts and Crafts Club</h2>
+          <p class='description'>Unleash your creativity through various artistic expressions. Join us for workshops, exhibitions, and
+            collaborative projects. </p>
+            <button class="explore-btn"><a href="explore/anc"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image: url('/static/images/boatclub.jpg')">
+        <div class='content'>
+          <h2 class='title'>Boat Club</h2>
+          <p class='description'>Embark on exciting water adventures and learn the art of boatmanship. Join us for regattas,
+            workshops, and nautical experiences.</p>
+            <button class="explore-btn"><a href="/boat_club"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image: url('/static/images/csac.avif')">
+        <div class='content'>
+          <h2 class='title'>Civil Services Aspirant's Club</h2>
+          <p class='description'>
+            Prepare for civil services examinations in a supportive and collaborative environment. Join us for
+            study sessions, mock exams, and discussions.
+          </p>
+          <button class="explore-btn"><a href="/csac"> Explore</a></button>
+                </div>
+      </li>
+      <li class='item'
+        style="background-image: url('/static/images/csi.jpg')">
+        <div class='content'>
+          <h2 class='title'>CSI</h2>
+          <p class='description'>
+            Immerse yourself in the world of cybersecurity and information technology. Join us for workshops,
+                hackathons, and networking events.
+          </p>
+          <button class="explore-btn"><a href="/csi"> Explore</a></button>
+        </div>
+      </li>
+    
+      <li class='item' style="background-image: url('https://da.se/app/uploads/2015/09/simon-december1994.jpg')">
+        <div class='content'>
+          <h2 class='title'>Cultural Club</h2>
+          <p class='description'>Celebrate diversity through cultural events, performances, and artistic expressions. Join us for
+            dance, music, and drama.</p>
+            <button class="explore-btn"><a href="/cultural_club"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image: url('https://da.se/app/uploads/2015/09/simon-december1994.jpg')">
+        <div class='content'>
+          <h2 class='title'>Debate Club</h2>
+          <p class='description'>Sharpen your communication and argumentation skills. Join us for debates, discussions, and public
+            speaking sessions. </p>
+            <button class="explore-btn"><a href="/debate_club"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image: url('https://da.se/app/uploads/2015/09/simon-december1994.jpg')">
+        <div class='content'>
+          <h2 class='title'>HAM Club</h2>
+          <p class='description'>Explore the world of amateur radio and communication. Join us for radio operation, technology
+            discussions, and field trips </p>
+            <button class="explore-btn"><a href="/ham_club"> Explore</a></button>
+        </div>
+      </li>
+    </ul>
+    <nav class='nav'>
+      <ion-icon class='btn prev' name="arrow-back-outline"></ion-icon>
+      <ion-icon class='btn next' name="arrow-forward-outline"></ion-icon>
+    </nav>
+  </main>
+
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const slider = document.querySelector('.slider');
+
+function activate(e) {
+const items = document.querySelectorAll('.item');
+e.target.matches('.next') && slider.append(items[0])
+e.target.matches('.prev') && slider.prepend(items[items.length-1]);
+}
+
+document.addEventListener('click',activate,false);
+});
+
+
+      
+
+  </script>
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js">    
+  
+  
+  </script>
+
+{%endblock content%}
