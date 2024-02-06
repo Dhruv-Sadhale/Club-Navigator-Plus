@@ -6,8 +6,26 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, get_object_or_404
 from .models import Club_Primary
+from .forms import QuizResponseForm
+from django import forms
 #from django.http import HttpResponse
 # Create your views here.
+def quiz_view(request):
+    if request.method == 'POST':
+        form = QuizResponseForm(request.POST)
+        if form.is_valid():
+            # Save the quiz response to the database
+            quiz_response = form.save(commit=False)
+            quiz_response.user = request.user
+            quiz_response.save()
+            return redirect('quiz_success')  # Redirect to a success page
+    else:
+        form = QuizResponseForm()
+
+    return render(request, 'quiz_form.html', {'form': form})
+
+def quiz_success(request):
+    return render(request, 'quiz_success.html')
 
 def loginPage(request):
     page='login'

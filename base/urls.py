@@ -11,8 +11,8 @@ urlpatterns = [
    
     path('explore/<str:pk>/',views.explore,name='explore'),
     path('aptitude-test/', views.aptitude_test, name="aptitude_test"),
-    # path('quiz/', views.quiz_view, name='quiz_view'),
-    # path('quiz/success/', views.quiz_success, name='quiz_success'),
+    path('quiz/', views.quiz_view, name='quiz_view'),
+    path('quiz/success/', views.quiz_success, name='quiz_success'),
     
 ]
 
