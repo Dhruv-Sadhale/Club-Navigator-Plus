@@ -18,14 +18,14 @@ def quiz_view(request):
             quiz_response = form.save(commit=False)
             quiz_response.user = request.user
             quiz_response.save()
-            return redirect('quiz_success')  # Redirect to a success page
+            return redirect('base/quiz_success')  # Redirect to a success page
     else:
         form = QuizResponseForm()
 
-    return render(request, 'quiz_form.html', {'form': form})
+    return render(request, 'base/quiz_form.html', {'form': form})
 
 def quiz_success(request):
-    return render(request, 'quiz_success.html')
+    return render(request, 'base/quiz_success.html')
 
 def loginPage(request):
     page='login'
