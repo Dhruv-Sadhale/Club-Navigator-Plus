@@ -6,23 +6,96 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, get_object_or_404
 from .models import Club_Primary
-from .forms import QuizResponseForm
+from .forms import QuestionnaireForm
+from .models import QuizResponse
 from django import forms
+from .models import Question  # Import the Question model
+from django.contrib.auth.decorators import login_required
 #from django.http import HttpResponse
 # Create your views here.
-def quiz_view(request):
-    if request.method == 'POST':
-        form = QuizResponseForm(request.POST)
-        if form.is_valid():
-            # Save the quiz response to the database
-            quiz_response = form.save(commit=False)
-            quiz_response.user = request.user
-            quiz_response.save()
-            return redirect('base/quiz_success')  # Redirect to a success page
-    else:
-        form = QuizResponseForm()
+# utils.py
+import random
 
-    return render(request, 'base/quiz_form.html', {'form': form})
+
+# def questionnaire(request):
+#     # Retrieve all questions from the database
+#     questions = Question.objects.all()
+
+#     # Render the questionnaire template with questions
+#     return render(request, 'base/questionnaire.html', {'questions': questions})
+
+def get_recommended_clubs(user_responses):
+    # Define some random clubs for testing
+    clubs = [
+        {"name": "Club A", "factors": {"Factor1": random.randint(1, 5), "Factor2": random.randint(1, 5), "Factor3": random.randint(1, 5)}},
+        {"name": "Club B", "factors": {"Factor1": random.randint(1, 5), "Factor2": random.randint(1, 5), "Factor3": random.randint(1, 5)}},
+        {"name": "Club C", "factors": {"Factor1": random.randint(1, 5), "Factor2": random.randint(1, 5), "Factor3": random.randint(1, 5)}},
+        # Add more random clubs as needed
+    ]
+
+    # Access the fields directly from the user_responses object
+    factors = ["Factor1", "Factor2", "Factor3"]
+    user_vector = [getattr(user_responses, factor, 1) for factor in factors]
+
+    # Calculate similarity scores
+    similarities = [(club["name"], sum(user * club["factors"][factor] for factor, user in zip(factors, user_vector))) for club in clubs]
+
+    # Sort clubs by similarity
+    sorted_clubs = sorted(similarities, key=lambda x: x[1], reverse=True)
+
+    # Extract the top 3 recommended clubs
+    recommended_clubs = [club for club, _ in sorted_clubs[:3]]
+
+    return recommended_clubs
+
+@login_required(login_url='login')  # Use the appropriate URL for your login view
+def questionnaire(request):
+    if request.method == 'POST':
+        form = QuestionnaireForm(request.POST)
+        if form.is_valid():
+            # Check if a QuizResponse already exists for the user
+            existing_response = QuizResponse.objects.filter(user=request.user).first()
+
+            if existing_response:
+                # If a response exists, update the existing response
+                existing_response.question1 = form.cleaned_data['question1']
+                existing_response.question2 = form.cleaned_data['question2']
+                existing_response.question3 = form.cleaned_data['question3']
+                existing_response.question4 = form.cleaned_data['question4']
+                existing_response.question5 = form.cleaned_data['question5']
+                existing_response.question6 = form.cleaned_data['question6']
+                existing_response.question7 = form.cleaned_data['question7']
+                existing_response.question8 = form.cleaned_data['question8']
+                existing_response.question9 = form.cleaned_data['question9']
+                existing_response.question10 = form.cleaned_data['question10']
+               
+                # Update other questions similarly
+                existing_response.save()
+            else:
+                # If no response exists, create a new one
+                quiz_response = form.save(commit=False)
+                quiz_response.user = request.user
+                quiz_response.save()
+
+            return redirect('dashboard')  # Redirect to the dashboard
+
+    else:
+        # Retrieve questions from the database
+        questions = Question.objects.all()
+        
+        # Create a form with dynamic fields
+        form = QuestionnaireForm(questions=questions)
+       
+    return render(request, 'base/questionnaire.html', {'form': form})
+
+def dashboard(request):
+    # Fetch the user's responses to display on the dashboard
+    print("here?")
+    user_responses = QuizResponse.objects.get(user=request.user)
+    # Add logic to determine recommended clubs based on user_responses
+    recommended_clubs = get_recommended_clubs(user_responses)
+
+    return render(request, 'base/dashboard.html', {'recommended_clubs': recommended_clubs})
 
 def quiz_success(request):
     return render(request, 'base/quiz_success.html')
@@ -43,7 +116,8 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            return render(request, 'base/dashboard.html')
+            # return render(request, 'base/dashboard.html')
+            return redirect('dashboard')
         else:
             messages.error(request, "username or password does not exist")
     context= {'page':page}
