@@ -1,0 +1,12 @@
+
+
+{% block content %}
+  <h3>Feedback Form</h3>
+
+  <form method="post" action="">
+    {% csrf_token %}
+    {{ feedback_form.as_p }}
+
+    <button type="submit">Submit Feedback</button>
+  </form>
+{% endblock %}

@@ -1,7 +1,7 @@
 # forms.py
 from django import forms
-from .models import QuizResponse, Question
-
+from .models import QuizResponse
+from .models import UserFeedback
 class QuestionnaireForm(forms.ModelForm):
     class Meta:
         model = QuizResponse
@@ -19,3 +19,9 @@ class QuestionnaireForm(forms.ModelForm):
                 label=question.text,
                 widget=forms.NumberInput(attrs={'min': '0'}),
                 )
+
+
+class UserFeedbackForm(forms.ModelForm):
+    class Meta:
+        model = UserFeedback
+        fields = ['feedback_text']

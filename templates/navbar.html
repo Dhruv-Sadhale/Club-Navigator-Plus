@@ -6,7 +6,7 @@
         <img src="" alt="College Logo"></div>
       <div class="nav-links">
         <a href="/"> Navigator Plus</a>
-        <a href="/aptitude-test">Take Aptitude Test</a>
+        {% comment %} <a href="/aptitude-test">Take Aptitude Test</a> {% endcomment %}
         <a href="{% url 'questionnaire' %}" class="btn btn-primary">Take Quiz</a>
         <a href="/discover">Discover the College</a>
         {%if request.user.is_authenticated%}

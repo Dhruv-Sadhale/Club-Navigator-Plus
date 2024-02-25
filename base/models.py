@@ -9,6 +9,10 @@ class Question(models.Model):
 
     def __str__(self):
         return self.text
+class UserFeedback(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    feedback_text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
 class QuizResponse(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
