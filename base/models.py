@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 # models.py
-
+from django.utils import timezone
 
 class Question(models.Model):
     text = models.CharField(max_length=255)
@@ -34,4 +34,10 @@ class Club_Primary(models.Model):
     highlights=models.TextField()
     updated = models.DateTimeField(auto_now=True)
     created= models.DateTimeField(auto_now_add= True)
-    
+class Notification(models.Model):
+    club = models.ForeignKey(Club_Primary, on_delete=models.CASCADE)
+    message = models.TextField()
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'{self.club.club} - {self.message}'

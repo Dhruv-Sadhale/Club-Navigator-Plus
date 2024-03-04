@@ -15,6 +15,32 @@ from .forms import UserFeedbackForm
 from .models import UserFeedback
 import random
 from django.core.mail import send_mail
+# views.py
+from django.shortcuts import render, redirect
+from .models import Notification
+from .forms import NotificationForm
+def home(request): 
+   
+    return render(request, 'base/home.html')
+def home(request):
+    notifications = Notification.objects.all().order_by('-timestamp')[:10]
+    if(notifications):
+        print(notifications)
+    else:
+        print("NOT WORKING!!!!")
+    return render(request, 'base/home.html', {'notifications': notifications})
+    
+def submit_notification(request):
+    if request.method == 'POST':
+        form = NotificationForm(request.POST)
+        if form.is_valid():
+            notification = form.save(commit=False)
+            notification.club = request.user.club  # Assuming clubs are associated with users
+            notification.save()
+            return redirect('home')
+    else:
+        form = NotificationForm()
+    return render(request, 'base/submit_notification.html', {'form': form})
 
 def get_recommended_clubs(user_responses):
     # Define some random clubs for testing
@@ -168,9 +194,7 @@ def registerPage(request):
             else:
                 messages.error(request, "an error occured during registration")
         return render(request, 'base/login_register.html', {'form':form})
-def home(request): 
-   
-    return render(request, 'base/home.html')
+
 
 
 def explore(request, pk):

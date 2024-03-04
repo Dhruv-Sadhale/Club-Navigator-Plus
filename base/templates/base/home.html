@@ -16,8 +16,22 @@
       <li class='item' style="background-image:  url('/static/images/coepfinal1.jpg')">
         <div class='content'>
           <h2 class='title'>Welcome to COEP Club Navigator Plus, your trusted mentor.</h2>
-          <p class='description'>Want to see what's in store for you, let's proceed! </p>
+          <p class='description'>Want to see what's in store for you, let's proceed!
             
+          </p>
+          <h2>Notifications</h2>
+          
+    <ul>
+        {% for notification in notifications %}
+        <li>
+          <a href="{% url 'explore' pk=notification.club.club %}"> {{ notification.club.club }}</a>:
+          {{ notification.message }} - {{ notification.timestamp|date:"F j, Y H:i:s" }}
+      </li>
+        {% endfor %}
+    </ul>
+    {% if user.is_authenticated and user.is_club %}
+    <a href="{% url 'submit_notification' %}">Submit Notification</a>
+{% endif %}  
         </div>
       </li>
       <li class='item' style="background-image:  url('/static/images/astro.jpg')">

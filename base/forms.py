@@ -2,6 +2,16 @@
 from django import forms
 from .models import QuizResponse
 from .models import UserFeedback
+
+# forms.py
+
+from .models import Notification
+
+class NotificationForm(forms.ModelForm):
+    class Meta:
+        model = Notification
+        fields = ['message']
+
 class QuestionnaireForm(forms.ModelForm):
     class Meta:
         model = QuizResponse
