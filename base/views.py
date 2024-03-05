@@ -19,6 +19,67 @@ from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from .models import Notification
 from .forms import NotificationForm
+
+# views.py
+
+import qrcode
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from io import BytesIO
+from .models import Club_Primary, Attendance
+from django.contrib.auth.decorators import login_required
+
+
+def explore(request, pk):
+     club_object = get_object_or_404(Club_Primary, club=pk)
+     return render(request, 'base/explore.html', {'club_object': club_object})
+
+@login_required(login_url='login')  # Adjust login URL
+def generate_qrcode(request, club_name):
+    club = Club_Primary.objects.get(club=club_name)
+    qr_code_data = club.generate_qrcode_data()
+
+    # Create a QR code instance
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+
+    # Add data to the QR code
+    qr.add_data(qr_code_data)
+    qr.make(fit=True)
+
+    # Create an image from the QR code instance
+    img = qr.make_image(fill_color="black", back_color="white")
+
+    # Create a BytesIO buffer to store the image
+    buffer = BytesIO()
+    img.save(buffer)
+    buffer.seek(0)
+
+    # Return the image as an HTTP response
+    return HttpResponse(buffer.read(), content_type="image/png")
+
+@login_required(login_url='login')  # Adjust login URL
+def attend_club(request,club_name):
+    user = request.user
+    club = Club_Primary.objects.get(club=club_name)
+
+    # Check if the user has already attended
+    if not Attendance.objects.filter(user=user, club=club).exists():
+        # Record attendance
+        Attendance.objects.create(user=user, club=club)
+
+    # Redirect to the explore/club page
+    return HttpResponse(f'Attendance recorded for {request.user} in {club_name}')
+
+
+
+
+
+
 def home(request): 
    
     return render(request, 'base/home.html')
@@ -197,9 +258,7 @@ def registerPage(request):
 
 
 
-def explore(request, pk):
-     club_object = get_object_or_404(Club_Primary, club=pk)
-     return render(request, 'base/explore.html', {'club_object': club_object})
+
 
 def aptitude_test(request):
     return render(request,'base/aptitude_test.html' )

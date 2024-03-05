@@ -32,8 +32,26 @@ class Club_Primary(models.Model):
     club=models.CharField(max_length=100, default='null')
     motto=models.TextField()
     highlights=models.TextField()
+    qr_code_data = models.CharField(max_length=255, blank=True, null=True)
     updated = models.DateTimeField(auto_now=True)
     created= models.DateTimeField(auto_now_add= True)
+    def generate_qrcode_data(self):
+        if not self.qr_code_data:
+            self.qr_code_data = f'club_attendance_{self.id}'
+            self.save()
+        return self.qr_code_data
+
+    def __str__(self):
+        return self.club
+
+class Attendance(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    club = models.ForeignKey(Club_Primary, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user.username} - {self.club.club} - {self.timestamp}'
+
 class Notification(models.Model):
     club = models.ForeignKey(Club_Primary, on_delete=models.CASCADE)
     message = models.TextField()
