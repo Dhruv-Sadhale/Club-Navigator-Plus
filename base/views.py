@@ -6,7 +6,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, get_object_or_404
 from .models import Club_Primary
-from .forms import QuestionnaireForm
 from .models import QuizResponse
 from django import forms
 from .models import Question  # Import the Question model
@@ -127,60 +126,6 @@ def get_recommended_clubs(user_responses):
     
     return recommended_clubs
 
-@login_required(login_url='login')  # Use the appropriate URL for your login view
-
-
-# views.py
-
-
-
-def questionnaire(request):
-    if request.method == 'POST':
-        form = QuestionnaireForm(request.POST)
-        if form.is_valid():
-            # Check if a QuizResponse already exists for the user
-            existing_response = QuizResponse.objects.filter(user=request.user).first()
-
-            if existing_response:
-                # If a response exists, update the existing response
-                existing_response.question1 = form.cleaned_data['question1']
-                existing_response.question2 = form.cleaned_data['question2']
-                existing_response.question3 = form.cleaned_data['question3']
-                existing_response.question4 = form.cleaned_data['question4']
-                existing_response.question5 = form.cleaned_data['question5']
-                existing_response.question6 = form.cleaned_data['question6']
-                existing_response.question7 = form.cleaned_data['question7']
-                existing_response.question8 = form.cleaned_data['question8']
-                existing_response.question9 = form.cleaned_data['question9']
-                existing_response.question10 = form.cleaned_data['question10']
-               
-                # Update other questions similarly
-                existing_response.save()
-            else:
-                # If no response exists, create a new one
-                quiz_response = form.save(commit=False)
-                quiz_response.user = request.user
-                quiz_response.save()
-            # send_mail(
-            #         'Quiz Completed',
-            #         'Thank you for completing the quiz.',
-            #         'dhruvsadhale.cis@gmail.com',  # Sender's email
-            #         ['dhruvsadhale.cis@gmail.com'],  # List of recipient emails (user's email)
-            #         fail_silently=False,
-            # )
-            # print("reaching here?")
-            print([request.user.email])
-
-            return redirect('dashboard')  # Redirect to the dashboard
-
-    else:
-        # Retrieve questions from the database
-        questions = Question.objects.all()
-        
-        # Create a form with dynamic fields
-        form = QuestionnaireForm(questions=questions)
-       
-    return render(request, 'base/questionnaire.html', {'form': form})
 
 def send_email_notification(user, recommended_clubs):
     subject = 'Club Recommendation Notification'
@@ -194,6 +139,9 @@ def send_email_notification(user, recommended_clubs):
 
     send_mail(subject, message, from_email, to_email)
 
+
+
+
 def dashboard(request):
     # Retrieve the user's ID from the session
     user_id = request.session.get('user_id')
@@ -201,15 +149,21 @@ def dashboard(request):
     # Check if user_id is present in the session
     if user_id is not None:
         # Fetch the user's responses to display on the dashboard
-        user_responses = QuizResponse.objects.get(user_id=user_id)
+        #user_responses = QuizResponse.objects.get(user_id=user_id)
 
         # Add logic to determine recommended clubs based on user_responses
-        recommended_clubs = get_recommended_clubs(user_responses)
+        # recommended_clubs = get_recommended_clubs(user_responses)
         # send_email_notification(request.user, recommended_clubs)
-        return render(request, 'base/dashboard.html', {'recommended_clubs': recommended_clubs})
+        return render(request, 'base/dashboard.html')
     else:
         # Redirect to the login page if user_id is not present
         return redirect('login')
+
+@login_required(login_url='login')  # Use the appropriate URL for your login view
+
+def questionnaire(request):
+    return render(request, 'base/index.html')
+
 
 def loginPage(request):
     page='login'

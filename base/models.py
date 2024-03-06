@@ -14,18 +14,15 @@ class UserFeedback(models.Model):
     feedback_text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+
+
 class QuizResponse(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    question1 = models.IntegerField(default=0)
-    question2 = models.IntegerField(default=0)
-    question3 = models.IntegerField(default=0)
-    question4 = models.IntegerField(default=0)
-    question5 = models.IntegerField(default=0)
-    question6 = models.IntegerField(default=0)
-    question7 = models.IntegerField(default=0)
-    question8 = models.IntegerField(default=0)
-    question9 = models.IntegerField(default=0)
-    question10 = models.IntegerField(default=0) 
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    question_number = models.IntegerField()
+    selected_option = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f'{self.user.username} - Question {self.question_number}: {self.selected_option}'
 
 
 class Club_Primary(models.Model):
