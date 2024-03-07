@@ -6,8 +6,164 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, get_object_or_404
 from .models import Club_Primary
-#from django.http import HttpResponse
-# Create your views here.
+from .models import QuizResponse
+from django import forms
+from .models import Question  # Import the Question model
+from django.contrib.auth.decorators import login_required
+from .forms import UserFeedbackForm
+from .models import UserFeedback
+import random
+from django.core.mail import send_mail
+# views.py
+from django.shortcuts import render, redirect
+from .models import Notification
+from .forms import NotificationForm
+
+# views.py
+
+import qrcode
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from io import BytesIO
+from .models import Club_Primary, Attendance
+from django.contrib.auth.decorators import login_required
+
+
+def explore(request, pk):
+     club_object = get_object_or_404(Club_Primary, club=pk)
+     return render(request, 'base/explore.html', {'club_object': club_object})
+
+@login_required(login_url='login')  # Adjust login URL
+def generate_qrcode(request, club_name):
+    club = Club_Primary.objects.get(club=club_name)
+    qr_code_data = club.generate_qrcode_data()
+
+    # Create a QR code instance
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+
+    # Add data to the QR code
+    qr.add_data(qr_code_data)
+    qr.make(fit=True)
+
+    # Create an image from the QR code instance
+    img = qr.make_image(fill_color="black", back_color="white")
+
+    # Create a BytesIO buffer to store the image
+    buffer = BytesIO()
+    img.save(buffer)
+    buffer.seek(0)
+
+    # Return the image as an HTTP response
+    return HttpResponse(buffer.read(), content_type="image/png")
+
+@login_required(login_url='login')  # Adjust login URL
+def attend_club(request,club_name):
+    user = request.user
+    club = Club_Primary.objects.get(club=club_name)
+
+    # Check if the user has already attended
+    if not Attendance.objects.filter(user=user, club=club).exists():
+        # Record attendance
+        Attendance.objects.create(user=user, club=club)
+
+    # Redirect to the explore/club page
+    return HttpResponse(f'Attendance recorded for {request.user} in {club_name}')
+
+
+
+
+
+
+def home(request): 
+   
+    return render(request, 'base/home.html')
+def home(request):
+    notifications = Notification.objects.all().order_by('-timestamp')[:10]
+    if(notifications):
+        print(notifications)
+    else:
+        print("NOT WORKING!!!!")
+    return render(request, 'base/home.html', {'notifications': notifications})
+    
+def submit_notification(request):
+    if request.method == 'POST':
+        form = NotificationForm(request.POST)
+        if form.is_valid():
+            notification = form.save(commit=False)
+            notification.club = request.user.club  # Assuming clubs are associated with users
+            notification.save()
+            return redirect('home')
+    else:
+        form = NotificationForm()
+    return render(request, 'base/submit_notification.html', {'form': form})
+
+def get_recommended_clubs(user_responses):
+    # Define some random clubs for testing
+    clubs = [
+        {"name": "Club A", "factors": {"Factor1": random.randint(1, 5), "Factor2": random.randint(1, 5), "Factor3": random.randint(1, 5)}},
+        {"name": "Club B", "factors": {"Factor1": random.randint(1, 5), "Factor2": random.randint(1, 5), "Factor3": random.randint(1, 5)}},
+        {"name": "Club C", "factors": {"Factor1": random.randint(1, 5), "Factor2": random.randint(1, 5), "Factor3": random.randint(1, 5)}},
+        # Add more random clubs as needed
+    ]
+
+    # Access the fields directly from the user_responses object
+    factors = ["Factor1", "Factor2", "Factor3"]
+    user_vector = [getattr(user_responses, factor, 1) for factor in factors]
+
+    # Calculate similarity scores
+    similarities = [(club["name"], sum(user * club["factors"][factor] for factor, user in zip(factors, user_vector))) for club in clubs]
+
+    # Sort clubs by similarity
+    sorted_clubs = sorted(similarities, key=lambda x: x[1], reverse=True)
+
+    # Extract the top 3 recommended clubs
+    recommended_clubs = [club for club, _ in sorted_clubs[:3]]
+    
+    return recommended_clubs
+
+
+def send_email_notification(user, recommended_clubs):
+    subject = 'Club Recommendation Notification'
+    message = f"Hello {user.username},\n\n" \
+              f"We have received your club recommendations. The recommended clubs are: {', '.join(recommended_clubs)}.\n" \
+              f"Thank you for using our platform!\n\n" \
+              f"Best regards,\nThe Club Navigator Team"
+
+    from_email = 'your_email@example.com'  # Replace with your email
+    to_email = [user.email]  # Use the user's email
+
+    send_mail(subject, message, from_email, to_email)
+
+
+
+
+def dashboard(request):
+    # Retrieve the user's ID from the session
+    user_id = request.session.get('user_id')
+
+    # Check if user_id is present in the session
+    if user_id is not None:
+        # Fetch the user's responses to display on the dashboard
+        #user_responses = QuizResponse.objects.get(user_id=user_id)
+
+        # Add logic to determine recommended clubs based on user_responses
+        # recommended_clubs = get_recommended_clubs(user_responses)
+        # send_email_notification(request.user, recommended_clubs)
+        return render(request, 'base/dashboard.html')
+    else:
+        # Redirect to the login page if user_id is not present
+        return redirect('login')
+
+@login_required(login_url='login')  # Use the appropriate URL for your login view
+
+def questionnaire(request):
+    return render(request, 'base/index.html')
+
 
 def loginPage(request):
     page='login'
@@ -19,13 +175,16 @@ def loginPage(request):
         password = request.POST.get('password')
         try:
             user= User.objects.get(username= username)
-        except:
-            messages.error(request, 'user does not exist')
+        except User.DoesNotExist:
+            messages.error(request, 'User does not exist')
+            return redirect('login')
         user = authenticate(request, username= username, password=password)
 
         if user is not None:
             login(request, user)
-            return render(request, 'base/dashboard.html')
+            # return render(request, 'base/dashboard.html')
+            request.session['user_id'] = user.id
+            return redirect('dashboard')
         else:
             messages.error(request, "username or password does not exist")
     context= {'page':page}
@@ -50,56 +209,31 @@ def registerPage(request):
             else:
                 messages.error(request, "an error occured during registration")
         return render(request, 'base/login_register.html', {'form':form})
-def home(request): 
-   
-    return render(request, 'base/home.html')
 
 
-def explore(request, pk):
-     club_object = get_object_or_404(Club_Primary, club=pk)
-     return render(request, 'base/explore.html', {'club_object': club_object})
+
+
 
 def aptitude_test(request):
     return render(request,'base/aptitude_test.html' )
 
+def satisfaction(request):
+    satisfied = request.GET.get('satisfied', '')
 
-#after this is trial
+    if satisfied.lower() == 'no':
+        # User is not satisfied, present feedback form
+        if request.method == 'POST':
+            feedback_form = UserFeedbackForm(request.POST)
+            if feedback_form.is_valid():
+                # Save user feedback
+                feedback = feedback_form.save(commit=False)
+                feedback.user = request.user
+                feedback.save()
+                return redirect('questionnaire')  
+        else:
+            feedback_form = UserFeedbackForm()
 
-# your_app/views.py
-# from django.contrib.auth import authenticate, login
-# from django.shortcuts import render, redirect
-# from django.views import View
-# from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-
-# class SignUpView(View):
-#     def get(self, request):
-#         form = UserCreationForm()
-#         return render(request, 'signup.html', {'form': form})
-
-#     def post(self, request):
-#         form = UserCreationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('login')
-#         return render(request, 'signup.html', {'form': form})
-
-# class LoginView(View):
-#     def get(self, request):
-#         form = AuthenticationForm()
-#         return render(request, 'login.html', {'form': form})
-
-#     def post(self, request):
-#         form = AuthenticationForm(request, data=request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data.get('username')
-#             password = form.cleaned_data.get('password')
-#             user = authenticate(username=username, password=password)
-#             if user:
-#                 login(request, user)
-#                 return redirect('dashboard')
-#         return render(request, 'login.html', {'form': form})
-
-# class DashboardView(View):
-#     def get(self, request):
-#         # Add logic for displaying user dashboard
-#         return render(request, 'dashboard.html')
+        return render(request, 'base/feedback_form.html', {'feedback_form': feedback_form})
+    else:
+        # User is satisfied, redirect to the questionnaire or any other page
+        return redirect('dashboard')  # Adjust the URL as needed

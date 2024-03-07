@@ -1,0 +1,11 @@
+{% comment %} {% extends 'navbar.html' %} {% endcomment %}
+
+{% block content %}
+  
+  <form method="post" action="{% url 'questionnaire' %}">
+    {% csrf_token %}
+    {% comment %} {{ current_question.text }} {% endcomment %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}

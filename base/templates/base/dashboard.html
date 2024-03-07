@@ -3,4 +3,20 @@
 {% block content %}
   <h2>Welcome to the Dashboard, changes here</h2>
   <!-- Add dashboard content here -->
+
+  <!-- dashboard.html -->
+{% comment %} <h2>Recommended Clubs</h2>
+<ul>
+    {% for club in recommended_clubs %}
+        <li>{{ club}}</li>
+    {% endfor %}
+</ul> {% endcomment %}
+<h3>Are you satisfied with the recommendations?</h3>
+  
+  <!-- Link for "Yes" -->
+  <a href="{% url 'satisfaction' %}?satisfied=yes">Yes</a>
+
+  <!-- Link for "No" -->
+  <a href="{% url 'satisfaction' %}?satisfied=no">No</a>
+
 {% endblock %}

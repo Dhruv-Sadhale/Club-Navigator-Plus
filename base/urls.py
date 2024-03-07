@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 # from .views import SignUpView, LoginView, DashboardView
+from .views import home, submit_notification
 
 
 urlpatterns = [
@@ -8,11 +9,13 @@ urlpatterns = [
     path('logout/', views.logoutUser, name="logout"),
     path('register/', views.registerPage, name="register"),   
     path('',views.home, name="home" ),
-   
+   path('submit-notification/', submit_notification, name='submit_notification'),
     path('explore/<str:pk>/',views.explore,name='explore'),
     path('aptitude-test/', views.aptitude_test, name="aptitude_test"),
-    # path('quiz/', views.quiz_view, name='quiz_view'),
-    # path('quiz/success/', views.quiz_success, name='quiz_success'),
-    
+    path('questionnaire/', views.questionnaire, name='questionnaire'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('satisfaction/', views.satisfaction, name='satisfaction'),
+    path('generate_qrcode/<str:club_name>/', views.generate_qrcode, name='generate_qrcode'),
+    path('attend_club/<str:club_name>/', views.attend_club, name='attend_club'),
 ]
 
