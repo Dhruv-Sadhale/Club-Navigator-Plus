@@ -18,7 +18,7 @@ class UserFeedback(models.Model):
 
 class QuizResponse(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    question_number = models.IntegerField()
+    question_number = models.IntegerField(default=1)
     selected_option = models.CharField(max_length=255)
 
     def __str__(self):

@@ -2,15 +2,16 @@
 
 {% block content %}
   <h2>Welcome to the Dashboard, changes here</h2>
-  <!-- Add dashboard content here -->
-
-  <!-- dashboard.html -->
-{% comment %} <h2>Recommended Clubs</h2>
-<ul>
-    {% for club in recommended_clubs %}
-        <li>{{ club}}</li>
-    {% endfor %}
-</ul> {% endcomment %}
+  <h2>User Responses</h2>
+  {% if user_responses %}
+    <ul>
+      {% for response in user_responses %}
+        <li>. {{ response.selected_option }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No responses available.</p>
+  {% endif %}
 <h3>Are you satisfied with the recommendations?</h3>
   
   <!-- Link for "Yes" -->
