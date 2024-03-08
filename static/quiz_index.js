@@ -25,7 +25,7 @@ const animate = () => {
 };
 
 // Function to add quiz questions to the container
-const addQuizQuestion = (question, options) => {
+const addQuizQuestion = (question, options, question_id) => {
     const quizContainer = document.getElementById('quiz-container');
 
     // Clear the contents of the quiz container
@@ -39,19 +39,57 @@ const addQuizQuestion = (question, options) => {
     options.forEach((option, index) => {
         const optionButton = document.createElement('button');
         optionButton.textContent = option.text;
-        optionButton.addEventListener('click', () => handleOptionClick(option.nextQuestion));
+        optionButton.addEventListener('click', () => handleOptionClick(option.nextQuestion, question_id, option));
         quizContainer.appendChild(optionButton);
     });
 };
 
+// Function to record the selected option and send it to the backend
+const recordSelectedOption = (currentQuestionIndex, option) => {
+    console.log(currentQuestionIndex);
+    const selectedOption = option.text;
+
+    if (selectedOption !== null) {
+        // Make an AJAX request to the Django view
+        fetch('/api/record_response/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken(),
+            },
+            body: JSON.stringify({
+                'question_number': currentQuestionIndex,  // Adjust as needed
+                'selected_option': selectedOption,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                console.log('Selected option recorded successfully.');
+            } else {
+                console.error('Failed to record selected option:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error recording selected option:', error);
+        });
+    }
+};
+
+
 // Handle the option click (e.g., record the answer, move to the next question)
-const handleOptionClick = (nextQuestionIndex) => {
+const handleOptionClick = (nextQuestionIndex, currentQuestionIndex, option) => {
+    // Record the selected option
+    recordSelectedOption(currentQuestionIndex, option);
+
     // Display the next question or submit button
     displayNextQuestion(nextQuestionIndex);
 };
 
+
+
 // Example: Add demo quiz questions every 10 seconds
-const questionDisplayTime = 5000; // Time each question is displayed in milliseconds
+const questionDisplayTime = 2000; // Time each question is displayed in milliseconds
 let setNumber = 0;
 let questionNumber = 0;
 
@@ -62,31 +100,31 @@ const demoQuestions = [
             { text: "Blue", nextQuestion: 3 },
             { text: "Green", nextQuestion: 4 },
             { text: "Yellow", nextQuestion: 5 },
-        ]},
+        ], questionId: 1},
         { question: "Which animal do you like the most?", options: [
             { text: "Dog", nextQuestion: null },
             { text: "Cat", nextQuestion: null },
             { text: "Elephant", nextQuestion: null },
             { text: "Dolphin", nextQuestion: null },
-        ]},
+        ], questionId: 2},
         { question: "What's your preferred mode of transportation?", options: [
             { text: "Car", nextQuestion: null },
             { text: "Bicycle", nextQuestion: null },
             { text: "Motorcycle", nextQuestion: null },
             { text: "Walking", nextQuestion: null },
-        ]},
+        ], questionId: 3},
         { question: "Which cuisine do you enjoy the most?", options: [
             { text: "Italian", nextQuestion: null },
             { text: "Chinese", nextQuestion: null },
             { text: "Mexican", nextQuestion: null },
             { text: "Indian", nextQuestion: null },
-        ]},
+        ], questionId: 4},
         { question: "What's your favorite sport?", options: [
             { text: "Football", nextQuestion: null },
             { text: "Basketball", nextQuestion: null },
             { text: "Tennis", nextQuestion: null },
             { text: "Cricket", nextQuestion: null },
-        ]},
+        ], questionId: 5},
     ],
 ];
 
@@ -95,7 +133,7 @@ const displayNextQuestion = (nextQuestionIndex) => {
         // Display the next question
         const currentSet = demoQuestions[setNumber];
         const currentQuestion = currentSet[nextQuestionIndex - 1];
-        addQuizQuestion(`Question ${setNumber + 1}.${nextQuestionIndex}: ${currentQuestion.question}`, currentQuestion.options);
+        addQuizQuestion(`Question ${setNumber + 1}.${nextQuestionIndex}: ${currentQuestion.question}`, currentQuestion.options, currentQuestion.questionId);    
     } else {
         // Display the submit button after all sets are completed
         addSubmitButton();
@@ -116,67 +154,9 @@ const addSubmitButton = () => {
 };
 
 const handleSubmission = () => {
-    const quizResponses = [];  // Array to store user responses
-
-    // Iterate over each set of questions
-    demoQuestions.forEach((questionSet, setIndex) => {
-        // Iterate over each question in the set
-        questionSet.forEach((question, questionIndex) => {
-            const selectedOption = getSelectedOption(setIndex, questionIndex);
-
-            if (selectedOption !== null) {
-                // Store the response in the array
-                quizResponses.push({
-                    question_number: questionIndex + 1,
-                    selected_option: selectedOption,
-                });
-            }
-        });
-    });
-
-    // Send the responses to the backend
-    sendResponsesToBackend(quizResponses);
+    window.location.href = '/dashboard/';
 };
 
-const getSelectedOption = (setIndex, questionIndex) => {
-    const optionButtons = document.querySelectorAll(`#quiz-container button`);
-    const startIndex = setIndex * optionButtons.length;
-    const endIndex = startIndex + optionButtons.length;
-
-    for (let i = startIndex; i < endIndex; i++) {
-        if (optionButtons[i].classList.contains('selected')) {
-            return optionButtons[i].textContent;
-        }
-    }
-
-    return null;  // No option selected
-};
-
-const sendResponsesToBackend = (responses) => {
-    console.log('Sending responses:', responses);
-
-    fetch('/api/record_response/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCSRFToken(),
-        },
-        body: JSON.stringify(responses),
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            console.log('Responses recorded successfully.');
-            // Redirect to the dashboard or perform any other action
-            window.location.href = '/dashboard/';
-        } else {
-            console.error('Failed to record responses:', data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error recording responses:', error);
-    });
-};
 
 const getCSRFToken = () => {
     const csrfCookie = document.cookie

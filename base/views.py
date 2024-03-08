@@ -167,36 +167,37 @@ def questionnaire(request):
     return render(request, 'base/index.html')
 
 
-from django.db import transaction
+
 
 @csrf_exempt
+@login_required(login_url='login')  # Use the appropriate URL for your login view
 def record_response(request):
     if request.method == 'POST':
         try:
             data_list = json.loads(request.body)
             print('Received data:', data_list)
-
+            question_number = data_list['question_number']
+            selected_option = data_list['selected_option']
+            print(question_number)
+            print(selected_option)
             # Validate the data structure
-            if not isinstance(data_list, list):
-                raise ValueError("Invalid data structure")
+            # if not isinstance(data_list, list):
+            #     raise ValueError("Invalid data structure")
 
             responses = []
-            for data in data_list:
-                question_number = data.get('question_number')
-                selected_option = data.get('selected_option')
-
-                if question_number is not None and selected_option is not None:
-                    responses.append(
-                        QuizResponse(
-                            user=request.user,  # Assuming you're using Django authentication
-                            question_number=question_number,
-                            selected_option=selected_option,
-                        )
+            
+            
+            if question_number is not None and selected_option is not None:
+                responses.append(
+                    QuizResponse(
+                        user=request.user,  # Assuming you're using Django authentication
+                        question_number=question_number,
+                        selected_option=selected_option,
                     )
+                )
 
             # Use bulk_create for better performance
-            with transaction.atomic():
-                QuizResponse.objects.bulk_create(responses)
+            QuizResponse.objects.bulk_create(responses)
 
             return JsonResponse({'status': 'success'})
         except Exception as e:
@@ -204,7 +205,6 @@ def record_response(request):
             return JsonResponse({'status': 'error', 'message': 'Invalid data format'})
     else:
         return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
-
 def loginPage(request):
     page='login'
     if request.user.is_authenticated:
