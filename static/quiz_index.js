@@ -38,23 +38,16 @@ const addQuizQuestion = (question, options) => {
     // Add options as buttons
     options.forEach((option, index) => {
         const optionButton = document.createElement('button');
-        optionButton.textContent = option;
-        optionButton.addEventListener('click', () => handleOptionClick(index));
+        optionButton.textContent = option.text;
+        optionButton.addEventListener('click', () => handleOptionClick(option.nextQuestion));
         quizContainer.appendChild(optionButton);
     });
 };
 
 // Handle the option click (e.g., record the answer, move to the next question)
-const handleOptionClick = (optionIndex) => {
-    // Remove the 'selected' class from all buttons
-    const optionButtons = document.querySelectorAll('#quiz-container button');
-    optionButtons.forEach(button => button.classList.remove('selected'));
-
-    // Add the 'selected' class to the clicked button
-    optionButtons[optionIndex].classList.add('selected');
-
+const handleOptionClick = (nextQuestionIndex) => {
     // Display the next question or submit button
-    displayNextQuestion();
+    displayNextQuestion(nextQuestionIndex);
 };
 
 // Example: Add demo quiz questions every 10 seconds
@@ -62,34 +55,47 @@ const questionDisplayTime = 5000; // Time each question is displayed in millisec
 let setNumber = 0;
 let questionNumber = 0;
 
-// Example: Add demo quiz questions every 10 seconds
 const demoQuestions = [
     [
-        {
-            question: "Tell us what's on your mind, which clubs you are interested in joining?",
-            options: ["Option A", "Option B", "Option C", "Option D"],
-        },
-        {
-            question: "Tell us what's on your mind, which clubs you are not interested in joining?",
-            options: ["Option A", "Option B", "Option C", "Option D"],
-        },
+        { question: "What's your favorite color?", options: [
+            { text: "Red", nextQuestion: 2 },
+            { text: "Blue", nextQuestion: 3 },
+            { text: "Green", nextQuestion: 4 },
+            { text: "Yellow", nextQuestion: 5 },
+        ]},
+        { question: "Which animal do you like the most?", options: [
+            { text: "Dog", nextQuestion: null },
+            { text: "Cat", nextQuestion: null },
+            { text: "Elephant", nextQuestion: null },
+            { text: "Dolphin", nextQuestion: null },
+        ]},
+        { question: "What's your preferred mode of transportation?", options: [
+            { text: "Car", nextQuestion: null },
+            { text: "Bicycle", nextQuestion: null },
+            { text: "Motorcycle", nextQuestion: null },
+            { text: "Walking", nextQuestion: null },
+        ]},
+        { question: "Which cuisine do you enjoy the most?", options: [
+            { text: "Italian", nextQuestion: null },
+            { text: "Chinese", nextQuestion: null },
+            { text: "Mexican", nextQuestion: null },
+            { text: "Indian", nextQuestion: null },
+        ]},
+        { question: "What's your favorite sport?", options: [
+            { text: "Football", nextQuestion: null },
+            { text: "Basketball", nextQuestion: null },
+            { text: "Tennis", nextQuestion: null },
+            { text: "Cricket", nextQuestion: null },
+        ]},
     ],
-    // Add more sets of questions and options as needed
 ];
 
-const displayNextQuestion = () => {
-    if (setNumber < demoQuestions.length) {
+const displayNextQuestion = (nextQuestionIndex) => {
+    if (nextQuestionIndex !== null) {
+        // Display the next question
         const currentSet = demoQuestions[setNumber];
-        if (questionNumber < currentSet.length) {
-            const currentQuestion = currentSet[questionNumber];
-            addQuizQuestion(`Question ${setNumber + 1}.${questionNumber + 1}: ${currentQuestion.question}`, currentQuestion.options);
-            questionNumber++;
-        } else {
-            // Increment the set number and reset question number for the next set
-            setNumber++;
-            questionNumber = 0;
-            displayNextQuestion();
-        }
+        const currentQuestion = currentSet[nextQuestionIndex - 1];
+        addQuizQuestion(`Question ${setNumber + 1}.${nextQuestionIndex}: ${currentQuestion.question}`, currentQuestion.options);
     } else {
         // Display the submit button after all sets are completed
         addSubmitButton();
@@ -117,7 +123,7 @@ const handleSubmission = () => {
         // Iterate over each question in the set
         questionSet.forEach((question, questionIndex) => {
             const selectedOption = getSelectedOption(setIndex, questionIndex);
-            
+
             if (selectedOption !== null) {
                 // Store the response in the array
                 quizResponses.push({
@@ -181,7 +187,7 @@ const getCSRFToken = () => {
 };
 
 // Initial delay before starting the question cycle
-setTimeout(displayNextQuestion, questionDisplayTime);
+setTimeout(() => displayNextQuestion(1), questionDisplayTime);
 
 // Start the animation loop
 animate();
