@@ -18,6 +18,10 @@ from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from .models import Notification
 from .forms import NotificationForm
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .models import QuizResponse
 
 # views.py
 
@@ -163,6 +167,28 @@ def dashboard(request):
 
 def questionnaire(request):
     return render(request, 'base/index.html')
+
+
+@csrf_exempt
+def record_response(request):
+    if request.method == 'POST':
+        data_list = json.loads(request.body)
+        print('Received data:', data_list)  # Add this line for debugging
+
+        for data in data_list:
+            question_number = data.get('question_number')
+            selected_option = data.get('selected_option')
+
+            # Process and save the response to the QuizResponse model
+            QuizResponse.objects.create(
+                user=request.user,  # Assuming you're using Django authentication
+                question_number=question_number,
+                selected_option=selected_option,
+            )
+
+        return JsonResponse({'status': 'success'})
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
 
 def loginPage(request):

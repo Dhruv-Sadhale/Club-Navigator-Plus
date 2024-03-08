@@ -46,10 +46,12 @@ const addQuizQuestion = (question, options) => {
 
 // Handle the option click (e.g., record the answer, move to the next question)
 const handleOptionClick = (optionIndex) => {
-    // Handle the selected option (e.g., record the answer to a data structure)
+    // Remove the 'selected' class from all buttons
+    const optionButtons = document.querySelectorAll('#quiz-container button');
+    optionButtons.forEach(button => button.classList.remove('selected'));
 
-    // For now, let's just display a log message
-    console.log(`Selected option: ${optionIndex}`);
+    // Add the 'selected' class to the clicked button
+    optionButtons[optionIndex].classList.add('selected');
 
     // Display the next question or submit button
     displayNextQuestion();
@@ -61,10 +63,6 @@ let setNumber = 0;
 let questionNumber = 0;
 
 // Example: Add demo quiz questions every 10 seconds
-
-
-// ... (previous code)
-
 const demoQuestions = [
     [
         {
@@ -112,8 +110,74 @@ const addSubmitButton = () => {
 };
 
 const handleSubmission = () => {
-    // Handle the submission logic (e.g., process user responses)
-    console.log('Quiz submitted!');
+    const quizResponses = [];  // Array to store user responses
+
+    // Iterate over each set of questions
+    demoQuestions.forEach((questionSet, setIndex) => {
+        // Iterate over each question in the set
+        questionSet.forEach((question, questionIndex) => {
+            const selectedOption = getSelectedOption(setIndex, questionIndex);
+            
+            if (selectedOption !== null) {
+                // Store the response in the array
+                quizResponses.push({
+                    question_number: questionIndex + 1,
+                    selected_option: selectedOption,
+                });
+            }
+        });
+    });
+
+    // Send the responses to the backend
+    sendResponsesToBackend(quizResponses);
+};
+
+const getSelectedOption = (setIndex, questionIndex) => {
+    const optionButtons = document.querySelectorAll(`#quiz-container button`);
+    const startIndex = setIndex * optionButtons.length;
+    const endIndex = startIndex + optionButtons.length;
+
+    for (let i = startIndex; i < endIndex; i++) {
+        if (optionButtons[i].classList.contains('selected')) {
+            return optionButtons[i].textContent;
+        }
+    }
+
+    return null;  // No option selected
+};
+
+const sendResponsesToBackend = (responses) => {
+    console.log('Sending responses:', responses);
+
+    fetch('/api/record_response/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken(),
+        },
+        body: JSON.stringify(responses),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            console.log('Responses recorded successfully.');
+            // Redirect to the dashboard or perform any other action
+            window.location.href = '/dashboard/';
+        } else {
+            console.error('Failed to record responses:', data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error recording responses:', error);
+    });
+};
+
+const getCSRFToken = () => {
+    const csrfCookie = document.cookie
+        .split('; ')
+        .find(cookie => cookie.startsWith('csrftoken='));
+
+    return csrfCookie ? csrfCookie.split('=')[1] : null;
 };
 
 // Initial delay before starting the question cycle
