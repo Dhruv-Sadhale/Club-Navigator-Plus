@@ -18,5 +18,7 @@ urlpatterns = [
     path('generate_qrcode/<str:club_name>/', views.generate_qrcode, name='generate_qrcode'),
     path('attend_club/<str:club_name>/', views.attend_club, name='attend_club'),
     path('api/record_response/', views.record_response, name='record_response'),
+    path('api/record_club/', views.record_club, name='record_club'),
+    
 ]
 

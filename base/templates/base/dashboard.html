@@ -2,11 +2,11 @@
 
 {% block content %}
   <h2>Welcome to the Dashboard, changes here</h2>
-  <h2>User Responses</h2>
+  <h2>Recommended Clubs</h2>
   {% if user_responses %}
     <ul>
       {% for response in user_responses %}
-        <li>. {{ response.selected_option }}</li>
+        <li>. {{ response.club }}</li>
       {% endfor %}
     </ul>
   {% else %}

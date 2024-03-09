@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, get_object_or_404
 from .models import Club_Primary
-from .models import QuizResponse
+from .models import QuizResponse, ClubResponse
 from django import forms
 from .models import Question  # Import the Question model
 from django.contrib.auth.decorators import login_required
@@ -153,7 +153,7 @@ def dashboard(request):
     # Check if user_id is present in the session
     if user_id is not None:
         # Fetch the user's responses to display on the dashboard
-        user_responses = QuizResponse.objects.filter(user_id=user_id)
+        user_responses = ClubResponse.objects.filter(user_id=user_id)
 
         # Pass user_responses to the template
         return render(request, 'base/dashboard.html', {'user_responses': user_responses})
@@ -166,8 +166,42 @@ def dashboard(request):
 def questionnaire(request):
     return render(request, 'base/index.html')
 
+@csrf_exempt
+@login_required(login_url='login')
+def record_club(request):
+    if request.method == 'POST':
+        try:
+            data_list = json.loads(request.body)
+            print('Received data:', data_list)
+            club = data_list['club']
+            
+            print(club)
+            
+            # Validate the data structure
+            # if not isinstance(data_list, list):
+            #     raise ValueError("Invalid data structure")
 
+            responses = []
+            
+            
+            if club is not None :
+                responses.append(
+                    ClubResponse(
+                        user=request.user,  # Assuming you're using Django authentication
+                        club=club,
+                        
+                    )
+                )
 
+            # Use bulk_create for better performance
+            ClubResponse.objects.bulk_create(responses)
+
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            print('Error processing responses:', str(e))
+            return JsonResponse({'status': 'error', 'message': 'Invalid data format'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
 @csrf_exempt
 @login_required(login_url='login')  # Use the appropriate URL for your login view

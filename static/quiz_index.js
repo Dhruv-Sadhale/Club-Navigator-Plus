@@ -43,12 +43,40 @@ const addQuizQuestion = (question, options, question_id) => {
         quizContainer.appendChild(optionButton);
     });
 };
-
+const recordclub=(club)=>{
+    if (club !== null) {
+        // Make an AJAX request to the Django view
+        fetch('/api/record_club/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken(),
+            },
+            body: JSON.stringify({
+                'club': club,  // Adjust as needed
+               
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                console.log('Selected option recorded successfully.');
+            } else {
+                console.error('Failed to record selected option:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error recording selected option:', error);
+        });
+    }
+}
 // Function to record the selected option and send it to the backend
 const recordSelectedOption = (currentQuestionIndex, option) => {
     console.log(currentQuestionIndex);
     const selectedOption = option.text;
-
+    if(option.club!==null){
+        recordclub(option.club)
+    }
     if (selectedOption !== null) {
         // Make an AJAX request to the Django view
         fetch('/api/record_response/', {
@@ -96,39 +124,42 @@ let questionNumber = 0;
 const demoQuestions = [
     [
         { question: "What's your favorite color?", options: [
-            { text: "Red", nextQuestion: 2 },
-            { text: "Blue", nextQuestion: 3 },
-            { text: "Green", nextQuestion: 4 },
-            { text: "Yellow", nextQuestion: 5 },
+            { text: "Red", nextQuestion: 2 , club:null},
+            { text: "Blue", nextQuestion: 3 ,club:null},
+            { text: "Green", nextQuestion: 4 ,club:null},
+            { text: "Yellow", nextQuestion: 5 ,club:null},
         ], questionId: 1},
         { question: "Which animal do you like the most?", options: [
-            { text: "Dog", nextQuestion: null },
-            { text: "Cat", nextQuestion: null },
-            { text: "Elephant", nextQuestion: null },
-            { text: "Dolphin", nextQuestion: null },
+            { text: "Dog", nextQuestion: null, club: "astro" },
+            { text: "Cat", nextQuestion: null, club:"anc" },
+            { text: "Elephant", nextQuestion: null, club: "rsc" },
+            { text: "Dolphin", nextQuestion: null , club:"arsc"},
         ], questionId: 2},
         { question: "What's your preferred mode of transportation?", options: [
-            { text: "Car", nextQuestion: null },
-            { text: "Bicycle", nextQuestion: null },
-            { text: "Motorcycle", nextQuestion: null },
-            { text: "Walking", nextQuestion: null },
+            { text: "Car", nextQuestion: null, club:"debsoc" },
+            { text: "Bicycle", nextQuestion: null , club:"boatclub"},
+            { text: "Motorcycle", nextQuestion: null , club:"badminton"},
+            { text: "Walking", nextQuestion: null, club:"cofsug" },
         ], questionId: 3},
         { question: "Which cuisine do you enjoy the most?", options: [
-            { text: "Italian", nextQuestion: null },
-            { text: "Chinese", nextQuestion: null },
-            { text: "Mexican", nextQuestion: null },
-            { text: "Indian", nextQuestion: null },
+            { text: "Italian", nextQuestion: null, club:"sds" },
+            { text: "Chinese", nextQuestion: null , club:"csi"},
+            { text: "Mexican", nextQuestion: null , club:"ascii"},
+            { text: "Indian", nextQuestion: null , club:"octane"},
         ], questionId: 4},
         { question: "What's your favorite sport?", options: [
-            { text: "Football", nextQuestion: null },
-            { text: "Basketball", nextQuestion: null },
-            { text: "Tennis", nextQuestion: null },
-            { text: "Cricket", nextQuestion: null },
+            { text: "Football", nextQuestion: null , club:"nemesis"},
+            { text: "Basketball", nextQuestion: null , club:"veloci"},
+            { text: "Tennis", nextQuestion: null , club:"csat"},
+            { text: "Cricket", nextQuestion: null , club:"csac"},
         ], questionId: 5},
     ],
 ];
 
 const displayNextQuestion = (nextQuestionIndex) => {
+    // if(demoQuestions[club]!== null){
+    //     recordclub(demoQuestions.club);
+    // }
     if (nextQuestionIndex !== null) {
         // Display the next question
         const currentSet = demoQuestions[setNumber];

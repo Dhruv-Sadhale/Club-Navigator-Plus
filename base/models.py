@@ -24,6 +24,13 @@ class QuizResponse(models.Model):
     def __str__(self):
         return f'{self.user.username} - Question {self.question_number}: {self.selected_option}'
 
+class ClubResponse(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    club = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f'{self.user.username} - Club: {self.club}'
 
 class Club_Primary(models.Model):
     club=models.CharField(max_length=100, default='null')
