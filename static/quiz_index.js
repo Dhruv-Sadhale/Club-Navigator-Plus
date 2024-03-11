@@ -120,41 +120,82 @@ const handleOptionClick = (nextQuestionIndex, currentQuestionIndex, option) => {
 const questionDisplayTime = 2000; // Time each question is displayed in milliseconds
 let setNumber = 0;
 let questionNumber = 0;
-
 const demoQuestions = [
     [
-        { question: "What's your favorite color?", options: [
-            { text: "Red", nextQuestion: 2 , club:null},
-            { text: "Blue", nextQuestion: 3 ,club:null},
-            { text: "Green", nextQuestion: 4 ,club:null},
-            { text: "Yellow", nextQuestion: 5 ,club:null},
+        { question: "Which option best suits your inclinations ?", options: [
+            { text: "A platform to develop and use technical skills,Co-Curricular activities for an engineer.", nextQuestion: 2, club:null },
+            { text: "To let my creative intrests flourish .Be a part of extra-curricular activities which have an inclinations towards arts and finer skills", nextQuestion: 3,club: null },
+            { text: "I have a incliation towards sports.I actively train or would like to train for a sport and showcase physical prowess", nextQuestion: 4 ,club :null },
+            { text: "Ideas of Social-Welfare , History and Philanthrophy", nextQuestion: 5,club :null },
         ], questionId: 1},
-        { question: "Which animal do you like the most?", options: [
-            { text: "Dog", nextQuestion: null, club: "astro" },
-            { text: "Cat", nextQuestion: null, club:"anc" },
-            { text: "Elephant", nextQuestion: null, club: "rsc" },
-            { text: "Dolphin", nextQuestion: null , club:"arsc"},
+        { question: "What domain out of the options givenbest suits your intrests?", options: [
+            { text: "Innovation and consulting", nextQuestion: 6 ,club :null},
+            { text: "Web/Software Development and Competitive Coding", nextQuestion: 7 ,club :null},
+            { text: "Building Real life systems withapplications in aviation , robotics and astronomy ", nextQuestion: 8,club :null },
+            { text: "Desiging and Implementing various sub-systems in theautomobile domain", nextQuestion: 9,club :null },
         ], questionId: 2},
-        { question: "What's your preferred mode of transportation?", options: [
-            { text: "Car", nextQuestion: null, club:"debsoc" },
-            { text: "Bicycle", nextQuestion: null , club:"boatclub"},
-            { text: "Motorcycle", nextQuestion: null , club:"badminton"},
-            { text: "Walking", nextQuestion: null, club:"cofsug" },
+        { question: "What quality sets would best describe you?", options: [
+            { text: "Good Speaking Skills General Knowledge and Confidence", nextQuestion: null ,club :"Debate and Quiz Club"},
+            { text: "B. Creative outlook towards arts craft and desgin.", nextQuestion: null,club :"AnC" },
+            { text: "C. Acting and Speaking with an inclination towards performing arts/Production", nextQuestion: null,club :"Cultural/Junoon/Drama and Film" },
+            { text: "D. Prowess in Musical Instruments and Singing ", nextQuestion: null,club :"Cultural/SpicMacay" },
+            { text: "E. Writing skills and the ability to express", nextQuestion: null ,club :"Abhiyanta/Abhijaat newsletter"},
         ], questionId: 3},
-        { question: "Which cuisine do you enjoy the most?", options: [
-            { text: "Italian", nextQuestion: null, club:"sds" },
-            { text: "Chinese", nextQuestion: null , club:"csi"},
-            { text: "Mexican", nextQuestion: null , club:"ascii"},
-            { text: "Indian", nextQuestion: null , club:"octane"},
+        { question: "Would you like to be a part of boat club or would you be intrested in other sports under gymkhana", options: [
+            { text: "Boat Club Activities", nextQuestion: 10 , club :null  },
+            { text: "Gymkhana Sports", nextQuestion: 11, club :null },
+
         ], questionId: 4},
-        { question: "What's your favorite sport?", options: [
-            { text: "Football", nextQuestion: null , club:"nemesis"},
-            { text: "Basketball", nextQuestion: null , club:"veloci"},
-            { text: "Tennis", nextQuestion: null , club:"csat"},
-            { text: "Cricket", nextQuestion: null , club:"csac"},
+
+        { question: "What domain intrests you the most?", options: [
+            { text: "Women's Welfare", nextQuestion: null, club :"Aarya Raas/Society for Women Engineers" },
+            { text: "Student bodies aimed at student welfare", nextQuestion: null, club :"Student Welfare Forum/Student Welfare Association" },
+            { text: "History and Culture", nextQuestion: null, club :"History Club" },
+            { text: "Social Welfare", nextQuestion: null, club :"Spandan" },
+            { text: "Incliation towards civil services", nextQuestion: null, club :"CSAC" },
         ], questionId: 5},
+        { question: "What would best describe your intrests?", options: [
+            { text: "Consulting in Industry domain", nextQuestion: null, club :"The Consulting Club" },
+            { text: "Innovation and Enerpreneurship", nextQuestion: null, club :"i2i/BHAU's E-Cell" },
+        ], questionId: 6},
+        { question: "What domain intrests you the most?", options: [
+            { text: "Women's Welfare", nextQuestion: null, club :"Aarya Raas/Society for Women Engineers" },
+            { text: "Student bodies aimed at student welfare", nextQuestion: null, club :"Student Welfare Forum/Student Welfare Association" },
+            { text: "History and Culture", nextQuestion: null, club :"History Club" },
+            { text: "Social Welfare", nextQuestion: null, club :"Spandan" },
+            { text: "Incliation towards civil services", nextQuestion: null, club :"CSAC" },
+        ], questionId: 7},
+        { question: "What domain intrests you the most?", options: [
+            { text: "Technical as well as non-technical aspects of astronomy", nextQuestion: null, club :"Astronomy Club" },
+            { text: "Working towards development and testing of satellites", nextQuestion: null, club :"CSAT" },
+            { text: "Robotics and Automation", nextQuestion: null, club :"RSC/ARSC" },
+
+        ], questionId: 8},
+        { question: "What domain intrests you the most?", options: [
+            { text: "Technical as well as non-technical aspects of astronomy", nextQuestion: null, club :"Astronomy Club" },
+            { text: "Working towards development and testing of satellites", nextQuestion: null, club :"CSAT" },
+            { text: "Robotics and Automation", nextQuestion: null, club :"RSC/ARSC" },
+
+        ], questionId: 9},
+        { question: "Select a Boat Club Activity", options: [
+            { text: "Punt Formation", nextQuestion: null, club :"Punt Formation" },
+            { text: "TeleMatches", nextQuestion: null, club :"TeleMatches" },
+            { text: "Kayak Ballet", nextQuestion: null, club :"Kayak Ballet" },
+            { text: "Shell Games", nextQuestion: null, club :"Shell Games" },
+
+        ], questionId: 10},
+        { question: "Select a Gymkhana Sport Activity", options: [
+            { text: "Football", nextQuestion: null, club :"Football" },
+            { text: "Cricket", nextQuestion: null, club :"Cricket" },
+            { text: "Hockey", nextQuestion: null, club :"Hockey" },
+
+        ], questionId: 11},
+    
     ],
 ];
+
+
+
 
 const displayNextQuestion = (nextQuestionIndex) => {
     // if(demoQuestions[club]!== null){
