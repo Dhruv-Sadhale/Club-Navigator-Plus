@@ -1,12 +1,12 @@
 
  <!-- Navigation Bar -->
- <header>
+ {% comment %} <header>
     <nav class="navbar">
       <div class="logo">
         <img src="" alt="College Logo"></div>
       <div class="nav-links">
         <a href="/"> Navigator Plus</a>
-        {% comment %} <a href="/aptitude-test">Take Aptitude Test</a> {% endcomment %}
+        
         <a href="{% url 'questionnaire' %}" class="btn btn-primary">Take Quiz</a>
         <a href="/discover">Discover the College</a>
         {%if request.user.is_authenticated%}
@@ -16,5 +16,27 @@
             {%endif%}
       </div>
     </nav>
-  </header>
+  </header> {% endcomment %}
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Club Navigator Plus</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item"><a class="nav-link" href="{%url 'clubs' %}">Clubs</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Discover Your College</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'questionnaire' %}">Take Test</a></li>
+                <li class="nav-item">
+                  {%if request.user.is_authenticated%}
+                  <a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+                  {%else%}
+                  <a class="nav-link" href="{% url 'login' %}">Sign In</a></li>
+                  {%endif%}
+                <li class="nav-item"><a class="nav-link" href="#">Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
 

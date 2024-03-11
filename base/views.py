@@ -86,13 +86,13 @@ def attend_club(request,club_name):
 def home(request): 
    
     return render(request, 'base/home.html')
-def home(request):
+def clubs(request):
     notifications = Notification.objects.all().order_by('-timestamp')[:10]
     if(notifications):
         print(notifications)
     else:
         print("NOT WORKING!!!!")
-    return render(request, 'base/home.html', {'notifications': notifications})
+    return render(request, 'base/clubs.html', {'notifications': notifications})
     
 def submit_notification(request):
     if request.method == 'POST':
@@ -101,7 +101,7 @@ def submit_notification(request):
             notification = form.save(commit=False)
             notification.club = request.user.club  # Assuming clubs are associated with users
             notification.save()
-            return redirect('home')
+            return redirect('clubs')
     else:
         form = NotificationForm()
     return render(request, 'base/submit_notification.html', {'form': form})
@@ -266,17 +266,12 @@ def registerPage(request):
                 user.username=user.username.lower()
                 user.save()
                 login(request, user)
-                return redirect('home')
+                return redirect('dashboard')
             else:
                 messages.error(request, "an error occured during registration")
         return render(request, 'base/login_register.html', {'form':form})
 
 
-
-
-
-def aptitude_test(request):
-    return render(request,'base/aptitude_test.html' )
 
 def satisfaction(request):
     satisfied = request.GET.get('satisfied', '')
