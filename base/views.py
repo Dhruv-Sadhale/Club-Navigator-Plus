@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, get_object_or_404
 from .models import Club_Primary
-from .models import QuizResponse, ClubResponse
+from .models import QuizResponse, ClubResponse, UserEmail
 from django import forms
 from .models import Question  # Import the Question model
 from django.contrib.auth.decorators import login_required
@@ -106,29 +106,7 @@ def submit_notification(request):
         form = NotificationForm()
     return render(request, 'base/submit_notification.html', {'form': form})
 
-def get_recommended_clubs(user_responses):
-    # Define some random clubs for testing
-    clubs = [
-        {"name": "Club A", "factors": {"Factor1": random.randint(1, 5), "Factor2": random.randint(1, 5), "Factor3": random.randint(1, 5)}},
-        {"name": "Club B", "factors": {"Factor1": random.randint(1, 5), "Factor2": random.randint(1, 5), "Factor3": random.randint(1, 5)}},
-        {"name": "Club C", "factors": {"Factor1": random.randint(1, 5), "Factor2": random.randint(1, 5), "Factor3": random.randint(1, 5)}},
-        # Add more random clubs as needed
-    ]
 
-    # Access the fields directly from the user_responses object
-    factors = ["Factor1", "Factor2", "Factor3"]
-    user_vector = [getattr(user_responses, factor, 1) for factor in factors]
-
-    # Calculate similarity scores
-    similarities = [(club["name"], sum(user * club["factors"][factor] for factor, user in zip(factors, user_vector))) for club in clubs]
-
-    # Sort clubs by similarity
-    sorted_clubs = sorted(similarities, key=lambda x: x[1], reverse=True)
-
-    # Extract the top 3 recommended clubs
-    recommended_clubs = [club for club, _ in sorted_clubs[:3]]
-    
-    return recommended_clubs
 
 
 def send_email_notification(user, recommended_clubs):
@@ -185,6 +163,7 @@ def record_club(request):
             
             
             if club is not None :
+                user_email, created = UserEmail.objects.get_or_create(user=request.user, defaults={'email': request.user.email})
                 responses.append(
                     ClubResponse(
                         user=request.user,  # Assuming you're using Django authentication
@@ -195,7 +174,13 @@ def record_club(request):
 
             # Use bulk_create for better performance
             ClubResponse.objects.bulk_create(responses)
-
+            send_mail(
+                    'Clubs Selected',
+                    'You have selected the following club: {}'.format(club),
+                    'dhruvsadhale.cis@gmail.com',  # Replace with your email address
+                    [user_email.email],
+                    fail_silently=False,
+                )
             return JsonResponse({'status': 'success'})
         except Exception as e:
             print('Error processing responses:', str(e))
@@ -232,6 +217,8 @@ def record_response(request):
 
             # Use bulk_create for better performance
             QuizResponse.objects.bulk_create(responses)
+
+           
 
             return JsonResponse({'status': 'success'})
         except Exception as e:

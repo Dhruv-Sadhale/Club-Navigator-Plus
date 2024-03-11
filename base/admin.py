@@ -1,12 +1,13 @@
 from django.contrib import admin
 from .models import  Club_Primary
-from .models import  QuizResponse, Question, UserFeedback,Notification, Attendance, ClubResponse
+from .models import  QuizResponse, Question, UserFeedback,Notification, Attendance, ClubResponse, UserEmail
 # base/admin.py
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 
 admin.site.register(ClubResponse)
+admin.site.register(UserEmail)
 
 admin.site.register(Attendance)
 admin.site.register(Notification)

@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 # models.py
 from django.utils import timezone
 
+
+
+
 class Question(models.Model):
     text = models.CharField(max_length=255)
 
@@ -14,7 +17,12 @@ class UserFeedback(models.Model):
     feedback_text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+class UserEmail(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    email = models.EmailField()
 
+    def __str__(self):
+        return self.email
 
 class QuizResponse(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
