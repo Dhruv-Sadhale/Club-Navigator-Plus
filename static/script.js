@@ -57,7 +57,7 @@ usersCount.innerHTML = 0;
 
 // Animate counters
 counterAnimation(testsCount, 200); // Replace with the actual number
-counterAnimation(usersCount, 100); // Replace with the actual number
+counterAnimation(usersCount, 200); // Replace with the actual number
 // Create a ScrollMagic scene for the text transition
 const textTransitionScene = new ScrollMagic.Scene({
     triggerElement: '#textTransitionTrigger', // Adjust the trigger element ID

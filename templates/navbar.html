@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item"><a class="nav-link" href="{%url 'clubs' %}">Clubs</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Discover Your College</a></li>
+                {% comment %} <li class="nav-item"><a class="nav-link" href="#">Discover Your College</a></li> {% endcomment %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'questionnaire' %}">Take Test</a></li>
                 <li class="nav-item">
                   {%if request.user.is_authenticated%}
@@ -34,7 +34,7 @@
                   {%else%}
                   <a class="nav-link" href="{% url 'login' %}">Sign In</a></li>
                   {%endif%}
-                <li class="nav-item"><a class="nav-link" href="#">Sign Up</a></li>
+                {% comment %} <li class="nav-item"><a class="nav-link" href="#">Sign Up</a></li> {% endcomment %}
             </ul>
         </div>
     </nav>

@@ -126,6 +126,7 @@ def send_email_notification(user, recommended_clubs):
 
 def dashboard(request):
     # Retrieve the user's ID from the session
+    username = request.user.username
     user_id = request.session.get('user_id')
 
     # Check if user_id is present in the session
@@ -134,7 +135,7 @@ def dashboard(request):
         user_responses = ClubResponse.objects.filter(user_id=user_id)
 
         # Pass user_responses to the template
-        return render(request, 'base/dashboard.html', {'user_responses': user_responses})
+        return render(request, 'base/dashboard.html', {'user_responses': user_responses, 'username': username})
     else:
         # Redirect to the login page if user_id is not present
         return redirect('login')

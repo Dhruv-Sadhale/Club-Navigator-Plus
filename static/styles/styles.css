@@ -310,7 +310,7 @@ header {
 
 .content-block img {
     max-width: 100%;
-    height: auto;
+    height: 645px;
     margin-bottom: 20px;
     transition: transform 0.5s, box-shadow 0.5s; /* Add transitions for smooth effect */
 }
@@ -371,3 +371,5 @@ header {
     opacity: 0;
     transition: right 0.8s ease, opacity 0.8s ease; /* Adjust the transition duration and easing as needed */
 }
+
+/* Default styles for all screen sizes */
