@@ -35,7 +35,11 @@ from django.contrib.auth.decorators import login_required
 
 def explore(request, pk):
      club_object = get_object_or_404(Club_Primary, club=pk)
-     return render(request, 'base/explore.html', {'club_object': club_object})
+     print(club_object)
+     club_responses = ClubResponse.objects.filter(club=club_object)
+     recommended_users = [response.user.username for response in club_responses]
+     print(recommended_users)
+     return render(request, 'base/explore.html', {'club_object': club_object, 'recommended_users': recommended_users})
 
 @login_required(login_url='login')  # Adjust login URL
 def generate_qrcode(request, club_name):
@@ -161,7 +165,7 @@ def record_club(request):
             #     raise ValueError("Invalid data structure")
 
             responses = []
-            
+            ClubResponse.objects.filter(user=request.user).delete()
             
             if club is not None :
                 user_email, created = UserEmail.objects.get_or_create(user=request.user, defaults={'email': request.user.email})

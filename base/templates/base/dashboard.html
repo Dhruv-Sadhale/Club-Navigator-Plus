@@ -6,7 +6,7 @@
   {% if user_responses %}
     <ul>
       {% for response in user_responses %}
-        <li>. {{ response.club }}</li>
+        <li>{{ response.club }}</li>
       {% endfor %}
     </ul>
   {% else %}

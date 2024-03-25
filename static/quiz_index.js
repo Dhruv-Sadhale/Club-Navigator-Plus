@@ -130,7 +130,7 @@ const demoQuestions = [
         ], questionId: 1},
         { question: "What domain out of the options givenbest suits your intrests?", options: [
             { text: "Innovation and consulting", nextQuestion: 6 ,club :null},
-            { text: "Web/Software Development and Competitive Coding", nextQuestion: 7 ,club :null},
+            { text: "Web/Software Development and Competitive Coding", nextQuestion: 12 ,club :null},
             { text: "Building Real life systems withapplications in aviation , robotics and astronomy ", nextQuestion: 8,club :null },
             { text: "Desiging and Implementing various sub-systems in theautomobile domain", nextQuestion: 9,club :null },
         ], questionId: 2},
@@ -190,6 +190,14 @@ const demoQuestions = [
             { text: "Hockey", nextQuestion: null, club :"Hockey" },
 
         ], questionId: 11},
+        { question: "What side of the Software world would you like to explore", options: [
+            { text: "Free and Open source software", nextQuestion: null, club :"COFSUG" },
+            { text: "Software Development", nextQuestion: null, club :"SDS" },
+            { text: "A.I. and Data Science", nextQuestion: null, club :"AI-DS Club" },
+            { text: "Competitive coding and community networking along with organising events and seminars", nextQuestion: null, club :"CSI/ASCII" },
+
+
+        ], questionId: 12},
     
     ],
 ];
@@ -226,9 +234,10 @@ const addSubmitButton = () => {
 };
 
 const handleSubmission = () => {
+    
     window.location.href = '/dashboard/';
-};
-
+    
+}
 
 const getCSRFToken = () => {
     const csrfCookie = document.cookie
