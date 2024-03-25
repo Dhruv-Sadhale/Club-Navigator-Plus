@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, get_object_or_404
 from .models import Club_Primary
-from .models import QuizResponse
+from .models import QuizResponse, ClubResponse, UserEmail
 from django import forms
 from .models import Question  # Import the Question model
 from django.contrib.auth.decorators import login_required
@@ -18,6 +18,10 @@ from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from .models import Notification
 from .forms import NotificationForm
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .models import QuizResponse
 
 # views.py
 
@@ -31,7 +35,11 @@ from django.contrib.auth.decorators import login_required
 
 def explore(request, pk):
      club_object = get_object_or_404(Club_Primary, club=pk)
-     return render(request, 'base/explore.html', {'club_object': club_object})
+     print(club_object)
+     club_responses = ClubResponse.objects.filter(club=club_object)
+     recommended_users = [response.user.username for response in club_responses]
+     print(recommended_users)
+     return render(request, 'base/explore.html', {'club_object': club_object, 'recommended_users': recommended_users})
 
 @login_required(login_url='login')  # Adjust login URL
 def generate_qrcode(request, club_name):
@@ -82,13 +90,13 @@ def attend_club(request,club_name):
 def home(request): 
    
     return render(request, 'base/home.html')
-def home(request):
+def clubs(request):
     notifications = Notification.objects.all().order_by('-timestamp')[:10]
     if(notifications):
         print(notifications)
     else:
         print("NOT WORKING!!!!")
-    return render(request, 'base/home.html', {'notifications': notifications})
+    return render(request, 'base/clubs.html', {'notifications': notifications})
     
 def submit_notification(request):
     if request.method == 'POST':
@@ -97,34 +105,12 @@ def submit_notification(request):
             notification = form.save(commit=False)
             notification.club = request.user.club  # Assuming clubs are associated with users
             notification.save()
-            return redirect('home')
+            return redirect('clubs')
     else:
         form = NotificationForm()
     return render(request, 'base/submit_notification.html', {'form': form})
 
-def get_recommended_clubs(user_responses):
-    # Define some random clubs for testing
-    clubs = [
-        {"name": "Club A", "factors": {"Factor1": random.randint(1, 5), "Factor2": random.randint(1, 5), "Factor3": random.randint(1, 5)}},
-        {"name": "Club B", "factors": {"Factor1": random.randint(1, 5), "Factor2": random.randint(1, 5), "Factor3": random.randint(1, 5)}},
-        {"name": "Club C", "factors": {"Factor1": random.randint(1, 5), "Factor2": random.randint(1, 5), "Factor3": random.randint(1, 5)}},
-        # Add more random clubs as needed
-    ]
 
-    # Access the fields directly from the user_responses object
-    factors = ["Factor1", "Factor2", "Factor3"]
-    user_vector = [getattr(user_responses, factor, 1) for factor in factors]
-
-    # Calculate similarity scores
-    similarities = [(club["name"], sum(user * club["factors"][factor] for factor, user in zip(factors, user_vector))) for club in clubs]
-
-    # Sort clubs by similarity
-    sorted_clubs = sorted(similarities, key=lambda x: x[1], reverse=True)
-
-    # Extract the top 3 recommended clubs
-    recommended_clubs = [club for club, _ in sorted_clubs[:3]]
-    
-    return recommended_clubs
 
 
 def send_email_notification(user, recommended_clubs):
@@ -144,17 +130,16 @@ def send_email_notification(user, recommended_clubs):
 
 def dashboard(request):
     # Retrieve the user's ID from the session
+    username = request.user.username
     user_id = request.session.get('user_id')
 
     # Check if user_id is present in the session
     if user_id is not None:
         # Fetch the user's responses to display on the dashboard
-        #user_responses = QuizResponse.objects.get(user_id=user_id)
+        user_responses = ClubResponse.objects.filter(user_id=user_id)
 
-        # Add logic to determine recommended clubs based on user_responses
-        # recommended_clubs = get_recommended_clubs(user_responses)
-        # send_email_notification(request.user, recommended_clubs)
-        return render(request, 'base/dashboard.html')
+        # Pass user_responses to the template
+        return render(request, 'base/dashboard.html', {'user_responses': user_responses, 'username': username})
     else:
         # Redirect to the login page if user_id is not present
         return redirect('login')
@@ -164,7 +149,88 @@ def dashboard(request):
 def questionnaire(request):
     return render(request, 'base/index.html')
 
+@csrf_exempt
+@login_required(login_url='login')
+def record_club(request):
+    if request.method == 'POST':
+        try:
+            data_list = json.loads(request.body)
+            print('Received data:', data_list)
+            club = data_list['club']
+            
+            print(club)
+            
+            # Validate the data structure
+            # if not isinstance(data_list, list):
+            #     raise ValueError("Invalid data structure")
 
+            responses = []
+            ClubResponse.objects.filter(user=request.user).delete()
+            
+            if club is not None :
+                user_email, created = UserEmail.objects.get_or_create(user=request.user, defaults={'email': request.user.email})
+                responses.append(
+                    ClubResponse(
+                        user=request.user,  # Assuming you're using Django authentication
+                        club=club,
+                        
+                    )
+                )
+
+            # Use bulk_create for better performance
+            ClubResponse.objects.bulk_create(responses)
+            send_mail(
+                    'Clubs Selected',
+                    'You have selected the following club: {}'.format(club),
+                    'dhruvsadhale.cis@gmail.com',  # Replace with your email address
+                    [user_email.email],
+                    fail_silently=False,
+                )
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            print('Error processing responses:', str(e))
+            return JsonResponse({'status': 'error', 'message': 'Invalid data format'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
+@csrf_exempt
+@login_required(login_url='login')  # Use the appropriate URL for your login view
+def record_response(request):
+    if request.method == 'POST':
+        try:
+            data_list = json.loads(request.body)
+            print('Received data:', data_list)
+            question_number = data_list['question_number']
+            selected_option = data_list['selected_option']
+            print(question_number)
+            print(selected_option)
+            # Validate the data structure
+            # if not isinstance(data_list, list):
+            #     raise ValueError("Invalid data structure")
+
+            responses = []
+            
+            
+            if question_number is not None and selected_option is not None:
+                responses.append(
+                    QuizResponse(
+                        user=request.user,  # Assuming you're using Django authentication
+                        question_number=question_number,
+                        selected_option=selected_option,
+                    )
+                )
+
+            # Use bulk_create for better performance
+            QuizResponse.objects.bulk_create(responses)
+
+           
+
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            print('Error processing responses:', str(e))
+            return JsonResponse({'status': 'error', 'message': 'Invalid data format'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 def loginPage(request):
     page='login'
     if request.user.is_authenticated:
@@ -205,17 +271,12 @@ def registerPage(request):
                 user.username=user.username.lower()
                 user.save()
                 login(request, user)
-                return redirect('home')
+                return redirect('dashboard')
             else:
                 messages.error(request, "an error occured during registration")
         return render(request, 'base/login_register.html', {'form':form})
 
 
-
-
-
-def aptitude_test(request):
-    return render(request,'base/aptitude_test.html' )
 
 def satisfaction(request):
     satisfied = request.GET.get('satisfied', '')

@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 # models.py
 from django.utils import timezone
 
+
+
+
 class Question(models.Model):
     text = models.CharField(max_length=255)
 
@@ -14,16 +17,28 @@ class UserFeedback(models.Model):
     feedback_text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+class UserEmail(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    email = models.EmailField()
 
+    def __str__(self):
+        return self.email
 
 class QuizResponse(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    question_number = models.IntegerField()
+    question_number = models.IntegerField(default=1)
     selected_option = models.CharField(max_length=255)
 
     def __str__(self):
         return f'{self.user.username} - Question {self.question_number}: {self.selected_option}'
 
+class ClubResponse(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    club = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f'{self.user.username} - Club: {self.club}'
 
 class Club_Primary(models.Model):
     club=models.CharField(max_length=100, default='null')

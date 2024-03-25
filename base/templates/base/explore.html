@@ -1,10 +1,20 @@
 {% extends "main.html" %}
 {%block content%}
+
 <h1>{{ club_object.club }}</h1>
 <p>Motto: {{ club_object.motto }}</p>
 <p>Highlights: {{ club_object.highlights }}</p>
 <img src="{% url 'generate_qrcode' club_name=club_object.club %}" alt="Club QR Code">
 <a href="{% url 'attend_club' club_name=club_object.club %}">Attend Club</a>
+<p>Recommended for:</p>
+<ol>
+    {% for user in recommended_users %}
+        <li>{{ user }}</li>
+    {% empty %}
+        <li>No recommendations yet.</li>
+    {% endfor %}
+</ol>
+
 <p>Wish to find out whether this club is meant for you?</p>
 <div>
     <a href="/questionnaire">Take quiz here!</a>
