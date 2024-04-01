@@ -31,6 +31,7 @@ let temp=[];
 let count=0;
 let parent=[0,0];
 let parentfornow=[0,0];
+let outer=0;
 
 // Function to add quiz questions to the container
 const addQuizQuestion = (question, options, question_id) => {
@@ -53,7 +54,14 @@ const addQuizQuestion = (question, options, question_id) => {
         optionButton.addEventListener('click', () =>{
         
          //console.log("next question id: "+option.nextQuestion+" current question id: "+ question_id)
-         console.log("in addquizquestion  options:"+option+" "+option.club)
+         console.log("in addquizquestion  options:"+option+" "+option.club);
+         if(option.parent!==null)
+         outer=option.parent[1];
+        //  if(outer.parent!=null)
+        //  console.log("Outer:"+outer.parent[1])
+        // else {
+        //     console.log("Outer is still null");
+        // }
          handleOptionClick(option.nextQuestion, question_id, option)});
         quizContainer.appendChild(optionButton);
     });
@@ -143,72 +151,78 @@ const demoQuestions = [
         { question: "In order to maximize my extra-curricular hours, I want to:", options: [
             ()=>{
                 //console.log("hello2");
-                if(parent[0]==0 && parent[1]==0 || (parent[0]!=2)){
+                parentfornow[0]=parent[0];
+                parentfornow[1]=parent[1];
+                if((parentfornow[0]!=2)){
                    // console.log(parent[0]+"is here");
-                   if(parent[0]!=0) parent[0]=0;
-            return {no:1,text: "Bring out the tech-savvy qualities which abide in me", nextQuestion: 2, club:null }}},
+                   if(parent[0]!=0) {parent[0]=0; parent[1]=0;}
+            return {no:1,text: "Bring out the tech-savvy qualities which abide in me", nextQuestion: 2, parent:null,club:null }}},
             ()=>{
-                if(parent[0]==0 && parent[1]==0|| (parent[0]!=3)){
-                    if(parent[0]!=0) parent[0]=0;
-            return{  no:2,text: "Let my creative interests flourish by inclining towards arts and finer skills", nextQuestion: 3,club: null }}},
+                if((parentfornow[0]!=3)){
+                    if(parent[0]!=0) {parent[0]=0; parent[1]=0;}
+            return{  no:2,text: "Let my creative interests flourish by inclining towards arts and finer skills", parent:null,nextQuestion: 3,club: null }}},
             ()=>{
-                if(parent[0]==0 && parent[1]==0|| (parent[0]!=4)){
-                    if(parent[0]!=0) parent[0]=0;
-            return { no:3,text: "Showcase and master my physical prowess in sports", nextQuestion: 4 ,club :null}} },
+                if((parentfornow[0]!=4)){
+                    if(parent[0]!=0) {parent[0]=0; parent[1]=0;}
+            return { no:3,text: "Showcase and master my physical prowess in sports", nextQuestion: 4 ,parent:null,club :null}} },
             ()=>{
-                if(parent[0]==0 && parent[1]==0|| (parent[0]!=5)){
-                    if(parent[0]!=0) parent[0]=0;
-            return{ no:4,text: "Explore new ideas of Social-Welfare, History and Philanthrophy", nextQuestion: 5,club :null }}},
+                if((parentfornow[0]!=5)){
+                    if(parent[0]!=0) {parent[0]=0; parent[1]=0;}
+            return{ no:4,text: "Explore new ideas of Social-Welfare, History and Philanthrophy", nextQuestion: 5,parent:null,club :null }}},
         ], questionId: 1},
         { question: "Fascinating! You appear to have great taste in Technology, which is a vast domain in itself. Which of the following excites you the most?", options: [
             
             ()=>{
                 if(parent[0]==0 && parent[1]==0|| (parent[0]==2 && parent[1]!=1)){
-             return {no:1, text: "The thought of building my own start-up or consultancy services", nextQuestion: 6 ,club :null}
+             return {no:1, text: "The thought of building my own start-up or consultancy services", parent:null,nextQuestion: 6 ,club :null}
                 }},
                 ()=>{
                     if(parent[0]==0 && parent[1]==0||  (parent[0]==2 && parent[1]!=2)){
-                 return { no:2,text: "The thought of hosting my own website in hackathons and national level coding contests", nextQuestion: 11 ,club :null}}},
+                 return { no:2,text: "The thought of hosting my own website in hackathons and national level coding contests", parent:null,nextQuestion: 11 ,club :null}}},
                  ()=>{
                     if(parent[0]==0 && parent[1]==0||  (parent[0]==2 && parent[1]!=3)){
-                 return { no:3,text: "The thought of constructing robots or intruments, perhaps to deploy them in space", nextQuestion: 7,club :null }}},
+                 return { no:3,text: "The thought of constructing robots or intruments, perhaps to deploy them in space",parent:null, nextQuestion: 7,club :null }}},
                  ()=>{
                     if(parent[0]==0 && parent[1]==0||  (parent[0]==2 && parent[1]!=4)){
-                 return { no:4,text: "The thought of desiging and implementing various sub-systems in the automobile domain", nextQuestion: 8,club :null }}},
+                 return { no:4,text: "The thought of desiging and implementing various sub-systems in the automobile domain",parent:null, nextQuestion: 8,club :null }}},
         ], questionId: 2},
         { question: "Fantastic! Which of these skill sets describe you perfectly?", options: 
             ()=>{
-                 parentfornow=parent;
+                parentfornow[0]=parent[0];
+                if(parent[0]!=0)
+                parentfornow[1]=outer;
      return  [ ()=>{
                 if(parentfornow[0]==0 || ( parentfornow[0]==3 && parentfornow[1]!=1)){
                     parent[0]=3;
                     parent[1]=1;
                     
-             return {no:1, text: "Sublime communication skills, general knowledge and confidence", nextQuestion: 12 ,club :"Debate and Quiz Club"}}},
+             return {no:1, text: "Sublime communication skills, general knowledge and confidence", nextQuestion: 14 ,parent:[3,1],club :"Debate and Quiz Club"}}},
              ()=>{
                 if(parentfornow[0]==0  || ( parentfornow[0]==3 && parentfornow[1]!=2)){
                     parent[0]=3;
                     parent[1]=2;
-             return { no:2,text: "Mastery in designing posters, portraits and animations", nextQuestion: 13,club :"AnC" }}},
+             return { no:2,text: "Mastery in designing posters, portraits and animations", nextQuestion: 16,parent:[3,2],club :"AnC" }}},
              ()=>{
                 if(parentfornow[0]==0  || ( parentfornow[0]==3 && parentfornow[1]!=3)){
                     parent[0]=3;
                     parent[1]=3;
-             return { no:3,text: "Proficiency in acting, tradional dances and performing arts", nextQuestion: 12,club :"Cultural Club" }}},
+             return { no:3,text: "Proficiency in acting, tradional dances and performing arts", nextQuestion: 14,parent:[3,3],club :"Cultural Club" }}},
              ()=>{
                 if(parentfornow[0]==0  || ( parentfornow[0]==3 && parentfornow[1]!=4)){
                     parent[0]=3;
                     parent[1]=4;
-             return  { no:4,text: "Prowess in musical instruments and classical singing", nextQuestion: 12,club :"SpicMacay" }}},
+             return  { no:4,text: "Prowess in musical instruments and classical singing", nextQuestion: 14,parent:[3,4],club :"SpicMacay" }}},
              ()=>{
                 if(parentfornow[0]==0  || ( parentfornow[0]==3 && parentfornow[1]!=5)){
                     parent[0]=3;
                     parent[1]=5;
-             return { no:5,text: "Firm belief in 'the pen being mightier than the sword' ", nextQuestion: 13 ,club :"Abhijaat newsletter"}}}
+             return { no:5,text: "Firm belief in 'the pen being mightier than the sword' ", nextQuestion: 16 ,parent:[3,5],club :"Abhijaat newsletter"}}}
 ]}, questionId: 3},
         { question: "'All work and no play makes Jack a dull boy'.If you were told to represent college in a sport, which will it be?", options: 
             ()=>{
-                 parentfornow=parent;
+                parentfornow[0]=parent[0];
+                if(parent[0]!=0)
+                parentfornow[1]=outer;
         return[()=>{
                 if(parentfornow[0]==0  || ( parentfornow[0]==4 && parentfornow[1]!=1)){
                     parent[0]=4;
@@ -224,91 +238,94 @@ const demoQuestions = [
 
         { question: "Interesting, how would you associate yourself to the following domains?", options: 
             ()=>{
-                parentfornow=parent;
+                parentfornow[0]=parent[0];
+                if(parent[0]!=0)
+                parentfornow[1]=outer;
+
                 console.log(parentfornow);
          return[   ()=>{
                 if(parentfornow[0]==0 || ( parentfornow[0]==5 && parentfornow[1]!=1)){
                     parent[0]=5;
                     parent[1]=1;
-             return  { no:1,text: "I believe firmly in Women's Welfare and their equality in Society", nextQuestion: 13, parent:[5,1],club :"Aarya Raas/Society for Women Engineers" }}},
+             return  { no:1,text: "I believe firmly in Women's Welfare and their equality in Society", nextQuestion: 16, parent:[5,1],club :"Aarya Raas/Society for Women Engineers" }}},
              ()=>{
                 if(parentfornow[0]==0 || ( parentfornow[0]==5 && parentfornow[1]!=2)){
                     parent[0]=5;
                     parent[1]=2;
-             return { no:2,text: "I want to be a part of a student body aimed at student welfare in and out of college", nextQuestion: 13,parent:[5,2], club :"Student Welfare Forum/Student Welfare Association" }}},
+             return { no:2,text: "I want to be a part of a student body aimed at student welfare in and out of college", nextQuestion: 16,parent:[5,2], club :"Student Welfare Forum/Student Welfare Association" }}},
              ()=>{
                 if(parentfornow[0]==0 || ( parentfornow[0]==5 && parentfornow[1]!=3)){
                     parent[0]=5;
                     parent[1]=3;
-             return { no:3,text: "I believe in unearthing the hidden secrets of our nation's History and Culture", nextQuestion: 13,parent:[5,3], club :"History Club" }}},
+             return { no:3,text: "I believe in unearthing the hidden secrets of our nation's History and Culture", nextQuestion: 16,parent:[5,3], club :"History Club" }}},
              ()=>{
                 if(parentfornow[0]==0  || ( parentfornow[0]==5 && parentfornow[1]!=4)){
                     parent[0]=5;
                     parent[1]=4;
-             return  { no:4,text: "I am all for social welfare and community service towards the needy", nextQuestion: 13,parent:[5,4], club :"Spandan" }}},
+             return  { no:4,text: "I am all for social welfare and community service towards the needy", nextQuestion: 16,parent:[5,4], club :"Spandan" }}},
              ()=>{
                 if(parentfornow[0]==0  || ( parentfornow[0]==5 && parentfornow[1]!=5)){
                     parent[0]=5;
                     parent[1]=5;
-             return  { no:5,text: "I have strong incliation towards giving the UPSC exam.", nextQuestion: 12,parent:[5,5], club :"CSAC" }}}
+             return  { no:5,text: "I have strong incliation towards giving the UPSC exam.", nextQuestion: 14,parent:[5,5], club :"CSAC" }}}
     ]}, questionId: 5},
         { question: "What would best describe your interests?", options: [
             ()=>{
                 parent[0]=2;
                 parent[1]=1;
             
-            return{ text: "Help the college in the Consulting Department", nextQuestion: 13,parent:[2,1], club :"COEP Consulting Club" }},
+            return{ text: "Help the college in the Consulting Department", nextQuestion: 16,parent:[2,1], club :"COEP Consulting Club" }},
             ()=>{
                 parent[0]=2;
                 parent[1]=1;
-            return  { text: "Maybe ending up in Shark Tank in the near future", nextQuestion: 13, parent:[2,1],club :"i2i" }},
+            return  { text: "Maybe ending up in Shark Tank in the near future", nextQuestion: 16, parent:[2,1],club :"i2i" }},
         ], questionId: 6},
 
         { question: "In this era of automation, I look forward to:", options: [
             ()=>{
                 parent[0]=2;
                 parent[1]=3;
-            return { text: "Build my own telescope and host star-gazing sessions", nextQuestion: 12, parent:[2,3],club :"Astronomy Club" }},
+            return { text: "Build my own telescope and host star-gazing sessions", nextQuestion: 14, parent:[2,3],club :"Astronomy Club" }},
             ()=>{
                 parent[0]=2;
                 parent[1]=3;
-            return{ text: "Working towards development and testing of satellites", nextQuestion: 12, parent:[2,3],club :"CSAT" }},
+            return{ text: "Working towards development and testing of satellites", nextQuestion: 14, parent:[2,3],club :"CSAT" }},
             ()=>{
                 parent[0]=2;
                 parent[1]=3;
-            return{ text: "Build transmitters to communicate with the International Space Station", nextQuestion: 13, parent:[2,3],club :"HAM" }},
+            return{ text: "Build transmitters to communicate with the International Space Station", nextQuestion: 16, parent:[2,3],club :"HAM" }},
             ()=>{
                 parent[0]=2;
                 parent[1]=3;
-            return{ text: "Build payloads for drones and contribute towards manufacturing industrial robots", nextQuestion: 12,parent:[2,3], club :"RSC/ARSC" }},
+            return{ text: "Build payloads for drones and contribute towards manufacturing industrial robots", nextQuestion: 14,parent:[2,3], club :"RSC/ARSC" }},
 
         ], questionId: 7},
         { question: "What domain intrests you the most?", options: [
             ()=>{
                 parent[0]=2;
                 parent[1]=4;
-            return { text: "octane", nextQuestion: 12,parent:[2,4], club :"Octane" }},
+            return { text: "octane", nextQuestion: 14,parent:[2,4], club :"Octane" }},
             ()=>{
                 parent[0]=2;
                 parent[1]=4;
-            return{ text: "veloce", nextQuestion: 12, parent:[2,4],club :"Veloceracers" }},
+            return{ text: "veloce", nextQuestion: 14, parent:[2,4],club :"Veloceracers" }},
             ()=>{
                 parent[0]=2;
                 parent[1]=4;
-            return{ text: "Nemesis", nextQuestion: 13, parent:[2,4],club :"Nemesis" }},
+            return{ text: "Nemesis", nextQuestion: 16, parent:[2,4],club :"Nemesis" }},
 
         ], questionId: 8},
         { question: "COEP's Boat club dates back to over a 100 years. On the day of Regatta do you want to:", options: [
-            { text: "See yourself narrating a story through vibrant display of various shapes with boats ", nextQuestion: 12, club :"Punt Formation" },
-            { text: "See yourself light up the river with fire crackers and lights ", nextQuestion: 12, club :"TeleMatches" },
-            { text: "See youself rowing in one of the hardest boats in a dynamic display of shapes", nextQuestion: 12, club :"Kayak Ballet" },
-            { text: "See yourself rowing in the longest and oldest boats", nextQuestion: 12, club :"Shell Games" },
+            { text: "See yourself narrating a story through vibrant display of various shapes with boats ", nextQuestion: 14, parent:null,club :"Punt Formation" },
+            { text: "See yourself light up the river with fire crackers and lights ", nextQuestion: 14, parent:null,club :"TeleMatches" },
+            { text: "See youself rowing in one of the hardest boats in a dynamic display of shapes", nextQuestion: 14, parent:null,club :"Kayak Ballet" },
+            { text: "See yourself rowing in the longest and oldest boats", parent:null,nextQuestion: 14, club :"Shell Games" },
 
         ], questionId: 9},
         { question: "Gymkhana offers a wide range of sports, which would be your first choice?", options: [
-            { text: "Football", nextQuestion: 13, club :"Football" },
-            { text: "Cricket", nextQuestion: 13, club :"Cricket" },
-            { text: "Hockey", nextQuestion: 13, club :"Hockey" },
+            { text: "Football", nextQuestion: 16,parent:null, club :"Football" },
+            { text: "Cricket", nextQuestion: 16,parent:null, club :"Cricket" },
+            { text: "Hockey", nextQuestion: 16,parent:null, club :"Hockey" },
 
         ], questionId: 10},
 
@@ -317,19 +334,19 @@ const demoQuestions = [
             ()=>{
                 parent[0]=2;
                 parent[1]=2;
-            return { text: "I want to contribute to the Open Source community and learn more about Github, Linux and other open source softwares", nextQuestion: 13,parent:[2,2], club :"COFSUG" }},
+            return { text: "I want to contribute to the Open Source community and learn more about Github, Linux and other open source softwares", nextQuestion: 16,parent:[2,2], club :"COFSUG" }},
             ()=>{
                 parent[0]=2;
                 parent[1]=2;
-            return{ text: "I am keen on building and developing android apps and web applications to meet college demands.", nextQuestion: 13,parent:[2,2], club :"SDS" }},
+            return{ text: "I am keen on building and developing android apps and web applications to meet college demands.", nextQuestion: 16,parent:[2,2], club :"SDS" }},
             ()=>{
                 parent[0]=2;
                 parent[1]=2;
-            return { text: "I want to learn how ChatGpt, Gemini and other AI models work in depth", nextQuestion: 13, parent:[2,2],club :"AI-DS Club" }},
+            return { text: "I want to learn how ChatGpt, Gemini and other AI models work in depth", nextQuestion: 16, parent:[2,2],club :"AI-DS Club" }},
             ()=>{
                 parent[0]=2;
                 parent[1]=2;
-            return { text: "I want to host and participate in Competitive coding and community networking events", nextQuestion: 13, parent:[2,2],club :"CSI/ASCII" }},
+            return { text: "I want to host and participate in Competitive coding and community networking events", nextQuestion: 16, parent:[2,2],club :"CSI/ASCII" }},
         ], questionId: 11},
 
         
@@ -342,13 +359,13 @@ const demoQuestions = [
                   options: ()=>{
                     if(count==1){
                         return[
-                { text: "Let us continue to explore clubs from a similar domain of your interest!", nextQuestion: parent[0], club :null },
+                { text: "Let us continue to explore clubs from a similar domain of your interest!", nextQuestion: parent[0],parent:null,club :null },
                 
                 ]}
                     else if(count==2){
                        
                      return   [
-                            { text: "Let us explore a new domain altogether!", nextQuestion: 1, club :null },
+                            { text: "Let us explore a new domain altogether!", nextQuestion: 1, parent:null,club :null },
                            
                             ]    
                     }}, questionId: 12},
@@ -361,51 +378,51 @@ const demoQuestions = [
                       options: ()=>{
                         if(count==1){
                             return [
-                    { text: "Let us continue to explore clubs from a similar domain of your interest!", nextQuestion: parent[0], club :null },
+                    { text: "Let us continue to explore clubs from a similar domain of your interest!", nextQuestion: parent[0], parent:null,club :null },
                     
                     ]}
                         else if(count==2){
                             
                           return  [
-                                { text: "Let us explore a new domain altogether!", nextQuestion: 1, club :null },
+                                { text: "Let us explore a new domain altogether!", nextQuestion: 1,parent:null, club :null },
                                 
                                 ]    
                         }}, questionId: 13},
         
-        { question: "How would you rate your problem-solving skills ?", options: [
-            { text: "Excellent", nextQuestion: 16, club :null },
-            { text: "Good", nextQuestion: 16, club :null },
-            { text: "Above Average", nextQuestion: 16, club :null },
-            { text: "Below Average", nextQuestion: 16, club :null },
+        { question: "How would you rate your problem-solving skills for the previously chosen domain?", options: [
+            { text: "Excellent", nextQuestion: 15, parent:null,club :null },
+            { text: "Good", nextQuestion: 15, parent:null,club :null },
+            { text: "Above Average", nextQuestion: 15, parent:null,club :null },
+            { text: "Below Average", nextQuestion: 15, parent:null,club :null },
+            ], questionId: 14},
+
+        { question: "How do you assess your ability to work in a team for the previously chosen domain?", options: [
+            { text: "Excellent", nextQuestion: 12,parent:null, club :null },
+            { text: "Good", nextQuestion: 12, parent:null,club :null },
+            { text: "Above Average", nextQuestion: 12,parent:null, club :null },
+            { text: "Below Average", nextQuestion: 12, parent:null,club :null },
             ], questionId: 15},
 
-        { question: "How do you assess your ability to work in a team ?", options: [
-            { text: "Excellent", nextQuestion: 17, club :null },
-            { text: "Good", nextQuestion: 17, club :null },
-            { text: "Above Average", nextQuestion: 17, club :null },
-            { text: "Below Average", nextQuestion: 17, club :null },
+        { question: "How confident are you in your communication skills for the previously chosen domain?", options: [
+            { text: "Excellent", nextQuestion: 17,parent:null, club :null },
+            { text: "Good", nextQuestion: 17,parent:null, club :null },
+            { text: "Above Average", nextQuestion: 17,parent:null, club :null },
+            { text: "Below Average", nextQuestion: 17,parent:null, club :null },
             ], questionId: 16},
 
-        { question: "How confident are you in your communication skills?", options: [
-            { text: "Excellent", nextQuestion: 18, club :null },
-            { text: "Good", nextQuestion: 18, club :null },
-            { text: "Above Average", nextQuestion: 18, club :null },
-            { text: "Below Average", nextQuestion: 18, club :null },
+        { question: "How do you perceive your ability to adapt to new situations for the previously chosen domain?", options: [
+            { text: "Excellent", nextQuestion: 18,parent:null, club :null },
+            { text: "Good", nextQuestion: 18,parent:null, club :null },
+            { text: "Above Average", nextQuestion: 18,parent:null, club :null },
+            { text: "Below Average", nextQuestion: 18, parent:null,club :null },
             ], questionId: 17},
 
-        { question: "How do you perceive your ability to adapt to new situations??", options: [
-            { text: "Excellent", nextQuestion: 19, club :null },
-            { text: "Good", nextQuestion: 19, club :null },
-            { text: "Above Average", nextQuestion: 19, club :null },
-            { text: "Below Average", nextQuestion: 19, club :null },
+        { question: "How would you rate your ability to manage time effectively for the previously chosen domain?", options: [
+            { text: "Excellent", nextQuestion: 13,parent:null, club :null },
+            { text: "Good", nextQuestion: 13,parent:null, club :null },
+            { text: "Above Average", nextQuestion: 13,parent:null, club :null },
+            { text: "Below Average", nextQuestion: 13,parent:null, club :null },
             ], questionId: 18},
-
-        { question: "How would you rate your ability to manage time effectively?", options: [
-            { text: "Excellent", nextQuestion: 15, club :null },
-            { text: "Good", nextQuestion: 15, club :null },
-            { text: "Above Average", nextQuestion: 15, club :null },
-            { text: "Below Average", nextQuestion: 15, club :null },
-            ], questionId: 19},
 
     
     ],
@@ -420,7 +437,7 @@ const demoQuestions = [
         ], questionId: 1},
         { question: "What domain out of the options givenbest suits your intrests?", options: [
             { text: "Innovation and consulting", nextQuestion: 6 ,club :null},
-            { text: "Web/Software Development and Competitive Coding", nextQuestion: 12 ,club :null},
+            { text: "Web/Software Development and Competitive Coding", nextQuestion: 14 ,club :null},
             { text: "Building Real life systems withapplications in aviation , robotics and astronomy ", nextQuestion: 8,club :null },
             { text: "Desiging and Implementing various sub-systems in theautomobile domain", nextQuestion: 9,club :null },
         ], questionId: 2},
