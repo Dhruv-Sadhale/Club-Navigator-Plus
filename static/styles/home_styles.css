@@ -411,6 +411,16 @@ body.login-page {
 .clubs-section {
   margin-bottom: 40px;
 }
+@keyframes fallIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 .club-container {
   background-color: #fff;
@@ -418,6 +428,30 @@ body.login-page {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
+  opacity: 0; /* Initially hide the club containers */
+  transform: translateY(-100%);
+  animation: fallIn 1s ease forwards; /* Use a common duration for all */
+}
+
+.club-container:nth-child(1) {
+  animation-delay: 0.3s; /* Delay the first container */
+}
+
+.club-container:nth-child(2) {
+  animation-delay: 0.6s; /* Delay the second container */
+}
+
+.club-container:nth-child(3) {
+  animation-delay: 0.9s; /* Delay the third container */
+}
+
+.club-container h3 {
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.club-container p:last-child {
+  margin-bottom: 0;
 }
 
 .club-container h3 {
