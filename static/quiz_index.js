@@ -35,7 +35,7 @@ let parentfornow=[0,0];
 // Function to add quiz questions to the container
 const addQuizQuestion = (question, options, question_id) => {
     const quizContainer = document.getElementById('quiz-container');
-
+    
     // Clear the contents of the quiz container
     quizContainer.innerHTML = '';
 
@@ -44,7 +44,7 @@ const addQuizQuestion = (question, options, question_id) => {
     quizContainer.appendChild(questionElement);
     //console.log("question is:")
     //console.log(question);
-    //console.log("optionsoptions);
+    //console.log("in addquizquestion  options:"+options);
     // Add options as buttons
     options.forEach((option, index) => {
         const optionButton = document.createElement('button');
@@ -52,7 +52,8 @@ const addQuizQuestion = (question, options, question_id) => {
         //console.log("OPTION:"+option.text)
         optionButton.addEventListener('click', () =>{
         
-         console.log("next question id: "+option.nextQuestion+" current question id: "+ question_id)
+         //console.log("next question id: "+option.nextQuestion+" current question id: "+ question_id)
+         console.log("in addquizquestion  options:"+option+" "+option.club)
          handleOptionClick(option.nextQuestion, question_id, option)});
         quizContainer.appendChild(optionButton);
     });
@@ -60,7 +61,7 @@ const addQuizQuestion = (question, options, question_id) => {
 
 
 const recordclub=(club)=>{
-    console.log(option.club)
+    console.log("in record club"+club)
     if (club !== null) {
         // Make an AJAX request to the Django view
         fetch('/api/record_club/', {
@@ -91,7 +92,7 @@ const recordclub=(club)=>{
 const recordSelectedOption = (currentQuestionIndex, option) => {
    // console.log(currentQuestionIndex);
     const selectedOption = option.text;
-    
+    console.log("in recordselectedoption:"+option.club)
     if(option.club!==null){
         recordclub(option.club)
     }
@@ -126,6 +127,7 @@ const recordSelectedOption = (currentQuestionIndex, option) => {
 // Handle the option click (e.g., record the answer, move to the next question)
 const handleOptionClick = (nextQuestionIndex, currentQuestionIndex, option) => {
     // Record the selected option
+    console.log("in handle option clik:"+option.club)
    recordSelectedOption(currentQuestionIndex, option);
 
     // Display the next question or submit button
@@ -222,6 +224,7 @@ const demoQuestions = [
         { question: "What domain intrests you the most?", options: 
             ()=>{
                 parentfornow=parent;
+                console.log(parentfornow);
          return[   ()=>{
                 if(parentfornow[0]==0 || ( parentfornow[0]==5 && parentfornow[1]!=1)){
                     parent[0]=5;
@@ -523,6 +526,7 @@ const displayNextQuestion = (nextQuestionIndex) => {
             q=currentQuestion.question;
             options= currentQuestion.options;
         }
+
         addQuizQuestion(`Question.no. ${nextQuestionIndex}: ${q}`, options, currentQuestion.questionId);    
     } else {
         // Display the submit button after all sets are completed

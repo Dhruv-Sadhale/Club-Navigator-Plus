@@ -148,7 +148,7 @@ def dashboard(request):
 
 def questionnaire(request):
     return render(request, 'base/index.html')
-
+from django.db.models import F
 @csrf_exempt
 @login_required(login_url='login')
 def record_club(request):
@@ -166,7 +166,7 @@ def record_club(request):
 
             responses = []
             # ClubResponse.objects.filter(user=request.user).delete()
-            user_responses = ClubResponse.objects.filter(user=request.user).order_by('-timestamp')[3:]
+            user_responses = ClubResponse.objects.filter(user=request.user).order_by('-id')[3:]
             user_responses.delete()
             if club is not None :
                 user_email, created = UserEmail.objects.get_or_create(user=request.user, defaults={'email': request.user.email})
@@ -174,7 +174,7 @@ def record_club(request):
                     ClubResponse(
                         user=request.user,  # Assuming you're using Django authentication
                         club=club,
-                        
+                        dummy_field=F('id'),
                     )
                 )
 
