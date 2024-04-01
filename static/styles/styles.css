@@ -240,7 +240,7 @@ header {
 .navbar-brand, .nav-link {
     color: #fff !important;
     transition: color 0.3s ease, border-bottom-color 0.3s ease; /* Add transition for the line effect */
-    position: relative;
+   
 }
 
 .navbar-brand:hover, .nav-link:hover {
@@ -251,7 +251,7 @@ header {
 .navbar-brand:hover::after,
 .nav-link:hover::after {
     content: '';
-    position: absolute;
+   
     width: 100%;
     height: 2px;
     background-color: #ffc107; /* Yellow line color */

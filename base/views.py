@@ -165,8 +165,9 @@ def record_club(request):
             #     raise ValueError("Invalid data structure")
 
             responses = []
-            ClubResponse.objects.filter(user=request.user).delete()
-            
+            # ClubResponse.objects.filter(user=request.user).delete()
+            user_responses = ClubResponse.objects.filter(user=request.user).order_by('-timestamp')[3:]
+            user_responses.delete()
             if club is not None :
                 user_email, created = UserEmail.objects.get_or_create(user=request.user, defaults={'email': request.user.email})
                 responses.append(
