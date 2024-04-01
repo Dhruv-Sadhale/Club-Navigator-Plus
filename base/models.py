@@ -36,7 +36,7 @@ class ClubResponse(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     club = models.CharField(max_length=255)
-
+    timestamp = models.DateTimeField(default=timezone.now)  # Add this line
     def __str__(self):
         return f'{self.user.username} - Club: {self.club}'
 

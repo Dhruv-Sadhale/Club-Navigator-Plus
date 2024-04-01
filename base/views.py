@@ -24,7 +24,7 @@ import json
 from .models import QuizResponse
 
 # views.py
-
+from django.utils import timezone
 import qrcode
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -166,27 +166,26 @@ def record_club(request):
 
             responses = []
             # ClubResponse.objects.filter(user=request.user).delete()
-            user_responses = ClubResponse.objects.filter(user=request.user).order_by('-id')[3:]
-            user_responses.delete()
+            user_responses = ClubResponse.objects.filter(user=request.user).order_by('-timestamp')
+            
+            # Keep only the last three responses
+            if len(user_responses) > 2:
+                user_responses_to_delete = list(user_responses[2:])
+                ClubResponse.objects.filter(id__in=[obj.id for obj in user_responses_to_delete]).delete()
+            print(responses)
             if club is not None :
                 user_email, created = UserEmail.objects.get_or_create(user=request.user, defaults={'email': request.user.email})
                 responses.append(
                     ClubResponse(
                         user=request.user,  # Assuming you're using Django authentication
                         club=club,
-                        dummy_field=F('id'),
+                        timestamp=timezone.now()  # Assuming you have a timestamp field in ClubResponse                        
                     )
                 )
 
             # Use bulk_create for better performance
             ClubResponse.objects.bulk_create(responses)
-            send_mail(
-                    'Clubs Selected',
-                    'You have selected the following club: {}'.format(club),
-                    'dhruvsadhale.cis@gmail.com',  # Replace with your email address
-                    [user_email.email],
-                    fail_silently=False,
-                )
+            
             return JsonResponse({'status': 'success'})
         except Exception as e:
             print('Error processing responses:', str(e))
