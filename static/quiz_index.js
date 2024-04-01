@@ -140,88 +140,89 @@ const handleOptionClick = (nextQuestionIndex, currentQuestionIndex, option) => {
 
 const demoQuestions = [
     [
-        { question: "Which option best suits your inclinations ?", options: [
+        { question: "In order to maximize my extra-curricular hours, I want to:", options: [
             ()=>{
                 //console.log("hello2");
                 if(parent[0]==0 && parent[1]==0 || (parent[0]!=2)){
                    // console.log(parent[0]+"is here");
                    if(parent[0]!=0) parent[0]=0;
-            return {no:1,text: "A platform to develop and use technical skills,Co-Curricular activities for an engineer.", nextQuestion: 2, club:null }}},
+            return {no:1,text: "Bring out the tech-savvy qualities which abide in me", nextQuestion: 2, club:null }}},
             ()=>{
                 if(parent[0]==0 && parent[1]==0|| (parent[0]!=3)){
                     if(parent[0]!=0) parent[0]=0;
-            return{  no:2,text: "To let my creative intrests flourish .Be a part of extra-curricular activities which have an inclinations towards arts and finer skills", nextQuestion: 3,club: null }}},
+            return{  no:2,text: "Let my creative interests flourish by inclining towards arts and finer skills", nextQuestion: 3,club: null }}},
             ()=>{
                 if(parent[0]==0 && parent[1]==0|| (parent[0]!=4)){
                     if(parent[0]!=0) parent[0]=0;
-            return { no:3,text: "I have a incliation towards sports.I actively train or would like to train for a sport and showcase physical prowess", nextQuestion: 4 ,club :null}} },
+            return { no:3,text: "Showcase and master my physical prowess in sports", nextQuestion: 4 ,club :null}} },
             ()=>{
                 if(parent[0]==0 && parent[1]==0|| (parent[0]!=5)){
                     if(parent[0]!=0) parent[0]=0;
-            return{ no:4,text: "Ideas of Social-Welfare , History and Philanthrophy", nextQuestion: 5,club :null }}},
+            return{ no:4,text: "Explore new ideas of Social-Welfare, History and Philanthrophy", nextQuestion: 5,club :null }}},
         ], questionId: 1},
-        { question: "What domain out of the options givenbest suits your intrests?", options: [
+        { question: "Fascinating! You appear to have great taste in Technology, which is a vast domain in itself. Which of the following excites you the most?", options: [
             
             ()=>{
                 if(parent[0]==0 && parent[1]==0|| (parent[0]==2 && parent[1]!=1)){
-             return {no:1, text: "Innovation and consulting", nextQuestion: 6 ,club :null}
+             return {no:1, text: "The thought of building my own start-up or consultancy services", nextQuestion: 6 ,club :null}
                 }},
                 ()=>{
                     if(parent[0]==0 && parent[1]==0||  (parent[0]==2 && parent[1]!=2)){
-                 return { no:2,text: "Web/Software Development and Competitive Coding", nextQuestion: 11 ,club :null}}},
+                 return { no:2,text: "The thought of hosting my own website in hackathons and national level coding contests", nextQuestion: 11 ,club :null}}},
                  ()=>{
                     if(parent[0]==0 && parent[1]==0||  (parent[0]==2 && parent[1]!=3)){
-                 return { no:3,text: "Building Real life systems withapplications in aviation , robotics and astronomy ", nextQuestion: 7,club :null }}},
+                 return { no:3,text: "The thought of constructing robots or intruments, perhaps to deploy them in space", nextQuestion: 7,club :null }}},
                  ()=>{
                     if(parent[0]==0 && parent[1]==0||  (parent[0]==2 && parent[1]!=4)){
-                 return { no:4,text: "Desiging and Implementing various sub-systems in theautomobile domain", nextQuestion: 8,club :null }}},
+                 return { no:4,text: "The thought of desiging and implementing various sub-systems in the automobile domain", nextQuestion: 8,club :null }}},
         ], questionId: 2},
-        { question: "What quality sets would best describe you?", options: 
+        { question: "Fantastic! Which of these skill sets describe you perfectly?", options: 
             ()=>{
                  parentfornow=parent;
      return  [ ()=>{
                 if(parentfornow[0]==0 || ( parentfornow[0]==3 && parentfornow[1]!=1)){
                     parent[0]=3;
                     parent[1]=1;
-             return {no:1, text: "Good Speaking Skills General Knowledge and Confidence", nextQuestion: 12 ,club :"Debate and Quiz Club"}}},
+                    
+             return {no:1, text: "Sublime communication skills, general knowledge and confidence", nextQuestion: 12 ,club :"Debate and Quiz Club"}}},
              ()=>{
                 if(parentfornow[0]==0  || ( parentfornow[0]==3 && parentfornow[1]!=2)){
                     parent[0]=3;
                     parent[1]=2;
-             return { no:2,text: "B. Creative outlook towards arts craft and desgin.", nextQuestion: 13,club :"AnC" }}},
+             return { no:2,text: "Mastery in designing posters, portraits and animations", nextQuestion: 13,club :"AnC" }}},
              ()=>{
                 if(parentfornow[0]==0  || ( parentfornow[0]==3 && parentfornow[1]!=3)){
                     parent[0]=3;
                     parent[1]=3;
-             return { no:3,text: "C. Acting and Speaking with an inclination towards performing arts/Production", nextQuestion: 12,club :"Cultural/Junoon/Drama and Film" }}},
+             return { no:3,text: "Proficiency in acting, tradional dances and performing arts", nextQuestion: 12,club :"Cultural Club" }}},
              ()=>{
                 if(parentfornow[0]==0  || ( parentfornow[0]==3 && parentfornow[1]!=4)){
                     parent[0]=3;
                     parent[1]=4;
-             return  { no:4,text: "D. Prowess in Musical Instruments and Singing ", nextQuestion: 12,club :"Cultural/SpicMacay" }}},
+             return  { no:4,text: "Prowess in musical instruments and classical singing", nextQuestion: 12,club :"SpicMacay" }}},
              ()=>{
                 if(parentfornow[0]==0  || ( parentfornow[0]==3 && parentfornow[1]!=5)){
                     parent[0]=3;
                     parent[1]=5;
-             return { no:5,text: "E. Writing skills and the ability to express", nextQuestion: 13 ,club :"Abhiyanta/Abhijaat newsletter"}}}
+             return { no:5,text: "Firm belief in 'the pen being mightier than the sword' ", nextQuestion: 13 ,club :"Abhijaat newsletter"}}}
 ]}, questionId: 3},
-        { question: "Would you like to be a part of boat club or would you be intrested in other sports under gymkhana", options: 
+        { question: "'All work and no play makes Jack a dull boy'.If you were told to represent college in a sport, which will it be?", options: 
             ()=>{
                  parentfornow=parent;
         return[()=>{
                 if(parentfornow[0]==0  || ( parentfornow[0]==4 && parentfornow[1]!=1)){
                     parent[0]=4;
                     parent[1]=1;
-             return {no:1, text: "Boat Club Activities", nextQuestion: 9 ,parent:[4,1], club :null  }}},
+             return {no:1, text: "Carry forward the prestine legacy of COEP's boat club", nextQuestion: 9 ,parent:[4,1], club :null  }}},
              ()=>{
                 if(parentfornow[0]==0 || ( parentfornow[0]==4 && parentfornow[1]!=2)){
                     parent[0]=4;
                     parent[1]=2;
-             return { no:2,text: "Gymkhana Sports", nextQuestion: 10,parent:[4,2], club :null }}}
+             return { no:2,text: "Explore the wide range of sports first and maybe try out rowing later", nextQuestion: 10,parent:[4,2], club :null }}}
 
     ]}, questionId: 4},
 
-        { question: "What domain intrests you the most?", options: 
+        { question: "Interesting, how would you associate yourself to the following domains?", options: 
             ()=>{
                 parentfornow=parent;
                 console.log(parentfornow);
@@ -229,45 +230,45 @@ const demoQuestions = [
                 if(parentfornow[0]==0 || ( parentfornow[0]==5 && parentfornow[1]!=1)){
                     parent[0]=5;
                     parent[1]=1;
-             return  { no:1,text: "Women's Welfare", nextQuestion: 13, parent:[5,1],club :"Aarya Raas/Society for Women Engineers" }}},
+             return  { no:1,text: "I believe firmly in Women's Welfare and their equality in Society", nextQuestion: 13, parent:[5,1],club :"Aarya Raas/Society for Women Engineers" }}},
              ()=>{
                 if(parentfornow[0]==0 || ( parentfornow[0]==5 && parentfornow[1]!=2)){
                     parent[0]=5;
                     parent[1]=2;
-             return { no:2,text: "Student bodies aimed at student welfare", nextQuestion: 13,parent:[5,2], club :"Student Welfare Forum/Student Welfare Association" }}},
+             return { no:2,text: "I want to be a part of a student body aimed at student welfare in and out of college", nextQuestion: 13,parent:[5,2], club :"Student Welfare Forum/Student Welfare Association" }}},
              ()=>{
                 if(parentfornow[0]==0 || ( parentfornow[0]==5 && parentfornow[1]!=3)){
                     parent[0]=5;
                     parent[1]=3;
-             return { no:3,text: "History and Culture", nextQuestion: 13,parent:[5,3], club :"History Club" }}},
+             return { no:3,text: "I believe in unearthing the hidden secrets of our nation's History and Culture", nextQuestion: 13,parent:[5,3], club :"History Club" }}},
              ()=>{
                 if(parentfornow[0]==0  || ( parentfornow[0]==5 && parentfornow[1]!=4)){
                     parent[0]=5;
                     parent[1]=4;
-             return  { no:4,text: "Social Welfare", nextQuestion: 13,parent:[5,4], club :"Spandan" }}},
+             return  { no:4,text: "I am all for social welfare and community service towards the needy", nextQuestion: 13,parent:[5,4], club :"Spandan" }}},
              ()=>{
                 if(parentfornow[0]==0  || ( parentfornow[0]==5 && parentfornow[1]!=5)){
                     parent[0]=5;
                     parent[1]=5;
-             return  { no:5,text: "Incliation towards civil services", nextQuestion: 12,parent:[5,5], club :"CSAC" }}}
+             return  { no:5,text: "I have strong incliation towards giving the UPSC exam.", nextQuestion: 12,parent:[5,5], club :"CSAC" }}}
     ]}, questionId: 5},
-        { question: "What would best describe your intrests?", options: [
+        { question: "What would best describe your interests?", options: [
             ()=>{
                 parent[0]=2;
                 parent[1]=1;
             
-            return{ text: "Consulting in Industry domain", nextQuestion: 13,parent:[2,1], club :"COEP Consulting Club" }},
+            return{ text: "Help the college in the Consulting Department", nextQuestion: 13,parent:[2,1], club :"COEP Consulting Club" }},
             ()=>{
                 parent[0]=2;
                 parent[1]=1;
-            return  { text: "Innovation and Enerpreneurship", nextQuestion: 13, parent:[2,1],club :"i2i" }},
+            return  { text: "Maybe ending up in Shark Tank in the near future", nextQuestion: 13, parent:[2,1],club :"i2i" }},
         ], questionId: 6},
 
-        { question: "What domain intrests you the most?", options: [
+        { question: "In this era of automation, I look forward to:", options: [
             ()=>{
                 parent[0]=2;
                 parent[1]=3;
-            return { text: "Technical as well as non-technical aspects of astronomy", nextQuestion: 12, parent:[2,3],club :"Astronomy Club" }},
+            return { text: "Build my own telescope and host star-gazing sessions", nextQuestion: 12, parent:[2,3],club :"Astronomy Club" }},
             ()=>{
                 parent[0]=2;
                 parent[1]=3;
@@ -275,11 +276,11 @@ const demoQuestions = [
             ()=>{
                 parent[0]=2;
                 parent[1]=3;
-            return{ text: "HAM", nextQuestion: 13, parent:[2,3],club :"HAM" }},
+            return{ text: "Build transmitters to communicate with the International Space Station", nextQuestion: 13, parent:[2,3],club :"HAM" }},
             ()=>{
                 parent[0]=2;
                 parent[1]=3;
-            return{ text: "Robotics and Automation", nextQuestion: 12,parent:[2,3], club :"RSC/ARSC" }},
+            return{ text: "Build payloads for drones and contribute towards manufacturing industrial robots", nextQuestion: 12,parent:[2,3], club :"RSC/ARSC" }},
 
         ], questionId: 7},
         { question: "What domain intrests you the most?", options: [
@@ -297,14 +298,14 @@ const demoQuestions = [
             return{ text: "Nemesis", nextQuestion: 13, parent:[2,4],club :"Nemesis" }},
 
         ], questionId: 8},
-        { question: "Select a Boat Club Activity", options: [
-            { text: "Punt Formation", nextQuestion: 12, club :"Punt Formation" },
-            { text: "TeleMatches", nextQuestion: 12, club :"TeleMatches" },
-            { text: "Kayak Ballet", nextQuestion: 12, club :"Kayak Ballet" },
-            { text: "Shell Games", nextQuestion: 12, club :"Shell Games" },
+        { question: "COEP's Boat club dates back to over a 100 years. On the day of Regatta do you want to:", options: [
+            { text: "See yourself narrating a story through vibrant display of various shapes with boats ", nextQuestion: 12, club :"Punt Formation" },
+            { text: "See yourself light up the river with fire crackers and lights ", nextQuestion: 12, club :"TeleMatches" },
+            { text: "See youself rowing in one of the hardest boats in a dynamic display of shapes", nextQuestion: 12, club :"Kayak Ballet" },
+            { text: "See yourself rowing in the longest and oldest boats", nextQuestion: 12, club :"Shell Games" },
 
         ], questionId: 9},
-        { question: "Select a Gymkhana Sport Activity", options: [
+        { question: "Gymkhana offers a wide range of sports, which would be your first choice?", options: [
             { text: "Football", nextQuestion: 13, club :"Football" },
             { text: "Cricket", nextQuestion: 13, club :"Cricket" },
             { text: "Hockey", nextQuestion: 13, club :"Hockey" },
@@ -316,19 +317,19 @@ const demoQuestions = [
             ()=>{
                 parent[0]=2;
                 parent[1]=2;
-            return { text: "Free and Open source software", nextQuestion: 13,parent:[2,2], club :"COFSUG" }},
+            return { text: "I want to contribute to the Open Source community and learn more about Github, Linux and other open source softwares", nextQuestion: 13,parent:[2,2], club :"COFSUG" }},
             ()=>{
                 parent[0]=2;
                 parent[1]=2;
-            return{ text: "Software Development", nextQuestion: 13,parent:[2,2], club :"SDS" }},
+            return{ text: "I am keen on building and developing android apps and web applications to meet college demands.", nextQuestion: 13,parent:[2,2], club :"SDS" }},
             ()=>{
                 parent[0]=2;
                 parent[1]=2;
-            return { text: "A.I. and Data Science", nextQuestion: 13, parent:[2,2],club :"AI-DS Club" }},
+            return { text: "I want to learn how ChatGpt, Gemini and other AI models work in depth", nextQuestion: 13, parent:[2,2],club :"AI-DS Club" }},
             ()=>{
                 parent[0]=2;
                 parent[1]=2;
-            return { text: "Competitive coding and community networking along with organising events and seminars", nextQuestion: 13, parent:[2,2],club :"CSI/ASCII" }},
+            return { text: "I want to host and participate in Competitive coding and community networking events", nextQuestion: 13, parent:[2,2],club :"CSI/ASCII" }},
         ], questionId: 11},
 
         
@@ -337,18 +338,18 @@ const demoQuestions = [
                     if(count==3){
                         addSubmitButton();
                     }
-                  else return "The Club recommended for you is time intensive. Would you like to:"}, 
+                  else return `Great responses so far, your No.${count} recommendation is ready. Bear in mind that this club is a bit time intensive.`}, 
                   options: ()=>{
                     if(count==1){
                         return[
-                { text: "Explore clubs from similar domain", nextQuestion: parent[0], club :null },
-                { text: "Explore clubs from a similar domain", nextQuestion: parent[0], club :null },
+                { text: "Let us continue to explore clubs from a similar domain of your interest!", nextQuestion: parent[0], club :null },
+                
                 ]}
                     else if(count==2){
                        
                      return   [
-                            { text: "Explore clubs from another domain", nextQuestion: 1, club :null },
-                            { text: "Explore clubs from a another domain", nextQuestion: 1, club :null },
+                            { text: "Let us explore a new domain altogether!", nextQuestion: 1, club :null },
+                           
                             ]    
                     }}, questionId: 12},
                     {   question: ()=>{
@@ -356,18 +357,18 @@ const demoQuestions = [
                         if(count==3){
                             addSubmitButton();
                         }
-                      else return "The Club recommended for you is not very time intensive. Would you like to:"}, 
+                      else return `Great responses so far, your No.${count} recommendation is ready.It seems it will perfectly fit your schedule.`}, 
                       options: ()=>{
                         if(count==1){
                             return [
-                    { text: "Explore clubs from similar domain", nextQuestion: parent[0], club :null },
-                    { text: "Explore clubs from a similar domain", nextQuestion: parent[0], club :null },
+                    { text: "Let us continue to explore clubs from a similar domain of your interest!", nextQuestion: parent[0], club :null },
+                    
                     ]}
                         else if(count==2){
                             
                           return  [
-                                { text: "Explore clubs from another domain", nextQuestion: 1, club :null },
-                                { text: "Explore clubs from a another domain", nextQuestion: 1, club :null },
+                                { text: "Let us explore a new domain altogether!", nextQuestion: 1, club :null },
+                                
                                 ]    
                         }}, questionId: 13},
         
@@ -527,7 +528,7 @@ const displayNextQuestion = (nextQuestionIndex) => {
             options= currentQuestion.options;
         }
 
-        addQuizQuestion(`Question.no. ${nextQuestionIndex}: ${q}`, options, currentQuestion.questionId);    
+        addQuizQuestion(q, options, currentQuestion.questionId);    
     } else {
         // Display the submit button after all sets are completed
         addSubmitButton();

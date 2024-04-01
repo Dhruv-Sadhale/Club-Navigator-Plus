@@ -1,23 +1,31 @@
 {% extends 'main.html' %}
 
 {% block content %}
-  <h2>Welcome, {{username}}.</h2>
-  <h2>Recommended Clubs</h2>
-  {% if user_responses %}
-    <ul>
-      {% for response in user_responses %}
-        <li>{{ response.club }}</li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No responses available.</p>
-  {% endif %}
-<h3>Are you satisfied with the recommendations?</h3>
-  
-  <!-- Link for "Yes" -->
-  <a href="{% url 'satisfaction' %}?satisfied=yes">Yes</a>
+  <div class="content-wrapper">
+    <h2>Welcome, {{ username }}.</h2>
+    
+    <div class="clubs-section">
+      <h2>Recommended Clubs</h2>
+      {% if user_responses %}
+        {% for response in user_responses %}
+          <div class="club-container">
+            <h3>{{ response.club }}</h3>
+            <p>{{ response.description }}</p>
+            <p>Rating: {{ response.rating }}</p>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No responses available.</p>
+      {% endif %}
+    </div>
 
-  <!-- Link for "No" -->
-  <a href="{% url 'satisfaction' %}?satisfied=no">No</a>
-
+    <div class="satisfaction-section">
+      <h3>Are you satisfied with the recommendations?</h3>
+      <!-- Links for "Yes" and "No" -->
+      <div class="satisfaction-links">
+        <a href="{% url 'satisfaction' %}?satisfied=yes">Yes</a>
+        <a href="{% url 'satisfaction' %}?satisfied=no">No</a>
+      </div>
+    </div>
+  </div>
 {% endblock %}
