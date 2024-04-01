@@ -1,0 +1,29 @@
+COEP Amateur Radio Club established in 1986 makes itself the oldest technical club of College of Engineering Pune. Starting with vacuum tube transmitters, today the club have gradually upgraded the lab and now it holds advanced transmitters and receivers and other latest equipment. COEP's Amateur Radio Club communicates with HAM radio users using the callsign VU2COE. COEP "HAM"s have communicated with almost each and every corner of the world and even with the International Space Station. Every year, HAM Club organizes the A.S.O.C. examination and also coaches students for the same. It also conducts introductory workshops, basic antenna designing workshops annually in COEP and also in other colleges on invitation. The club successfully provides the complete communication link during the various prestigious events of the College of Engineering Pune like Regatta, Mind-spark, Zest, and M.R.A. races held at the COEP Boat Club. COEP HAM Club provides platform for research in field of Antenna and wireless communication and publish research papers about it.
+
+Projects
+
+The Ham Club has recently completed a number of exciting projects. Here's an overview of each project along with a brief description:
+
+    Design of a Function Generator: The Function Generator project involved designing and building a device that can generate different types of waveforms, such as sine, square, and triangle waves. This project required a good understanding of electronics and circuit design.
+    Design of SMPS: SMPS stands for Switched-Mode Power Supply. The goal of this project was to design and build a power supply that is more efficient and compact than traditional linear power supplies. This project required a good understanding of power electronics and circuit design.
+    Password Based Door Lock System: This project involved designing and building a door lock system that can be unlocked with a password. The system used a microcontroller and a keypad to control the locking mechanism. This project required knowledge of microcontroller programming and circuit design.
+    Simple Inverter: An inverter is a device that converts DC power into AC power. The goal of this project was to design and build a simple inverter that can be used to power small electronic devices. This project required a good understanding of power electronics and circuit design.
+    Password Based Locking Mechanism: This project involved designing and building a locking mechanism that can be unlocked with a password. The system used a microcontroller and a keypad to control the locking mechanism. This project required knowledge of microcontroller programming and circuit design.
+
+ 
+
+ 
+
+For further Details please visit:- http://www.coep.org.in/ham
+
+Altekar Pushkar Satish
+
+Student Secretary, COEP HAM Club
+
+Faculty Advisor: Dr. Mrs. P. P. Shingare
+B Tech E&TC
+email id: altekarps20.extc@coep.ac.in
+
+ 
+
+Faculty Advisor :- Dr.Mrs.P.P.Shingare

@@ -1,0 +1,27 @@
+The COEP Satellite (SWAYAM) project is aimed at developing a reliable bidirectional communications platform.Started in late 2008, the SWAYAM project revolves around the challenge of building a pico-satellite destined to orbit the Earth at a height of 500-800 km.
+
+With a total weight of 1 kg and the volume restricted to around 1000 cc, the cube shaped satellite demands an innovative approach at every design phase, from screening of components in order to fit the stringent mass budget to the selection of suitable electronic devices which honour the mere 2 W of power produced by the solar panels. With this in mind, the team has devised an ingenious passive stabilization system which employs a pair of hysteresis rods and a magnet to stabilize the satellite thus eliminating the need to use bulky and power hungry magnetorquers. This Passive Attitude Control System of SWAYAM is the first of its kind in India. The satellite houses a payload capable of half duplex communication over the HAM frequency band which enables it to receive, store and transmit messages from one corner of the globe to the other. The team has also established a functional Ground Station and tracked many amateur radio satellites.
+
+Acting as a platform which enables the students to empirically test their knowledge has always been the corner stone of this project. Right from its inception, the team has been strongly supported by the college on all fronts, providing valuable infrastructure and a strong funding to keep the project alive. The Qualification of the Satellite is ready and has undergone the Environmental test.
+
+The team successfully cleared the Critical Design Review (CDR) at ISAC, Bangalore on 17th September 2014. All the subsystem designs and results were presented and approved by the committee. The team got a clearance for going ahead with the Flight Model of Swayam.
+
+Recently the team completed the Flight Model assembly and Environmental tests on it at ISAC. The Flight Model has been handed over to ISRO and the satellite was launched with Cartosat 2C on 22nd June, 2016. Now the satellite has been launched into the space.
+
+Team CSAT has already begun its next project. They are working on a satellite which will demonstrate orbit manoeuvering using solar sails with radiation monitoring as payload.
+
+ 
+
+ 
+
+Contact details:
+
+Project Manager,
+
+Harshmohan Kulkarni
+
+Faculty Advisor: Ms. N. R. Kolhare
+
+projectmanager.csat@coep.ac.in
+
+For more info, please visit: www.coep.org.in/csat
