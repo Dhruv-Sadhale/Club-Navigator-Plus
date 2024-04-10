@@ -1,23 +1,51 @@
 {% extends 'main.html' %}
 
 {% block content %}
-  <h2>Welcome, {{username}}.</h2>
-  <h2>Recommended Clubs</h2>
-  {% if user_responses %}
-    <ul>
-      {% for response in user_responses %}
-        <li>{{ response.club }}</li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No responses available.</p>
-  {% endif %}
-<h3>Are you satisfied with the recommendations?</h3>
-  
-  <!-- Link for "Yes" -->
-  <a href="{% url 'satisfaction' %}?satisfied=yes">Yes</a>
+<body class="dashboard-bg">
+  <div class="content-wrapper">
+    {% comment %} {% verbatim %}
+    <script>
+        var time = new Date().getHours();
+        var msg = "";
+        var username = "{{ username }}"; 
+        if (time < 12) {
+            msg = "Good morning";
+        } else if (time < 18) {
+            msg = "Good afternoon";
+        } else {
+            msg = "Good evening";
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("greeting").innerText = msg+ username ;
+        });
+    </script>
+    {% endverbatim %} {% endcomment %}
+    <h2 id="greeting">Welcome to your dashboard, {{ username }}.</h2>
+   
+    <div class="clubs-section">
+      
+        <h2>Recommended clubs:</h2>
+      {% if user_responses %}
+        {% for response in user_responses %}
+          <div class="club-container">
+            <h3>{{ response.club }}</h3>
+            <p>{{ response.description }}</p>
+            
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No responses available.</p>
+      {% endif %}
+    </div>
 
-  <!-- Link for "No" -->
-  <a href="{% url 'satisfaction' %}?satisfied=no">No</a>
-
+    <div class="satisfaction-section">
+      <h3>Are you satisfied with the recommendations?</h3>
+      <!-- Links for "Yes" and "No" -->
+      <div class="satisfaction-links">
+        <button type="button" onclick="location.href='{% url 'satisfaction' %}?satisfied=yes'">Yes</button>
+        <button type="button" onclick="location.href='{% url 'satisfaction' %}?satisfied=no'">No</button>
+      </div>
+    </div>
+  </div>
+</body>
 {% endblock %}

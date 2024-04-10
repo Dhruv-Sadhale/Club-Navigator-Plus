@@ -21,12 +21,12 @@ header {
 }
 .navbar{
     position: relative;
-    z-index: 1000;
+    z-index: 10;
 }
 .navbar-brand, .nav-link {
     color: #fff !important;
     transition: color 0.3s ease, border-bottom-color 0.3s ease; /* Add transition for the line effect */
-    position: relative;
+    
 }
 
 .navbar-brand:hover, .nav-link:hover {
@@ -37,7 +37,7 @@ header {
 .navbar-brand:hover::after,
 .nav-link:hover::after {
     content: '';
-    position: absolute;
+      
     z-index: 10;
     width: 100%;
     height: 2px;
@@ -312,3 +312,229 @@ header {
       &:nth-child(10) { left: calc(50% + 980px); opacity: 0; }
     }
   }
+
+/* for login page */
+/* Add your new CSS rules here */
+
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-container form {
+  text-align: center;
+}
+
+.login-container label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-container input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-container input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.login-container p a {
+  color: #007bff;
+}
+
+.login-container p a:hover {
+  text-decoration: underline;
+}
+/* 
+body.login-page:hover {
+  transform: scale(1.05); 
+} */
+/* CSS */
+body.login-page {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url('../images/laptop.jpg');
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease; /* Add transition for smooth movement */
+}
+
+  .login-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background-color: #111e35e6; /* Adjust opacity here */
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, background-color 0.3s ease; /* Add transition for smooth effect */
+    margin-top: 70px;
+  }
+  
+  .login-container:hover {
+    box-shadow: -5px -5px 10px rgba(0, 0, 0, 0.2); /* Change shadow color and move left and up on hover */
+    background-color: rgba(39, 68, 92, 0.95); /* Change background color on hover */
+  }
+
+  /* CSS */
+.content-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.clubs-section {
+  margin-bottom: 40px;
+}
+@keyframes fallIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.club-container {
+
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  opacity: 0; /* Initially hide the club containers */
+  transform: translateY(-100%);
+  animation: fallIn 1s ease forwards; /* Use a common duration for all */
+  background-color: rgba(255, 255, 255, 0.7); /* Adjust alpha value for transparency */
+}
+
+.club-container:nth-child(1) {
+  animation-delay: 0.3s; /* Delay the first container */
+}
+
+.club-container:nth-child(2) {
+  animation-delay: 0.6s; /* Delay the second container */
+}
+
+.club-container:nth-child(3) {
+  animation-delay: 0.9s; /* Delay the third container */
+}
+
+.club-container h3 {
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.club-container p:last-child {
+  margin-bottom: 0;
+}
+
+.club-container h3 {
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.club-container p:last-child {
+  margin-bottom: 0;
+}
+
+.satisfaction-section {
+  border-top: 2px solid #007bff;
+  padding-top: 20px;
+}
+
+.satisfaction-section h3 {
+  margin-bottom: 10px;
+}
+
+.satisfaction-links a {
+  display: inline-block;
+  margin-right: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.satisfaction-links a:hover {
+  text-decoration: underline;
+}
+.satisfaction-links {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.satisfaction-links button {
+  margin: 0 10px; /* Adjust this value as needed */
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.satisfaction-links button:hover {
+  background-color: #0056b3;
+}
+
+
+/* styling for the dashboard continued */
+body.dashboard-bg {
+  background-image: url('../images/pexels-aditya-singh-3103199.jpg');
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+  /* opacity: 0; */
+  background-color: rgba(255, 255, 255, 0.5); /* Adjust alpha value for transparency */}
+
+.content-wrapper {
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+}
+
+
+/*.club-container {
+  width: calc(33.33% - 20px);
+  background-color: rgba(255, 255, 255, 0.5); 
+  border: 2px solid #ccc; 
+  border-radius: 5px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}*/
+
+.club-container:hover {
+  opacity: 0;
+  background-color: #29292b;
+  border-color: #007bff; /* Border color on hover */
+  transform: translateY(-5px) rotate(-1deg); /* Tilt effect on hover */
+}

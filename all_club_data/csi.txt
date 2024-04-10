@@ -1,0 +1,70 @@
+https://csi.coep.org.in/#/
+Primary info:
+
+logo:
+motto:
+
+brief info:
+The Computer Society of India (CSI) Student Chapter of College of Engineering Pune (COEP) Tech, established in October 2018 is an active student organization which organizes a number of technical activities including workshops, competitions, technical symposiums, guest lectures etc. for its student members. Under the guidance of Department of Computer Science and Engineering COEP Tech, the student chapter has over 300 members and is run by a Core Team and faculty from the department.CSI COEP Tech Student Chapter gives students the opportunity to grow in the field of IT.
+Established in 1965, the Computer Society of India, or CSI is the first and largest body of computer professionals in India. It is a non-profit professional meet to exchange views and information learn and share ideas regarding advancement of theory and practice of Computer Engineering and Technology Systems, Science and Engineering, Information Processing and many more. The national body now has 72 chapters across India, 512 student branches, and over 110000 members, including noted IT industry leaders, scientists, and dedicated mathematicians.
+
+It works closely with other industry associations, government bodies and academia to ensure that the benefits of IT advancement ultimately percolate down to every single citizen of India.
+
+portfolios:
+
+activities/events:
+CSI COEP Tech Student Chapter regularly organizes workshops, seminars conventions, and technical talks for the benefit of professionals and users of IT apart from conducting development programs for professionals, researchers and students.
+
+
+
+Finally, CSI COEP Tech facilitates industry-academia interaction through CIO meets, Professors’ meets. CSI offers professional counselling through various events, conferences, symposia to student members of their well-established network of Student Branches.
+
+
+Highlight events:
+(AY 2023-24)
+Code To Compete '23
+WebScape - Event in Association with MindSpark'23 
+Surviving TY & SY For Dummies
+
+(AY 2022-23)
+Inspiron 2.0 - National Level Hackathon
+Codequest 3.0 - A Hunt for COEP's Coding Champion
+Code to Compete
+Engineering is Awesome Session by Raghavan Koli
+Parallel Programming Through DPC++
+
+AY 2021-22 Events
+Lecture Series in association with NVIDIA
+Inspiron '22 - National Level Hackathon
+Chrome DevTools and Extensions Workshop
+Web Design - in collaboration with MindSpark 21 
+CodeQuest 2.0 - A Hunt for COEP's Coding Champion
+Code to Compete
+One Day Symposium on Recent Trends in AI, GPU Computing & IoT
+
+AY 2020-21 Events
+Algowar
+Webinar on ' Mastering the Art of Scientific Publication '
+Hack the Hackathon
+CodeQuest - a coding standoff to test the best!
+Git Workshop
+Webinar on Profile Building by BYJU'S - Careerlabs
+
+AY 2019-20 Events
+One Day Workshop on Web Crawling and Scraping
+Expert Talk on Green Computing through Adaptive Multi-core Architectures
+CSI-SDS MERN Stack Workshop (Internal)
+One Day Lecture Series(Ms. Neeti, C-DAC delivering a talk on "Blockchain - An introduction and Industry View".)
+Git Hands-on Workshop (Internal)(Students were quizzed on the outputs that could be expected on running different commands.)
+
+AY 2018-19 Events
+One Day Workshop on Python Programming
+Expert talk on Supercomputing and Its Applications To Atmospheric Science
+Inaugural Ceremony of CSI COEP Student Chapter
+
+
+websites/ blogs etc:
+
+
+whom to contact for more details:
+

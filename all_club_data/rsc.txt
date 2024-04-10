@@ -1,0 +1,282 @@
+Robot Study Circle known as RSC, the Prestigious Robotics Club of COEP is one of the best Robotics clubs in India. It’s a totally different world where club members have created hundreds of robots for society such as Drones, Railway Track Surveillance Robot, Bomb Disposal Robots, and Badminton Playing Robots etc. Robot Study Circle is the National Champion in ROBOCON which is one of the best competitions in robotics in the world. RSC represented India in International Robocon held at Tokyo, Japan and won 6th international position as well as Nagase Award for the country. Also, the Club has industrial collaboration with Siemens PLM as a title sponsor, Volkswagen, Janatics Pneumatics, Schmalz India, Pepperl & Fuchs, and Robolab Technologies. Members of Robot Study Circle are members of the first ever institute student chapter of THE ROBOTICS SOCIETY established in India at College of Engineering, Pune
+
+                                                                   
+
+ 
+
+Our Annual Activities:
+
+1. Representing COEP in the prestigious National Robotics Contest - ROBOCON
+
+2. Conducting workshops for FY students – “PRATHAM”.
+
+3. Organizing various robotics events in Mindspark, Robotex Pune regional competitions.
+
+4. Participating in various robotics events at IITB-Techfest, Mindspark COEP, Robotex India competition.
+
+5. Building mini-projects and B. Tech projects in Robotics and Automation
+
+6. Presenting Research Papers at IEEE conferences and Patents
+
+7. Conducting The Robotics Society Seminars.
+
+ 
+
+Project Completed In RSC:
+
+    Basic Line Tracer Robot
+
+    Autonomous Chess Playing Robot
+
+    Quadrotor
+
+    Under Water Autonomous Vehicle (Fish robot) (Won Best Mini Project Award 2011)
+
+    Fire Extinguisher Robot (Won Best Mini Project Award 2012)
+
+    Bomb Detection Disposal Squad Assisting robot
+
+    Autonomous Rubik’s Cube solving Robot
+
+    Hydro-quadrotor
+
+    Can Picker Robot (Won Best Mini Project Award in 2013)
+
+    Railway Track Surveillance Robot
+
+    Amphibian Robot
+
+    Wall Climbing Robot
+
+    Electronic Voting Machine (2 Versions till date for COEP Gymkhana election)
+
+    All Terrain MASS (Won Best Mini Project Award 2015)
+
+    VILOLA (Man packable Surveillance Robot)
+
+    RFID Based Attendance System
+
+    Control System for Humanoid Robot
+
+    Humanoid Biped
+
+    Humanoid Arms
+
+    Compressed Air Powered Human Exoskeleton Suit
+
+    Modular Snake Robot
+
+    Rope Climbing Robot
+
+    Two Wheel Balancing Robot
+
+    Tower Motion Control Robot
+
+    Human Assistive Lower Linb Exoskeleton
+
+    3 Wheel and 4 Wheel Omni-Directional Automated Guided Vehicle
+
+    Analysis and Simulation of Steward Force Platform
+
+    Four-legged Autonomous Robot
+
+    Modular Snake Robot
+
+     Autonomous Rubik's Cube Solving Robot V2.
+
+     Prosthetic 5-fingered Robotic hand.
+
+     Miniature Ornithopter Model.
+
+     ROS Based Compact Mobile Robot for Area Mapping.
+
+     Swerve drive.
+
+    Self balancing stick simulation.
+
+    Self balancing cube simulation.
+
+ 
+
+Ongoing Projects:
+
+Ongoing Projects in the year 2022-23:
+
+    Ornithopter V3
+    Autonomous Track Robot.
+    Continuum arm - Soft Robotics
+    Stingray Biomimetic Fish Robot.
+    Unmanned Aerial Vehicle with horizontal rotors - cyclocoptor.
+    Simulation of Humanoid Robot on ROS.
+    International Robocon 2023 competition robots.
+
+ 
+ 
+  	
+
+ 
+
+Robocon Success Story:
+
+Robocon 2020
+
+Judge's Special Award
+
+Robocon 2019
+
+    Winner of MathWorks Modelling Award at Robocon 2019, IIT Delhi
+
+Robocon 2018
+
+        Overall rank - 5.
+
+        Best Aesthetic Robot Award.
+
+ 
+
+International Robocon 2017
+
+    Won 6th position for India.
+
+    Nagase Award.
+
+    Ranked above teams like China.
+
+ 
+
+Robocon 2017:
+
+        National Champions
+
+        Best Idea Award
+
+        Fastest Task Completing Robot
+
+        Consecutive Second time Winner of MATLAB Task Simulation Competition.
+
+ 
+
+Robocon 2016:
+
+    First Runner up.
+
+    Fastest Task Completing Robot
+
+    Best manual Operator Award.
+
+    Winner of MATLAB Task Simulation Competition.
+
+ 
+
+Robocon 2015:
+
+    Best Innovative Design Award.
+
+    Best Manual Operator Award.
+
+    Overall Rank-5
+
+ 
+
+Earlier Robocon:
+
+    Best Innovative Design Award (Robocon 2014 and Robocon 2013)
+
+    One of 2 teams in India to complete task in Robocon 2013
+
+    Second Runner Up in Robocon 2012
+
+ 
+
+Achievements:
+
+    Design & Manufacturing of Robot for Pune Police Bomb Detection & Disposal Squad
+
+    Forbes Marshall outstanding project Award for year 2009-10 to Robot Study Circle team for Design & Development of Quad rotor.
+
+    COEP Alumni Association’s best project Award to a team from Robot Study Circle for Design and Manufacturing of Self Balancing Personal Transportation Vehicle (Mechanical Department).
+
+    COEP Alumni Association’s best project Award to two teams from Robot Study Circle (E&TC Department):
+
+    Autonomous Underwater Vehicle (First prize).
+
+    Gesture Controlled Robotic Arm (Fourth Prize).
+
+    Forbes Marshall outstanding project Award to Robot Study Circle team for Design & Development of Amphibian Robot
+
+    Patent for Rocker Bogie mechanism on Bomb Detection Disposal Squad Assisting robot
+
+    KPIT Sparkle Silver Award for wall climbing robot
+
+    National 2nd Runners-Up DRDO’s DRUSE competition.
+
+    More than 10 Research Papers has been published in National and International IEEE Conferences.
+
+    Best Project Award from Alumni Association of COEP
+
+    1st Runner up in Search & Destroy and 2nd Runner up in Dog fight event annual technical festival of COEP-Mindspark 2018.
+
+    Establishment of the first student chapter of The Robotics Society of India.
+
+    2nd Runner up in MathWorks Modelling competition at DD-National Robocon 2019.
+
+    1st Runner up in Search & Destroy event in COEP-Mindspark 2019.
+
+    Winners of 3kg Sume in National Robotex 2019 competition held at Ahmedabad, Gujrat.
+
+    Best B.Tech Project award from EnTC department for Tower Motion Control (2019)
+
+    Judge's Special Award at DD-National Robocon - 2020
+
+    Presented 8 research papers on robotics at the international conference on Robotics Intelligent Automation and Control Technologies (RIACT 2020). Research paper titled Design and validation of Matlab simulation to obtain customized gait cycle for exoskelton won the best paper award
+
+    Presented 13 research papers at the International Conference on Intelligent Technologies (ICIT 2021), Singapore.
+
+    Presented 2 papers at 12th National Conference on Aerospace and Defense related mechanism, ARDE-DRDO, Pune 2021.
+
+ 
+
+Contact Us:
+
+Faculty Advisor:
+
+Prof. Dr. Shantipal S. Ohol
+
+Email: - sso.mech@coeptech.ac.in
+
+ 
+
+Secretary:
+
+Ameya Hande
+
+Email:- rsc@coep.ac.in
+
+Mobile No. : +91- 9527424416
+
+ 
+
+Address:
+
+Robotics & Automation Lab, Production Engineering Department,
+
+College of Engineering Pune, Wellesley Road,
+Shivajinagar, Pune - 411005.
+
+Tel. No: 020-25507366
+
+ 
+
+Visit our Facebook page: www.facebook.com/robotstudycircle
+
+Visit our YouTube Channel: COEP ROBOTICS
+
+Tweet us: @coep_robotics
+
+Find us on Instagram: @robotstudycircle
+
+ 
+
+ Visit our website: www.coeprobotics.com
+
+ 

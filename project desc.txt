@@ -1,0 +1,29 @@
+More info about the topic:
+CLUB NAVIGATOR
+
+Problem:COEP, being cream of engineering colleges, is perfect when it comes to academics, however there are some issues less spoken about which need to be addressed. 
+Majority of the students, speciffically our first year students are bombarded with promises from various clubs, which provoke them to take part in many clubs, biting of more than they can chew. This results in them facing dilemma, unsuitable non-academic hour schedule, warnings from club seniors if they fail to attend meets just because they are busy in performing tasks for another club. This causes them to leave vacant spots in many core club bodies. Their academics is also affected when club tasks and lecture assigments get overlaped due to time constraints. What if there was a all in one application where the students could be exposed to the transparency of all the clubs before being inducted and help them in making just the right choices of clubs. 
+
+Project: Club Navigator is a web application. It consists of a web page dedicated to each club, showing their club event highlights, heads and induction process. The user has the priviledge of logging in and making an account. An expert generated selection test is the main attraction of the application. Wherein questions are designed in such a way that at the end of the test, the three best clubs will be recommended to the user based on his/her responses. These questions will take care of factors such as student branch, student preference, suitable schedule for club meets, suitable frequency of club meets. There will also be a portal where student can submit feedback, regarding the test. 
+
+Once a positive feedback is given, there will be a notification portal on the webiste informing students about the induction date and time. Once inducted, a special account will be provided to the user wherein he/she can access a special link of the club he/she is inducted in. Herein, individual stats will be provided to each user consisting of stats of the number of meets attended, number of successful tasks completed etc. There will also be a qr-code with which attendence will be taken. 
+Another additional feature: Fest management, especially those events of the fests: Mindspark, Impressions and Startup Fest which are associated with various clubs. 
+
+What makes this project special?
+Uniqueness: Never before has a web application been made which targets this particular aspect of college life of a student.
+Robustness: Instead of keeping track of 20 different websites for 20 different clubs, it is much easier to access one user friendly application redirecting the user to its prefered club.
+Saves time and assists in decision making
+Constant feedback system to increase efficiency
+Transparency is increased with regards to the club activites and club highlights associated with fests.
+
+Tech Stack: HTML CSS Javascript Reactjs for front end
+Node.js Express.js and postgresql for backend and database.
+
+layout of the thesis ppt:
+slide 1: Title along with team members names
+slide 2: Problem statement
+slide 3: Objective and intro to the project
+slide 4: more in depth project details
+slide 5: what makes this project special
+slide 6: tech stack front end and backend 
+slide 7: conclusion

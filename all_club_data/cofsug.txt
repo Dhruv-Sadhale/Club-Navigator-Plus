@@ -1,0 +1,6 @@
+
+
+COEP's Free Software Users Group (COFSUG) is a group of volunteers to promote the use of Free Software (also known as Open Source Software) in COEP and in other institutions in Pune. The group runs a mailing list cofsug@googlegroups.com. The group carries out activities like: Installation fests (to teach people how to install GNU/Linux operating system), Workshops on Linux Administration, Drupal, Python, Various FOSS technologies, Creative Commons, Open Hardware and like.  The group promotes the development of software with release of code under GNU GPL-v3 license. 
+
+Join us at :- http://groups.google.com/group/cofsug?lnk=srg
+
