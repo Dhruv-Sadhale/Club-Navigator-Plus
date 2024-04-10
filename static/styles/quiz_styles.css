@@ -1,6 +1,7 @@
 body {
     margin: 0;
     overflow: hidden;
+    font-family: Arial, sans-serif;
 }
 
 #background {
@@ -16,8 +17,30 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    background: rgba(247, 242, 242, 0.7); /* Adjust the alpha value for transparency */
+    padding: 50px; /* Increase the padding for larger size */
+    border-radius: 20px;
+    opacity: 0.5;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    text-align: center; /* Center align contents */
+}
+
+#quiz-container:hover {
+    background: rgba(227, 214, 230, 0.9); /* Adjust the alpha value for hovering effect */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Adjust the shadow for hovering effect */
+    opacity: 2;
+}
+
+/* Center align text within the container */
+#quiz-container h1,
+#quiz-container p {
+    text-align: center;
+    font-size: 100px; /* Increase the text size */
+}
+
+/* Increase text size and space between options */
+.option {
+    font-size: 20px; /* Increase the text size of options */
+    margin-bottom: 10px; /* Add space between options */
 }

@@ -1,17 +1,36 @@
 {% extends 'main.html' %}
 
 {% block content %}
+<body class="dashboard-bg">
   <div class="content-wrapper">
-    <h2>Welcome, {{ username }}.</h2>
-    
+    {% comment %} {% verbatim %}
+    <script>
+        var time = new Date().getHours();
+        var msg = "";
+        var username = "{{ username }}"; 
+        if (time < 12) {
+            msg = "Good morning";
+        } else if (time < 18) {
+            msg = "Good afternoon";
+        } else {
+            msg = "Good evening";
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("greeting").innerText = msg+ username ;
+        });
+    </script>
+    {% endverbatim %} {% endcomment %}
+    <h2 id="greeting">Welcome to your dashboard, {{ username }}.</h2>
+   
     <div class="clubs-section">
-      <h2>Recommended Clubs</h2>
+      
+        <h2>Recommended clubs:</h2>
       {% if user_responses %}
         {% for response in user_responses %}
           <div class="club-container">
             <h3>{{ response.club }}</h3>
             <p>{{ response.description }}</p>
-            <p>Rating: {{ response.rating }}</p>
+            
           </div>
         {% endfor %}
       {% else %}
@@ -23,9 +42,10 @@
       <h3>Are you satisfied with the recommendations?</h3>
       <!-- Links for "Yes" and "No" -->
       <div class="satisfaction-links">
-        <a href="{% url 'satisfaction' %}?satisfied=yes">Yes</a>
-        <a href="{% url 'satisfaction' %}?satisfied=no">No</a>
+        <button type="button" onclick="location.href='{% url 'satisfaction' %}?satisfied=yes'">Yes</button>
+        <button type="button" onclick="location.href='{% url 'satisfaction' %}?satisfied=no'">No</button>
       </div>
     </div>
   </div>
+</body>
 {% endblock %}

@@ -1,28 +1,57 @@
-// Set up Three.js scene and camera
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('background').appendChild(renderer.domElement);
 
-// Create a simple animated background (e.g., rotating cube)
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+// Create a rotating sphere with lighting and shadows
+const geometry = new THREE.SphereGeometry(2, 32, 32, Math.PI / 2, Math.PI * 2, 0, Math.PI);
+const material = new THREE.MeshPhongMaterial({ color: 0xff0000, shininess: 50 });
+const sphere = new THREE.Mesh(geometry, material);
+scene.add(sphere);
+
+const light = new THREE.DirectionalLight(0xffffff, 0.6);
+light.position.set(1, 1, 1).normalize();
+scene.add(light);
+
+const ambientLight = new THREE.AmbientLight(0x404040);
+scene.add(ambientLight);
+
+const sphereShadow = new THREE.Mesh(
+    new THREE.CircleGeometry(2.5, 32),
+    new THREE.ShadowMaterial({ color: 0x000000, opacity: 0.5 })
+);
+sphereShadow.position.y = -2.001;
+scene.add(sphereShadow);
 
 camera.position.z = 5;
+
+let isMouseOver = false;
+
+// Mouse movement interaction
+document.addEventListener('mouseenter', () => {
+    isMouseOver = true;
+});
+
+document.addEventListener('mouseleave', () => {
+    isMouseOver = false;
+});
 
 // Animation loop
 const animate = () => {
     requestAnimationFrame(animate);
 
-    // Rotate the cube for the background animation
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+    if (isMouseOver) {
+        // Rotate the sphere for the background animation
+        sphere.rotation.x += 0.005;
+        sphere.rotation.y += 0.005;
+    }
 
     renderer.render(scene, camera);
 };
+animate();
+
+// Animation loop
 
 const questionDisplayTime = 2000; // Time each question is displayed in milliseconds
 let setNumber = 0;
@@ -560,7 +589,7 @@ const addSubmitButton = () => {
 
     // Add a submit button
     const submitButton = document.createElement('button');
-    submitButton.textContent = 'Submit';
+    submitButton.textContent = 'Prepare Recommendation List';
     submitButton.addEventListener('click', () => handleSubmission());
     quizContainer.appendChild(submitButton);
 };
@@ -583,4 +612,6 @@ const getCSRFToken = () => {
 setTimeout(() => displayNextQuestion(1), questionDisplayTime);
 
 // Start the animation loop
+
+
 animate();
