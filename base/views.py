@@ -25,7 +25,7 @@ from .models import QuizResponse
 
 # views.py
 from django.utils import timezone
-import qrcode
+# import qrcode
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from io import BytesIO
@@ -41,33 +41,6 @@ def explore(request, pk):
      print(recommended_users)
      return render(request, 'base/explore.html', {'club_object': club_object, 'recommended_users': recommended_users})
 
-@login_required(login_url='login')  # Adjust login URL
-def generate_qrcode(request, club_name):
-    club = Club_Primary.objects.get(club=club_name)
-    qr_code_data = club.generate_qrcode_data()
-
-    # Create a QR code instance
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
-    )
-
-    # Add data to the QR code
-    qr.add_data(qr_code_data)
-    qr.make(fit=True)
-
-    # Create an image from the QR code instance
-    img = qr.make_image(fill_color="black", back_color="white")
-
-    # Create a BytesIO buffer to store the image
-    buffer = BytesIO()
-    img.save(buffer)
-    buffer.seek(0)
-
-    # Return the image as an HTTP response
-    return HttpResponse(buffer.read(), content_type="image/png")
 
 @login_required(login_url='login')  # Adjust login URL
 def attend_club(request,club_name):
@@ -290,7 +263,7 @@ def satisfaction(request):
                 feedback = feedback_form.save(commit=False)
                 feedback.user = request.user
                 feedback.save()
-                return redirect('questionnaire')  
+                return redirect('dashboard')  
         else:
             feedback_form = UserFeedbackForm()
 

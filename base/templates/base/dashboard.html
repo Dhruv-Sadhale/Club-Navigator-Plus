@@ -3,24 +3,8 @@
 {% block content %}
 <body class="dashboard-bg">
   <div class="content-wrapper">
-    {% comment %} {% verbatim %}
-    <script>
-        var time = new Date().getHours();
-        var msg = "";
-        var username = "{{ username }}"; 
-        if (time < 12) {
-            msg = "Good morning";
-        } else if (time < 18) {
-            msg = "Good afternoon";
-        } else {
-            msg = "Good evening";
-        }
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("greeting").innerText = msg+ username ;
-        });
-    </script>
-    {% endverbatim %} {% endcomment %}
-    <h2 id="greeting">Welcome to your dashboard, {{ username }}.</h2>
+    
+    <h2 id="greeting" style="color:white">Welcome to your dashboard, {{ username }}.</h2>
    
     <div class="clubs-section">
       
@@ -39,11 +23,11 @@
     </div>
 
     <div class="satisfaction-section">
-      <h3>Are you satisfied with the recommendations?</h3>
+      {% comment %} <h3>Submit feedback</h3> {% endcomment %}
       <!-- Links for "Yes" and "No" -->
       <div class="satisfaction-links">
-        <button type="button" onclick="location.href='{% url 'satisfaction' %}?satisfied=yes'">Yes</button>
-        <button type="button" onclick="location.href='{% url 'satisfaction' %}?satisfied=no'">No</button>
+        {% comment %} <button type="button" onclick="location.href='{% url 'satisfaction' %}?satisfied=yes'">Yes</button> {% endcomment %}
+        <button type="button" onclick="location.href='{% url 'satisfaction' %}?satisfied=no'">Submit Feedback</button>
       </div>
     </div>
   </div>

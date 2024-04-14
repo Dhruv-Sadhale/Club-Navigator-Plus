@@ -9,11 +9,13 @@
     <link rel="stylesheet" href="{% static 'styles/quiz_styles.css' %}">
     <!-- Include Three.js directly -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/jsm/controls/OrbitControls.js"></script>
     <title>Club Selector</title>
 </head>
 <body>
     <div id="background"></div>
     <div id="quiz-container"></div>
+    <canvas class="webgl"></canvas>
     <script src="{% static 'quiz_index.js' %}"></script>
 </body>
 </html>
