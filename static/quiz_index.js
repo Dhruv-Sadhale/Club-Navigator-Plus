@@ -1,55 +1,88 @@
+//import "../static/styles/home_styles.css" 
+//import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls' 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.getElementById('background').appendChild(renderer.domElement);
+
+
+//renderer.setSize(window.innerWidth, window.innerHeight);
+//document.getElementById('background').appendChild(renderer.domElement);
 
 // Create a rotating sphere with lighting and shadows
-const geometry = new THREE.SphereGeometry(2, 32, 32, Math.PI / 2, Math.PI * 2, 0, Math.PI);
-const material = new THREE.MeshPhongMaterial({ color: 0xff0000, shininess: 50 });
-const sphere = new THREE.Mesh(geometry, material);
-scene.add(sphere);
+const geometry = new THREE.SphereGeometry(3, 64, 64);
+const material = new THREE.MeshPhongMaterial({ color: "#00ff83"});
+const mesh = new THREE.Mesh(geometry, material);
+scene.add(mesh);
 
-const light = new THREE.DirectionalLight(0xffffff, 0.6);
-light.position.set(1, 1, 1).normalize();
-scene.add(light);
+//sizes
+const sizes={
+    width:window.innerWidth,
+    height:window.innerHeight,
+}
+const light = new THREE.PointLight(0xffffff, 1, 100);
+light.position.set(0,10,10)
+scene.add(light)
+const camera = new THREE.PerspectiveCamera(45, sizes.width/sizes.height, 0.1, 100);
+camera.position.z=20
+scene.add(camera);
+const canvas =document.querySelector('.webgl');
+const renderer = new THREE.WebGLRenderer({canvas});
+renderer.setSize(sizes.width,sizes.height)
+renderer.render(scene, camera); 
 
-const ambientLight = new THREE.AmbientLight(0x404040);
-scene.add(ambientLight);
+//const controls= new OrbitControls(camera, canvas)
+//resize
+window.addEventListener('resize', ()=>{
+    sizes.width=window.innerWidth
+    sizes.height=window.innerHeight
+    //update camera
 
-const sphereShadow = new THREE.Mesh(
-    new THREE.CircleGeometry(2.5, 32),
-    new THREE.ShadowMaterial({ color: 0x000000, opacity: 0.5 })
-);
-sphereShadow.position.y = -2.001;
-scene.add(sphereShadow);
+    camera.aspect=sizes.width/sizes.height
+    camera.updateProjectionMatrix()
+    renderer.setSize(sizes.width, sizes.height)
+})
+const loop=()=>{    
+    renderer.render(scene, camera)
+    window.requestAnimationFrame(loop)
+}
+loop()
+// light.position.set(1, 1, 1).normalize();
+// scene.add(light);
 
-camera.position.z = 5;
+// const ambientLight = new THREE.AmbientLight(0x404040);
+// scene.add(ambientLight);
 
-let isMouseOver = false;
+// const sphereShadow = new THREE.Mesh(
+//     new THREE.CircleGeometry(2.5, 32),
+//     new THREE.ShadowMaterial({ color: 0x000000, opacity: 0.5 })
+// );
+// sphereShadow.position.y = -2.001;
+// scene.add(sphereShadow);
 
-// Mouse movement interaction
-document.addEventListener('mouseenter', () => {
-    isMouseOver = true;
-});
+// camera.position.z = 5;
 
-document.addEventListener('mouseleave', () => {
-    isMouseOver = false;
-});
+// let isMouseOver = false;
 
-// Animation loop
-const animate = () => {
-    requestAnimationFrame(animate);
+// // Mouse movement interaction
+// document.addEventListener('mouseenter', () => {
+//     isMouseOver = true;
+// });
 
-    if (isMouseOver) {
-        // Rotate the sphere for the background animation
-        sphere.rotation.x += 0.005;
-        sphere.rotation.y += 0.005;
-    }
+// document.addEventListener('mouseleave', () => {
+//     isMouseOver = false;
+// });
 
-    renderer.render(scene, camera);
-};
-animate();
+// // Animation loop
+// const animate = () => {
+//     requestAnimationFrame(animate);
+
+//     if (isMouseOver) {
+//         // Rotate the sphere for the background animation
+//         sphere.rotation.x += 0.005;
+//         sphere.rotation.y += 0.005;
+//     }
+
+//     renderer.render(scene, camera);
+// };
+// animate();
 
 // Animation loop
 
@@ -230,7 +263,7 @@ const demoQuestions = [
                 if(parentfornow[0]==0  || ( parentfornow[0]==3 && parentfornow[1]!=2)){
                     parent[0]=3;
                     parent[1]=2;
-             return { no:2,text: "Mastery in designing posters, portraits and animations", nextQuestion: 16,parent:[3,2],club :"AnC" }}},
+             return { no:2,text: "Mastery in designing posters, portraits and animations", nextQuestion: 16,parent:[3,2],club :"Arts and Crafts Club" }}},
              ()=>{
                 if(parentfornow[0]==0  || ( parentfornow[0]==3 && parentfornow[1]!=3)){
                     parent[0]=3;

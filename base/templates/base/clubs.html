@@ -1,41 +1,157 @@
-
 {% extends "main.html" %}
 {%block content%}
 {%load static%}
 
+ <style>
+  /* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* Explore Button */
+.explore-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.explore-btn:hover {
+    background-color: #f0f2f4;
+}
+
+/* Main container */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust height as needed */
+}
+
+/* Club content container */
+.clubs_content {
+    max-width: 800px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #fff;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+    .clubs_notif {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      margin-top: 190px;
+      width: 80%; /* Adjust the width as needed */
+      margin: 100; 
+      padding: 20px;
+      margin-left: 20px;
+      border-radius: 10px; /* Rounded corners */
+      background-color: #fff; /* White background */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Drop shadow */
+    }
+    
+    .title {
+      font-size: 24px;
+      color: #000000;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      font-size: 16px;
+      color: #000000;
+      margin-bottom: 20px;
+    }
+
+    .notifications {
+      width: 150%;
+    }
+
+    .notifications h2 {
+      font-size: 20px;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .notifications ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .notifications li {
+      margin-bottom: 10px;
+      /* border-bottom: 1px solid #000000; */
+      padding-bottom: 10px;
+      display: flex;
+      justify-content: left;
+    }
+
+    .notifications li:last-child {
+      border-bottom: none;
+    }
+
+    .notifications a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .notifications a:hover {
+      text-decoration: underline;
+    }
+
+    .timestamp {
+      color: #000000;
+      font-size: 12px;
+      text-align: left;
+      margin-left: 100; /* Adjust the margin as needed */
+    }
+</style> 
 <main>
     <ul class='slider'>
-      <li class='item' style="background-image: url('https://da.se/app/uploads/2015/09/simon-december1994.jpg')">
-        <div class='content'>
+      
+      <li class='item' style="background-image: url('/static/images/cofsug.jpg')">
+        <div class='clubs_content'>
           <h2 class='title'>CoFSUG</h2>
-          <p class='description'>Connect with fellow food enthusiasts and explore the culinary world. Join us for cooking sessions,
-            food tasting events, and culinary competitions </p>
-            <button class="explore-btn"><a href="/explore/CoFSUG"> Explore</a></button>
+          <p class='description'>Let's delve into the world of free and open source software.</p>
+            <button class="explore-btn"><a href="explore/CoFSUG">Explore</a></button>
         </div>
       </li>
-      <li class='item' style="background-image:  url('/static/images/coepfinal1.jpg')">
-        <div class='content'>
-          <h2 class='title'>Welcome to COEP Club Navigator Plus, your trusted mentor.</h2>
-          <p class='description'>Want to see what's in store for you, let's proceed!
-            
+      <li class='item' style="background-image: url('/static/images/coepfinal1.jpg')">
+        <div class='clubs_content' style="width: 40vw;">
+          <h2 class='title'>Welcome to COEP Club Navigator, your trusted mentor.</h2>
+          <p class='description'>Want to see what's in store for you? Let's proceed!
+            <div class="notifications">
+              <h2>Notifications</h2>
+              <ul>
+                  {% for notification in notifications %}
+                  <li>
+                      <a href="{% url 'explore' pk=notification.club.club %}">{{ notification.club.club }}</a>:
+                      <span style="color: #000000;">{{ notification.message }} </span>
+                      <span class="timestamp">({{ notification.timestamp|date:"F j, Y H:i:s" }})</span>
+                  </li>
+                  {% endfor %}
+              </ul>
+          </div>
           </p>
-          <h2>Notifications</h2>
-          
-    <ul>
-        {% for notification in notifications %}
-        <li>
-          <a href="{% url 'explore' pk=notification.club.club %}"> {{ notification.club.club }}</a>:
-          {{ notification.message }} - {{ notification.timestamp|date:"F j, Y H:i:s" }}
-      </li>
-        {% endfor %}
-    </ul>
-    {% if user.is_authenticated and user.is_club %}
-    <a href="{% url 'submit_notification' %}">Submit Notification</a>
-{% endif %}  
         </div>
       </li>
+    <!-- {% if user.is_authenticated and user.is_club %}
+      <a href="{% url 'submit_notification' %}">Submit Notification</a>
+    {% endif %}   -->
       <li class='item' style="background-image:  url('/static/images/astro.jpg')">
-        <div class='content'>
+        <div class='clubs_content'>
           <h2 class='title'>Astronomy Club</h2>
           <p class='description'> Explore the wonders of the universe with like-minded enthusiasts. Join us in stargazing sessions and
             cosmic adventures. </p>
@@ -43,7 +159,7 @@
         </div>
       </li>
       <li class='item' style="background-image: url('/static/images/anc.jpg')">
-        <div class='content'>
+        <div class='clubs_content'>
           <h2 class='title'>Arts and Crafts Club</h2>
           <p class='description'>Unleash your creativity through various artistic expressions. Join us for workshops, exhibitions, and
             collaborative projects. </p>
@@ -51,7 +167,7 @@
         </div>
       </li>
       <li class='item' style="background-image: url('/static/images/boatclub.jpg')">
-        <div class='content'>
+        <div class='clubs_content'>
           <h2 class='title'>Boat Club</h2>
           <p class='description'>Embark on exciting water adventures and learn the art of boatmanship. Join us for regattas,
             workshops, and nautical experiences.</p>
@@ -59,7 +175,7 @@
         </div>
       </li>
       <li class='item' style="background-image: url('/static/images/csac.avif')">
-        <div class='content'>
+        <div class='clubs_content'>
           <h2 class='title'>Civil Services Aspirant's Club</h2>
           <p class='description'>
             Prepare for civil services examinations in a supportive and collaborative environment. Join us for
@@ -70,7 +186,7 @@
       </li>
       <li class='item'
         style="background-image: url('/static/images/csi.jpg')">
-        <div class='content'>
+        <div class='clubs_content'>
           <h2 class='title'>CSI</h2>
           <p class='description'>
             Immerse yourself in the world of cybersecurity and information technology. Join us for workshops,
@@ -80,30 +196,209 @@
         </div>
       </li>
     
-      <li class='item' style="background-image: url('https://da.se/app/uploads/2015/09/simon-december1994.jpg')">
-        <div class='content'>
+      <li class='item' style="background-image: url('/static/images/cultural_club.jpeg')">
+        <div class='clubs_content'>
           <h2 class='title'>Cultural Club</h2>
           <p class='description'>Celebrate diversity through cultural events, performances, and artistic expressions. Join us for
             dance, music, and drama.</p>
             <button class="explore-btn"><a href="explore/Cultural Club"> Explore</a></button>
         </div>
       </li>
-      <li class='item' style="background-image: url('https://da.se/app/uploads/2015/09/simon-december1994.jpg')">
-        <div class='content'>
+      <li class='item' style="background-image: url('/static/images/debsoc.jpg')">
+        <div class='clubs_content'>
           <h2 class='title'>Debate Club</h2>
           <p class='description'>Sharpen your communication and argumentation skills. Join us for debates, discussions, and public
             speaking sessions. </p>
-            <button class="explore-btn"><a href="explore/Debate Club"> Explore</a></button>
+            <button class="explore-btn"><a href="explore/Debate and Quiz Club"> Explore</a></button>
         </div>
       </li>
-      <li class='item' style="background-image: url('https://da.se/app/uploads/2015/09/simon-december1994.jpg')">
-        <div class='content'>
+      <li class='item' style="background-image: url('/static/images/ham.jpg')">
+        <div class='clubs_content'>
           <h2 class='title'>HAM Club</h2>
           <p class='description'>Explore the world of amateur radio and communication. Join us for radio operation, technology
             discussions, and field trips </p>
-            <button class="explore-btn"><a href="explore/HAM Club"> Explore</a></button>
+            <button class="explore-btn"><a href="explore/HAM"> Explore</a></button>
         </div>
       </li>
+      <li class='item' style="background-image: url('/static/images/aaryaraas.png')">
+        <div class='clubs_content'>
+          <h2 class='title'>Aarya Raas</h2>
+          <p class='description'>Engage in various events to celebrate and empower women. Let us all promote women empowerment and work for social causes</p>
+            <button class="explore-btn"><a href="explore/Aarya Raas"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image: url('/static/images/abhiyanta.jpg')">
+        <div class='clubs_content'>
+          <h2 class='title'>Abhiyanta</h2>
+          <p class='description'>Embark on literary journeys with us! Immerse yourself in the world of storytelling, creative expression, and imaginative exploration. Join our club for writing sessions, and literary discussions.</p>
+            <button class="explore-btn"><a href="explore/Abhiyanta"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image: url('/static/images/acm.png')">
+        <div class='clubs_content'>
+          <h2 class='title'>COEP ACM</h2>
+          <p class='description'>Dive into the digital realm with us! Explore the cutting-edge world of technology, software development, and computer science innovation. Join our association for stimulating discussions, hands-on workshops, and exciting excursions into the world of computing.</p>
+            <button class="explore-btn"><a href="explore/COEP ACM"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image: url('/static/images/arsc.jpg')">
+        <div class='clubs_content'>
+          <h2 class='title'>Aerial Robot Study Circle</h2>
+          <p class='description'>Elevate your curiosity with us! Delve into the fascinating realm of aerial robotics, drones, and unmanned aerial vehicles. Join our study circle for insightful discussions, hands-on experiments, and thrilling excursions into the skies of innovation.</p>
+            <button class="explore-btn"><a href="explore/Aerial Robot Study Circle"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image: url('/static/images/bcqc.jpg')">
+        <div class='clubs_content'>
+          <h2 class='title'>Boat Club Quiz Club</h2>
+          <p class='description'>
+            Set sail with knowledge and camaraderie! Navigate through a sea of trivia and intellect with our Boat Club Quiz Club. Join us for challenging quizzes, lively debates, and fun-filled outings as we navigate the waters of curiosity and competition together.</p>
+            <button class="explore-btn"><a href="explore/Boat Club Quiz Club"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image: url('/static/images/bhau.jpg')">
+        <div class='clubs_content'>
+          <h2 class='title'>BHAU</h2>
+          <p class='description'>Ignite your entrepreneurial spirit with us! Dive into the dynamic world of business innovation, startup ventures, and creative problem-solving. Join our entrepreneurship cell for inspiring guest speakers, practical workshops, and empowering networking opportunities as we embark on the journey of turning ideas into reality.</p>
+            <button class="explore-btn"><a href="explore/BHAU"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image: url('/static/images/consulting_club.jpeg')">
+        <div class='clubs_content'>
+          <h2 class='title'>Consulting Club</h2>
+          <p class='description'>Refine your problem-solving skills with us! Delve into the realm of strategic thinking, data analysis, and business acumen with our Consulting Club. Join our community for case study discussions, mock client engagements, and real-world projects as we sharpen our consulting prowess together.</p>
+            <button class="explore-btn"><a href="explore/Consulting Club"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image: url('/static/images/csat.jpg')">
+        <div class='clubs_content'>
+          <h2 class='title'>Satellite Club</h2>
+          <p class='description'>Reach for the stars with us! Explore the boundless possibilities of satellite technology, space exploration, and communication innovation. Join our Satellite Club for captivating discussions, hands-on experiments, and captivating excursions into the cosmos as we launch into the realm of satellite engineering and beyond.</p>
+            <button class="explore-btn"><a href="explore/Satellite Club"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image: url('/static/images/google_student.png')">
+        <div class='clubs_content'>
+          <h2 class='title'>Google Student Club</h2>
+          <p class='description'>Embark on a journey of innovation with the Google Student Club! Join our dynamic community of learners, creators, and problem-solvers as we explore the vast landscape of technology and entrepreneurship. From coding workshops to product design challenges, our club offers hands-on experiences and networking opportunities to help you unleash your full potential. Join us and be part of the next generation of tech leaders shaping the future with Google technologies!</p>
+            <button class="explore-btn"><a href="explore/Google Student Club"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image: url('/static/images/history.jpg')">
+        <div class='clubs_content'>
+          <h2 class='title'>History Club</h2>
+          <p class='description'>Embark on a journey through the annals of time with the History Club! Join us as we delve into the captivating narratives, intriguing mysteries, and profound lessons of the past. From lively discussions on ancient civilizations to immersive field trips to historical sites, our club offers a vibrant space for exploring the richness of human experience. Whether you're a seasoned history buff or just beginning your exploration, all are welcome to join us in uncovering the fascinating tapestry of history together.</p>
+            <button class="explore-btn"><a href="explore/History Club"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image: url('/static/images/i2i.png')">
+        <div class='clubs_content'>
+          <h2 class='title'>Ignited Innovators of India</h2>
+          <p class='description'>Ignite your passion for innovation with the Ignited Innovators of India! Join our dynamic community of forward-thinkers, problem-solvers, and dreamers as we work together to create a brighter future. From brainstorming sessions to prototype workshops, our club offers a collaborative environment where creativity knows no bounds. Whether you're interested in technology, entrepreneurship, or social impact, our club provides the platform to turn your ideas into reality and make a positive difference in the world. Join us and let's ignite innovation together!</p>
+            <button class="explore-btn"><a href="explore/Ignited Innovators of India"> Explore</a></button>
+        </div>
+      </li>
+      <li class='item' style="background-image: url('/static/images/icsrg.png')">
+        <div class='clubs_content'>
+          <h2 class='title'>ICSRG</h2>
+          <p class='description'>Safeguard the future with the Information and Cyber Security Research Group! Join our dedicated community of researchers, enthusiasts, and professionals as we navigate the complex landscape of digital threats and defenses. From in-depth discussions on emerging cybersecurity trends to hands-on workshops on ethical hacking techniques, our group offers a collaborative space for advancing knowledge and skills in this critical field. Whether you're a seasoned cybersecurity expert or just starting your journey, all are welcome to join us in our mission to protect and secure the digital world.</p>
+            <button class="explore-btn"><a href="explore/ICSRG"> Explore</a></button>
+        </div>
+      </li>
+    </li>
+    <li class='item' style="background-image: url('/static/images/janeev.jpg')">
+      <div class='clubs_content'>
+        <h2 class='title'>Janeev Club</h2>
+        <p class='description'>Embrace sustainability with the Janeev Club! Join us in exploring ways to protect and preserve our planet through education, action, and advocacy. From tree planting initiatives to recycling drives, our club offers hands-on opportunities to make a positive impact on the environment. Whether you're passionate about conservation, renewable energy, or environmental policy, our club provides a supportive community to learn, collaborate, and take meaningful steps toward a greener future. Join us and be a part of the movement to create a more sustainable world for generations to come!</p>
+        <button class="explore-btn"><a href="explore/Janeev Club"> Explore</a></button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('/static/images/maths.jpg')">
+      <div class='clubs_content'>
+        <h2 class='title'>Ramanujan Mathematics Club</h2>
+        <p class='description'>Unlock the mysteries of numbers with the Ramanujan Mathematics Club! Join us as we delve into the captivating world of mathematical exploration and discovery inspired by the legendary mathematician, Srinivasa Ramanujan. From stimulating problem-solving sessions to captivating guest lectures, our club offers a vibrant space for enthusiasts to deepen their understanding and appreciation of mathematics. Whether you're fascinated by number theory, geometry, or mathematical analysis, all are welcome to join us in our pursuit of mathematical excellence and innovation. Join us and embark on a journey of endless fascination with numbers!</p>
+        <button class="explore-btn"><a href="explore/Ramanujan Mathematics Club"> Explore</a></button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('/static/images/nemesis.jpg')">
+      <div class='clubs_content'>
+        <h2 class='title'>Team Nemesis Racing</h2>
+        <p class='description'>Rev up your engines with Team Nemesis Racing! Join our dynamic team as we push the boundaries of off-road vehicle design and performance. From conceptualization to manufacturing, our club is dedicated to crafting high-performance all-terrain vehicles (ATVs) that conquer the toughest trails with ease. Whether you're an engineering enthusiast, a thrill-seeker, or a passionate off-road enthusiast, our club offers hands-on opportunities to learn, innovate, and compete in the exhilarating world of off-road racing. Join us and become part of the driving force behind our quest for off-road excellence!</p>
+        <button class="explore-btn"><a href="explore/Team Nemesis Racing"> Explore</a></button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('/static/images/octane1.jpg')">
+      <div class='clubs_content'>
+        <h2 class='title'>Team Octane Racing</h2>
+        <p class='description'>Rev up your passion for innovation with Team Octane Racing! Join our dynamic team as we lead the charge in sustainable mobility by designing and manufacturing electric vehicles that adhere to the rigorous standards of Formula Bharat. From cutting-edge engineering to precision manufacturing, our club is dedicated to pushing the boundaries of electric vehicle technology on the racetrack. Whether you're an aspiring engineer, a racing enthusiast, or a sustainability advocate, our club offers hands-on opportunities to design, build, and compete with electric vehicles at the forefront of automotive innovation. Join us and be part of the electrifying journey towards a greener, faster future on the race track!</p>
+        <button class="explore-btn"><a href="explore/Team Octane Racing"> Explore</a></button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('/static/images/perdev.jpg')">
+      <div class='clubs_content'>
+        <h2 class='title'>Personality Development Club</h2>
+        <p class='description'>Embark on a journey of self-discovery and growth with the Personality Development Club! Join us as we explore techniques, strategies, and insights to unlock your full potential and cultivate a well-rounded personality. From public speaking workshops to mindfulness sessions, our club offers a supportive environment to enhance your communication skills, build confidence, and foster personal growth. Whether you're looking to improve your leadership abilities, refine your interpersonal skills, or simply boost your self-esteem, all are welcome to join us in our pursuit of personal excellence and empowerment. Join us and embark on the path to becoming the best version of yourself!</p>
+        <button class="explore-btn"><a href="explore/Personality Development Club"> Explore</a></button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('/static/images/philomystic.jpeg')">
+      <div class='clubs_content'>
+        <h2 class='title'>Philomystic</h2>
+        <p class='description'>Unveil the depths of thought with the Philomystic Club! Join our community as we journey into the realms of philosophy, mysticism, 
+          and introspection. From philosophical discussions to meditative practices, our club offers a sanctuary for exploring existential questions, unraveling the mysteries of consciousness, and tapping into the wisdom of the ages. Whether you're drawn to ancient wisdom traditions, contemporary philosophical debates, or simply seeking a space for self-reflection, all are welcome to join us in our pursuit of deeper understanding and inner growth. Join us and awaken the philosopher within!</p>
+        <button class="explore-btn"><a href="explore/Philomystic Club">Explore</a></button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('/static/images/rsc.jpg')">
+      <div class='clubs_content'>
+        <h2 class='title'>Robot Study Circle</h2>
+        <p class='description'>Unleash your inner engineer with the Robot Study Circle! Join our circle as we delve into the fascinating world of robotics, automation, and artificial intelligence. From hands-on workshops to in-depth discussions, our club offers a platform to explore the latest advancements in robotics technology, learn essential engineering skills, and collaborate on exciting projects. Whether you're passionate about building robots, programming algorithms, or envisioning the future of automation, all are welcome to join us in our quest to unlock the potential of robotics and shape the future of technology. Join us and let's embark on an electrifying journey of innovation and discovery!</p>
+        <button class="explore-btn"><a href="explore/Robot Study Circle">Explore</a></button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('/static/images/science.jpeg')">
+      <div class='clubs_content'>
+        <h2 class='title'>Science Club</h2>
+        <p class='description'>Ignite your curiosity with the Science Club! Join us as we explore the wonders of the natural world, unravel the mysteries of the universe, and dive into the realms of scientific discovery. From captivating experiments to insightful discussions, our club offers a platform to engage with various branches of science, including physics, chemistry, biology, and beyond. Whether you're interested in conducting experiments, discussing scientific theories, or simply marveling at the beauty of the cosmos, all are welcome to join us in our quest for knowledge and exploration. Join us and let's embark on an exhilarating journey of scientific inquiry and discovery together!</p>
+        <button class="explore-btn"><a href="explore/Science Club">Explore</a></button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('/static/images/sds.jpg')">
+      <div class='clubs_content'>
+        <h2 class='title'>Software Development Section</h2>
+        <p class='description'>Code your dreams into reality with the Software Development Section! Join us as we dive deep into the world of coding, software engineering, and technology innovation. From coding challenges to collaborative projects, our section offers a platform to hone your programming skills, explore new technologies, and build cutting-edge software solutions. Whether you're a seasoned developer or just starting your coding journey, all are welcome to join us in our quest to create impactful software that shapes the future. Join us and let's write the next chapter of innovation together!</p>
+        <button class="explore-btn"><a href="explore/Software Development Section">Explore</a></button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('/static/images/Spandan.jpg')">
+      <div class='clubs_content'>
+        <h2 class='title'>Spandan</h2>
+        <p class='description'>Ignite change with Spandan, the Social Welfare Club! Join us as we come together to make a positive impact in our communities and beyond. From organizing charity events to volunteering initiatives, Spandan offers a platform to address social issues, promote equality, and uplift those in need. Whether you're passionate about education, healthcare, environmental sustainability, or humanitarian aid, all are welcome to join us in our mission to spread compassion and create a better world for all. Join Spandan and let's spark the flames of change together!</p>
+        <button class="explore-btn"><a href="explore/Spandan">Explore</a></button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('/static/images/swf.jpg')">
+      <div class='clubs_content'>
+        <h2 class='title'>Student Welfare Forum</h2>
+        <p class='description'>Empower change with the Student Welfare Forum! Join us as we advocate for the well-being and rights of students, foster a culture of inclusivity, and create a supportive community for all. From organizing mental health awareness campaigns to addressing campus issues, the Student Welfare Forum offers a platform to voice concerns, implement positive changes, and ensure that every student's voice is heard. Whether you're passionate about mental health, student rights, or creating a more equitable campus environment, all are welcome to join us in our mission to promote student welfare and create a nurturing community for all. Join the Student Welfare Forum and be the catalyst for positive change on campus!</p>
+        <button class="explore-btn"><a href="explore/Student Welfare Forum">Explore</a></button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('/static/images/veloci.jpg')">
+      <div class='clubs_content'>
+        <h2 class='title'>Team Velociracers</h2>
+        <p class='description'>Rev up your innovation engines with Team Velociraces! Join us as we embark on an exhilarating journey to design and produce a cutting-edge three-wheeled cars. From conceptualization to fabrication, our team will collaborate to push the boundaries of automotive engineering and performance. Whether you're a mechanical wizard, an aerodynamics enthusiast, or a budding entrepreneur, all are welcome to contribute their skills and ideas to our project. Join Team Velociraces and let's pave the way for the future of urban mobility together!</p>
+        <button class="explore-btn"><a href="explore/Team Velociracers">Explore</a></button>
+      </div>
+    </li>
+  </li>
+  <li class='item' style="background-image: url('/static/images/swe.png')">
+    <div class='clubs_content'>
+      <h2 class='title'>The Society of Women Engineers (SWE)</h2>
+      <p class='description'>Empower innovation with The Society of Women Engineers (SWE)! Join us as we champion diversity, equity, and inclusion in the field of engineering. From networking events to professional development workshops, SWE offers a supportive community where women engineers can thrive and excel. Whether you're a student exploring engineering opportunities or a seasoned professional in the field, all are welcome to join us in our mission to advance the presence and influence of women in engineering. Join SWE and let's build a brighter future together!</p>
+      <button class="explore-btn"><a href="explore/The Society of Women Engineers (SWE)">Explore</a></button>
+    </div>
+  </li>
     </ul>
     <nav class='nav'>
       <ion-icon class='btn prev' name="arrow-back-outline"></ion-icon>
@@ -125,9 +420,6 @@ e.target.matches('.prev') && slider.prepend(items[items.length-1]);
 document.addEventListener('click',activate,false);
 });
 
-
-      
-
   </script> {% endcomment %}
 
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -137,3 +429,4 @@ document.addEventListener('click',activate,false);
   </script>
 
 {%endblock content%}
+

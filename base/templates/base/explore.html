@@ -1,22 +1,247 @@
-{% extends "main.html" %}
-{%block content%}
 
+{% extends "main.html" %}
+{% block content %}
+{% load custom_filters %}
+
+ {% comment %} <style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 800px;
+    width: 90%;
+    margin: 20px auto;
+    padding:55px;
+  }
+
+  .container_indi,
+  .container_2 {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    color: #007bff;
+    text-align: center;
+  }
+
+  p {
+    color: #495057;
+    margin-bottom: 10px;
+  }
+
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  ol {
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 5px;
+  }
+
+  .quiz-link {
+    text-align: center;
+    margin-top: 20px;
+  }
+</style>  {% endcomment %}
+<body class="explore-body">
+    <div class="container">
+        <div class="container_indi">
+            <h1><strong>{{ club_object.club }}</strong></h1>
+            <p><strong>Motto:</strong> {{ club_object.motto }}</p>
+            <div class="section">
+                <h2>Highlights:</h2>
+                <ul>
+                    {% for highlight in club_object.highlights|split_by_newline %}
+                        <li>{{ highlight }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="section">
+                <h2>Brief Information:</h2>
+                <ul>
+                    {% for brief_info in club_object.brief_info|split_by_newline %}
+                        <li>{{ brief_info }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="section">
+                <h2>Events:</h2>
+                <ul>
+                    {% for event in club_object.events|split_by_newline %}
+                        <li>{{ event }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="section">
+                <h2>Links:</h2>
+                <ul>
+                    {% for link in club_object.links|split_by_newline %}
+                        <li><a href="{{ link }}">{{ link }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="section">
+                <h2>Contacts:</h2>
+                <ul>
+                    {% for contact in club_object.contacts|split_by_newline %}
+                        <li>{{ contact }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+       
+        <div class="container_2">
+            <p>Wish to find out whether this club is meant for you?</p>
+            <div class="quiz-link">
+                <a href="/questionnaire">Take quiz here!</a>
+            </div>
+        </div>
+    </div>
+    </body>
+  {% endblock %}
+{% comment %} {% comment %} {% extends "main.html" %}
+{%block content%}
+{%load custom_filters %}
 <h1>{{ club_object.club }}</h1>
 <p>Motto: {{ club_object.motto }}</p>
 <p>Highlights: {{ club_object.highlights }}</p>
-<img src="{% url 'generate_qrcode' club_name=club_object.club %}" alt="Club QR Code">
-<a href="{% url 'attend_club' club_name=club_object.club %}">Attend Club</a>
-<p>Recommended for:</p>
-<ol>
-    {% for user in recommended_users %}
-        <li>{{ user }}</li>
-    {% empty %}
-        <li>No recommendations yet.</li>
-    {% endfor %}
-</ol>
+
+
 
 <p>Wish to find out whether this club is meant for you?</p>
 <div>
-    <a href="/questionnaire">Take quiz here!</a>
+  <a href="/questionnaire">Take quiz here!</a>
 </div>
-{%endblock%}
+{%endblock%} 
+
+{% extends "main.html" %}
+{% block content %}
+{% load custom_filters %}
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  width: 90%;
+  margin: 20px auto;
+}
+
+.container_indi,
+.container_2 {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  color: #007bff;
+  text-align: center;
+}
+
+p {
+  color: #495057;
+  margin-bottom: 10px;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+.quiz-link {
+  text-align: center;
+  margin-top: 20px;
+}
+</style>
+
+<div class="container">
+  <div class="container_indi">
+    <h1><strong>{{ club_object.club }}</strong></h1>
+    <p><strong>Motto:</strong> {{ club_object.motto }}</p>
+    <p><strong>Highlights:</strong></p>
+    <ul>
+      {% for highlight in club_object.highlights|split_by_newline %}
+        <li>{{ highlight }}</li>
+      {% endfor %}
+    </ul>
+    <p><strong>Brief Information:</strong></p>
+    <ul>
+      {% for brief_info in club_object.brief_info|split_by_newline %}
+        <li>{{ brief_info }}</li>
+      {% endfor %}
+    </ul>
+    <p><strong>Events:</strong></p>
+    <ul>
+      {% for event in club_object.events|split_by_newline %}
+        <li>{{ event }}</li>
+      {% endfor %}
+    </ul>
+    <p><strong>Links:</strong></p>
+    <ul>
+      {% for link in club_object.links|split_by_newline %}
+        <li><a href="{{ link }}">{{ link }}</a></li>
+      {% endfor %}
+    </ul>
+    <p><strong>Contacts:</strong></p>
+    <ul>
+      {% for contact in club_object.contacts|split_by_newline %}
+        <li>{{ contact }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="container_2">
+    <a href="{% url 'attend_club' club_name=club_object.club %}">Attend Club</a>
+    <p>Recommended for:</p>
+    <ul>
+      {% for user in recommended_users %}
+        <li>{{ user }}</li>
+      {% empty %}
+        <li>No recommendations yet.</li>
+      {% endfor %}
+    </ul>
+    <p>Wish to find out whether this club is meant for you?</p>
+    <div class="quiz-link">
+      <a href="/questionnaire">Take quiz here!</a>
+    </div>
+  </div>
+</div>
+{% endblock %} {% endcomment %}
